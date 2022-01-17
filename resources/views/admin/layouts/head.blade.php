@@ -25,8 +25,6 @@
     <link href="{{ asset('css/datatable.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sb-admin.min.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.css">
-
 </head>
 
 <body id="page-top">

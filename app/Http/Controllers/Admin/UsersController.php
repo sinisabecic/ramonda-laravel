@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -81,30 +82,26 @@ class UsersController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(User $id, Request $request)
+    public function update(User $user)
     {
-//        $attr = request()->validate([
-//            'name' => ['required', 'string', 'max:255'],
-//            'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-//            'email' => ['required', 'string', 'max:255', 'unique:users'],
+        $attributes = request()->validate([
+            'name' => ['required', 'string', 'max:255', ],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
 //            'password' => ['required', 'string', 'min:8'],
-//        ]);
-
-        $user = User::withTrashed()->findOrFail($id)->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'username' => $request['username'],
-            'address' => $request['address'],
-            'country_id' => $request['country'],
+            'avatar' => ['file'],
         ]);
-        $user->save();
 
-        $user->photos()->create(['path' => $request['avatar']]);
+        if (request()->hasFile('image')){
+            $file = request()->file('image');
+            $avatar = $file->getClientOriginalName();
+            request()->file('image')->storeAs('avatars', $user->id . '/'. $avatar, '');
+            $attributes['avatar'] = $avatar;
+        }
+        $user->roles()->sync(request()->input('role'));
+        $user->update($attributes);
 
-        $user = User::withTrashed()->findOrFail($id);
-        $user->roles()->sync($request->input('role'));
-
-        return back()->with('success', 'User updated');
+        return redirect()->back();
     }
 
     public function restore(User $user, $id)
@@ -118,28 +115,30 @@ class UsersController extends Controller
 //        else echo "greska";
     }
 
-    public function uploadAvatar(Request $request)
+    public function upload(User $user)
     {
-//        if ($request->hasFile('image')) {
-//
-////            $fileName = $request->image->getClientOriginalName();
-//            $fileName = $request->file('image')->getClientOriginalName();
-////            $request->image->store('uploads', $fileName);
-//
-//            return User::find(127)->photos()->create(['path' => 'new.jpg']);
-//
-//        }
-
-        if (!$request->has('image')) {
-            return response()->json(['message' => 'Missing file'], 422);
+        $attributes = request()->validate([
+            'name' => ['required', 'string', 'max:255', ],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
+            'password' => ['required', 'string', 'min:8'],
+            'avatar' => ['file'],
+        ]);
+//        $user = User::withTrashed()->findOrFail($id)->update([
+//            'name' => $request['name'],
+//            'email' => $request['email'],
+//            'username' => $request['username'],
+//            'address' => $request['address'],
+//            'country_id' => $request['country'],
+//        ]);
+        if (request()->hasFile('image')){
+            $file = request()->file('image');
+            $avatar = $file->getClientOriginalName();
+            request()->file('image')->storeAs('avatars', $user->id . '/'. $avatar, '');
+            $attributes['avatar'] = $avatar;
         }
-        $file = $request->file('image');
-        $name = Str::random(10);
-        $url = $request->image->storeAs('uploads/', $name, 'public');
-
-
-        return $user;
-
+        $user->update($attributes);
+        return redirect()->back();
     }
 
 

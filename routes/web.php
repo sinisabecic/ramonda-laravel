@@ -611,11 +611,10 @@ Route::group([
 
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
+        ->name('update', 'users.update')
         ->name('destroy', 'delete_user');
     Route::delete('/users/{id}/remove', 'UsersController@remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
-
-    Route::post('/users/upload', 'UsersController@uploadAvatar')->name('upload');
 
 });
 

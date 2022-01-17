@@ -61,8 +61,6 @@
 <script src="{{ asset('js/jquery.mask.js') }}"></script>
 {{--<script src="{{ asset('js/functions.js') }}"></script>--}}
 
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-
 <!-- Page level custom scripts -->
 <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
 
@@ -70,19 +68,6 @@
 <script>
     //? Dodavanje korisnika
     $(document).ready(function () {
-
-        // const avatar = document.querySelector('input[id="avatar"]');
-        //
-        // // Create a FilePond instance
-        // const pond = FilePond.create(avatar);
-        //
-        // FilePond.setOptions({
-        //     url: '/users/upload',
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     },
-        //
-        // });
 
 
         $.ajaxSetup({
