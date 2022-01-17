@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'country_id', 'address'
+        'name', 'email', 'password', 'username', 'country_id', 'address', 'avatar'
     ];
 
     //? Ova kolona se popunjava pri brisanju

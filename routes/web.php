@@ -615,7 +615,7 @@ Route::group([
     Route::delete('/users/{id}/remove', 'UsersController@remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
 
-    Route::put('/users/upload', 'UsersController@uploadAvatar')->name('users.upload');
+    Route::post('/users/upload', 'UsersController@uploadAvatar')->name('upload');
 
 });
 

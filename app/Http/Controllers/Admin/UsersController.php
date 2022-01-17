@@ -10,7 +10,9 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -118,9 +120,26 @@ class UsersController extends Controller
 
     public function uploadAvatar(Request $request)
     {
-        if ($request->hasFile('image')) {
-            User::find(112)->photos()->update(['path' => $request['image']]);
-        } else return false;
+//        if ($request->hasFile('image')) {
+//
+////            $fileName = $request->image->getClientOriginalName();
+//            $fileName = $request->file('image')->getClientOriginalName();
+////            $request->image->store('uploads', $fileName);
+//
+//            return User::find(127)->photos()->create(['path' => 'new.jpg']);
+//
+//        }
+
+        if (!$request->has('image')) {
+            return response()->json(['message' => 'Missing file'], 422);
+        }
+        $file = $request->file('image');
+        $name = Str::random(10);
+        $url = $request->image->storeAs('uploads/', $name, 'public');
+
+
+        return $user;
+
     }
 
 

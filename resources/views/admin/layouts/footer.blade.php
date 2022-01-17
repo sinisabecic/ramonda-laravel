@@ -71,18 +71,18 @@
     //? Dodavanje korisnika
     $(document).ready(function () {
 
-        const avatar = document.querySelector('input[id="avatar"]');
-
-        // Create a FilePond instance
-        const pond = FilePond.create(avatar);
-
-        FilePond.setOptions({
-            url: '/users/upload',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-
-        });
+        // const avatar = document.querySelector('input[id="avatar"]');
+        //
+        // // Create a FilePond instance
+        // const pond = FilePond.create(avatar);
+        //
+        // FilePond.setOptions({
+        //     url: '/users/upload',
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //
+        // });
 
 
         $.ajaxSetup({

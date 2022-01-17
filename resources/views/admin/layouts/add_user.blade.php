@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="POST" action="{{ route('register') }}" id="addUserForm">
+                <form method="POST" action="{{ route('register') }}" id="addUserForm" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
@@ -116,6 +116,21 @@
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+                        <div class="col-md-6" style="left: 15.8rem!important;top: -1.7rem!important;">
+                            <input type="file" id="avatar"
+                                   class="form-control-file @error('avatar') is-invalid @enderror"
+                                   name="avatar" value="{{ old('avatar') }}">
+
+                            @error('avatar')
+                            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                             @enderror
                         </div>
                     </div>

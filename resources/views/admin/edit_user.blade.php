@@ -3,9 +3,9 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('users.upload', $user->id) }}">
+    <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        @method('POST')
 
         {{--        <div class="form-group row">--}}
         {{--            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>--}}
@@ -104,13 +104,13 @@
         {{--        </div>--}}
 
         <div>
-            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
             <div class="col-md-6" style="left: 25.8rem!important;top: -1.7rem!important;">
-                <input type="image" id="avatar"
-                       class="my-pond @error('avatar') is-invalid @enderror"
-                       name="avatar" value="{{ old('avatar') }}">
+                <input type="file" id="image"
+                       class="form-control-file @error('avatar') is-invalid @enderror"
+                       name="image" value="{{ old('image') }}">
 
-                @error('avatar')
+                @error('image')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

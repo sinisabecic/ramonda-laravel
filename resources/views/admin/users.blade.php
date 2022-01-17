@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 <img
-                                    src="/uploads/{{ $user->photo->path ?? 'user.jpg' }}"
+                                    src="/uploads/{{ $user->avatar ?? 'user.jpg' }}"
                                     alt=""
                                     height="43px"
                                     width="43px">
