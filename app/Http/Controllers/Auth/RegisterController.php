@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
+use App\Notifications\WelcomeEmailNotification;
+use App\Providers\RouteServiceProvider;
+use App\User;
+use App\Country;
+use App\Address;
+use App\Role;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+
+class RegisterController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+
+    use RegistersUsers;
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    //    protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected $redirectTo = RouteServiceProvider::USERS;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //        $this->middleware('auth');
+        //        $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'email' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+    // ? iz use RegistersUsers
+    // * Ideja je bila da se prikazu dropdown meniji sa spiskom zemalja i rola
+    public function showRegistrationForm()
+    {
+        $countries = Country::all();
+        $roles = Role::all();
+
+        return view('auth.register', compact('countries', 'roles'));
+    }
+
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     * @return bool
+     */
+    protected function create(array $input)
+    {
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'username' => $input['username'],
+            'password' => Hash::make($input['password']),
+            'country_id' => $input['country'],
+            'address' => $input['address'],
+        ]);
+
+        // Prikazi samo ukoliko si prijavljen kao administrator
+        if (auth()->check() && auth()->user()->is_admin) {
+            $user->roles()->attach([$input['role']]);
+        } else {
+            $user->roles()->attach([5]); // svaki novi korisnik je nomad
+        }
+
+        //        Mail::to($user->email)->send(new WelcomeMail());
+        return $user && response()->json(); //proba za ajax unosenje
+    }
+}
