@@ -213,6 +213,8 @@
 
                             // window.location.reload(true);
                             $(".row-user[data-id=" + formData.id + "] .deleteBtn").text("Deleted").attr("disabled", "disabled");
+                            $(".row-user[data-id=" + formData.id + "] .editUserBtn").fadeOut('slow');
+
 
                         }
                     }

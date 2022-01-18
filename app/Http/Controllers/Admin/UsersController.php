@@ -67,8 +67,10 @@ class UsersController extends Controller
 
     public function edit($id)
     {
+//        $this->authorize('view');
+
         return view('admin.edit_user', [
-            'user' => User::withTrashed()->findOrFail($id),
+            'user' => User::findOrFail($id),
             'countries' => Country::all(),
             'roles' => Role::all(),
         ]);
@@ -85,12 +87,20 @@ class UsersController extends Controller
     public function update(User $user)
     {
         $attributes = request()->validate([
-            'name' => ['required', 'string', 'max:255', ],
+            'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-//            'password' => ['required', 'string', 'min:8'],
+//            'password' => ['string', 'min:8'],
             'avatar' => ['file'],
+            'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
+            'address' => ['string'],
         ]);
+
+//        if ( !request()->input('password') == '')
+//        {
+//            $attributes['password'] = Hash::make(request()->input('password'));
+//        }
+
 
         if (request()->hasFile('image')){
             $file = request()->file('image');
@@ -100,10 +110,6 @@ class UsersController extends Controller
         }
         $user->roles()->sync(request()->input('role'));
         $user->update($attributes);
-
-        return $user && response()->json([
-            'message' => 'User edited successfully!'
-        ]);
     }
 
     public function restore(User $user, $id)

@@ -141,13 +141,14 @@
                                             Remove
                                         </button>
                                     </div>
-
+                                @if(!$user->deleted_at)
                                     <div class="px-1">
                                         <a href="{{ route("users.edit", $user->id) }}" id="edituser"
                                            class="btn btn-primary editUserBtn" data-id="{{ $user->id }}">
                                             Edit
                                         </a>
                                     </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

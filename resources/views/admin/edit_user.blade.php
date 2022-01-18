@@ -54,13 +54,15 @@
                 </div>
 
 
+
                 <div class="form-group row">
                     <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country')
                                         }}</label>
 
                     <div class="col-md-6">
-                        <select class="form-control" name="country" id="country">
+                        <select class="form-control" name="country_id" id="country">
 
+                            <option value="{{ $user->country->id }}" selected>{{ $user->country->name }}</option>
 
                             @foreach ($countries as $country)
                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
