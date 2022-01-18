@@ -80,7 +80,7 @@ class UsersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return bool
      */
     public function update(User $user)
     {
@@ -101,7 +101,9 @@ class UsersController extends Controller
         $user->roles()->sync(request()->input('role'));
         $user->update($attributes);
 
-        return redirect()->back();
+        return $user && response()->json([
+            'message' => 'User edited successfully!'
+        ]);
     }
 
     public function restore(User $user, $id)

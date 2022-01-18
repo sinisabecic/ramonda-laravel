@@ -55,7 +55,11 @@
                             </td>
                             <td>
                                 <img
-                                    src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar ?? 'user.jpg'}}"
+                                    @if($user->avatar)
+                                        src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
+                                    @else
+                                        src="uploads/{{ 'user.jpg' }}"
+                                    @endif
                                     alt=""
                                     height="43px"
                                     width="43px">

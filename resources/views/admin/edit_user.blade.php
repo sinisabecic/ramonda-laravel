@@ -3,10 +3,9 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data" id="editUserForm">
         @csrf
         @method('PUT')
-
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -77,7 +76,7 @@
                     <div class="col-md-6">
                         <input id="address" type="text"
                                class="form-control @error('address') is-invalid @enderror" name="address"
-                               value="{{ $user->address }}" required autocomplete="address" autofocus>
+                               value="{{ $user->address }}" autocomplete="address" autofocus>
 
                         @error('address')
                         <span class="invalid-feedback" role="alert">
@@ -121,7 +120,7 @@
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Save changes') }}
+                    {{ __('Save') }}
                 </button>
                 <a href="{{ route('users') }}" type="button" class="btn btn-secondary">
                     {{ __('Cancel') }}

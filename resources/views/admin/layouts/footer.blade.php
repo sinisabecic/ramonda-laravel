@@ -69,13 +69,13 @@
     //? Dodavanje korisnika
     $(document).ready(function () {
 
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
+        //? Za dodavanje korisnika
         $('#addUserForm').submit(function (e) {
             e.preventDefault();
 
@@ -116,6 +116,45 @@
             })
             ;
         });
+
+
+        //? Za izmjenu korisnika
+        $('#editUserForm').submit(function (e) {
+        e.preventDefault();
+            const formData = new FormData(this);
+            $.ajax({
+                url: "/users/" + {{ $user->id }},
+                method: 'POST',
+                data: formData,
+                success: function () {
+                    Swal.fire({
+                        title: 'User edited!',
+                        // text: '',
+                        icon: 'success',
+                        toast: true,
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 2500,
+                    });
+                },
+                error: function () {
+                    // alert('Greska! Pokusaj ponovo');
+                    Swal.fire({
+                        title: 'Error! Something went wrong',
+                        // text: '',
+                        icon: 'error',
+                        toast: true,
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 2500,
+                    })
+                },
+                contentType: false,
+                processData: false,
+            })
+            ;
+        });
+
     });
 
 
