@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Validator;
 class CreatePostRequest extends FormRequest
 {
     /**
+     * @var mixed
+     */
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -27,7 +31,9 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:posts,title|max:255',
-            'content' => 'required'
+            'content' => 'required',
+            'user_id' => 'required',
+            'path' => 'required'
         ];
     }
 }

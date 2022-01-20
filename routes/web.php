@@ -1,22 +1,8 @@
 <?php
 
-use App\Http\Controllers\PostsController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use App\Post;
 use App\User;
-use App\Role;
-use App\Country;
-use App\Photo;
-use App\Tag;
-use App\Address;
-use App\Product;
-use App\Staff;
-use App\Video;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -608,13 +594,24 @@ Route::group([
 ], function () {
 
     Route::get('/admin', 'HomeController')->name('admin');
-
+    //? Users
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
         ->name('update', 'users.update')
-        ->name('destroy', 'delete_user');
+        ->name('destroy', 'user.delete')
+        ->name('profile', 'user.profile');
     Route::delete('/users/{id}/remove', 'UsersController@remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
+
+    //? Posts
+    Route::resource('/posts', 'PostsController')
+        ->name('index', 'posts.index')
+        ->name('store', 'posts.store')
+        ->name('edit', 'posts.edit')
+        ->name('update', 'posts.update')
+        ->name('destroy', 'posts.destroy');
+    Route::delete('/posts/{id}/remove', 'PostsController@remove');
+    Route::put('/posts/{id}/restore', 'PostsController@restore');
 
 });
 

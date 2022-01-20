@@ -10,7 +10,7 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['title', 'content', 'user_id', 'path'];
+    protected $fillable = ['title', 'content', 'user_id', 'banner'];
     // protected $table = 'posts'; // pod uslovom da naziv modela nije Post nego neko dr ime
     // protected $primaryKey = 'post_id'; // za slucaj da je ovaj naziv primarnog kljuca
 
@@ -19,6 +19,9 @@ class Post extends Model
     protected $dates = ['deleted_at'];
 
     public $directory = '/uploads/';
+    /**
+     * @var mixed
+     */
 
     /**
      * Get the user that owns the Post

@@ -171,4 +171,10 @@ class UsersController extends Controller
         ]);
     }
 
+
+    public function profile(Post $id)
+    {
+
+    }
+
 }

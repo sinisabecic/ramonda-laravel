@@ -29,6 +29,12 @@
             <span>Users</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('posts.index') }}">
+            <i class="fas fa-fw fa-blog"></i>
+            <span>Posts</span></a>
+    </li>
+
 {{--    <!-- Divider -->--}}
 {{--    <hr class="sidebar-divider d-none d-md-block">--}}
 

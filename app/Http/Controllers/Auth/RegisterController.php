@@ -124,6 +124,6 @@ class RegisterController extends Controller
         }
 
         //        Mail::to($user->email)->send(new WelcomeMail());
-        return $user && response()->json(); //proba za ajax unosenje
+        return $user && response()->json();
     }
 }
