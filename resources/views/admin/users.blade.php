@@ -70,31 +70,35 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item m-0 p-0 py-1 bg-transparent">
                                             @switch($role->name)
-                                                @case("administrator")
+                                                @case(ucfirst("administrator"))
                                                 <span
                                                     class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case("guest")
+                                                @case(ucfirst("guest"))
                                                 <span
                                                     class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case("subscriber")
+                                                @case(ucfirst("subscriber"))
                                                 <span
                                                     class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case("partner")
+                                                @case(ucfirst("partner"))
                                                 <span
                                                     class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case("head")
+                                                @case(ucfirst("head"))
                                                 <span
                                                     class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case("nomad")
+                                                @case(ucfirst("moderator"))
+                                                <span
+                                                    class="badge badge-pill badge-link rounded-0">{{ $role->name }}</span>
+                                                @break
+                                                @case(ucfirst("nomad"))
                                                 <span
                                                     class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @default("nomad")
+                                                @default(ucfirst("nomad"))
                                                 <span
                                                     class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
                                             @endswitch

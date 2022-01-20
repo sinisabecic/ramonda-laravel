@@ -18,9 +18,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'username', 'country_id', 'address', 'avatar'
-    ];
+    protected $guarded = [];
+//    protected $fillable = [
+//        'name', 'email', 'password', 'username', 'country_id', 'address', 'avatar'
+//    ];
 
     //? Ova kolona se popunjava pri brisanju
     //! Soft delete
@@ -57,6 +58,12 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class) // join na na permission_id
+        ->withPivot('created_at');
+    }
+
     /**
      * The roles that belong to the user. Many To Many veza
      * // * Ovdje smo radili join na tabelu role_user
@@ -91,10 +98,10 @@ class User extends Authenticatable
         return false;
     }
 
-
-    public function hasRole($role)
+    // Jos dinamicniji nacin od getIsAdminAttribute funkcije koji samo provjerava je li admin
+    public function hasRole($role_name)
     {
-        if ($this->roles->where('name', $role)->first()) {
+        if ($this->roles->where('name', $role_name)->first()) {
             return true;
         }
         return false;

@@ -10,7 +10,7 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['title', 'content', 'user_id', 'banner'];
+    protected $guarded = [];
     // protected $table = 'posts'; // pod uslovom da naziv modela nije Post nego neko dr ime
     // protected $primaryKey = 'post_id'; // za slucaj da je ovaj naziv primarnog kljuca
 
