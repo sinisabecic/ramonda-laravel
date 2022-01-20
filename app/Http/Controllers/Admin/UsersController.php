@@ -90,22 +90,17 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-//            'password' => ['string', 'min:8'],
-            'avatar' => ['file'],
+            'password' => ['string', 'min:8'],
+            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
             'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
             'address' => ['string'],
         ]);
 
-//        if ( !request()->input('password') == '')
-//        {
-//            $attributes['password'] = Hash::make(request()->input('password'));
-//        }
 
-
-        if (request()->hasFile('image')){
-            $file = request()->file('image');
+        if (request()->hasFile('avatar')) {
+            $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            request()->file('image')->storeAs('avatars', $user->id . '/'. $avatar, '');
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
             $attributes['avatar'] = $avatar;
         }
         $user->roles()->sync(request()->input('role'));
@@ -126,7 +121,7 @@ class UsersController extends Controller
     public function upload(User $user)
     {
         $attributes = request()->validate([
-            'name' => ['required', 'string', 'max:255', ],
+            'name' => ['required', 'string', 'max:255',],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'password' => ['required', 'string', 'min:8'],
@@ -139,10 +134,10 @@ class UsersController extends Controller
 //            'address' => $request['address'],
 //            'country_id' => $request['country'],
 //        ]);
-        if (request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $file = request()->file('image');
             $avatar = $file->getClientOriginalName();
-            request()->file('image')->storeAs('avatars', $user->id . '/'. $avatar, '');
+            request()->file('image')->storeAs('avatars', $user->id . '/' . $avatar, '');
             $attributes['avatar'] = $avatar;
         }
         $user->update($attributes);
@@ -172,9 +167,13 @@ class UsersController extends Controller
     }
 
 
-    public function profile(Post $id)
+    public function profile(User $user)
     {
-
+        return view('admin.users.profile', [
+            'user' => $user,
+            'countries' => Country::all(),
+            'roles' => Role::all(),
+        ]);
     }
 
 }

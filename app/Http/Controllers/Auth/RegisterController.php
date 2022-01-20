@@ -50,7 +50,7 @@ class RegisterController extends Controller
         //        $this->middleware('guest')->except('logout');
     }
 
-        /**
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param array $data
@@ -60,7 +60,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'regex:/^[A-Za-z0-9_]+$/'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -93,7 +93,7 @@ class RegisterController extends Controller
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'username' => $input['username'],
-                'password' => Hash::make($input['password']),
+                'password' => $input['password'],
                 'country_id' => $input['country'],
                 'address' => $input['address'],
                 'avatar' => $input['avatar'],
@@ -101,9 +101,9 @@ class RegisterController extends Controller
 
             $user->roles()->attach([$input['role']]);
 
-            if (request()->hasFile('avatar')){
+            if (request()->hasFile('avatar')) {
                 $avatar = request()->file('avatar')->getClientOriginalName();
-                request()->file('avatar')->storeAs('avatars', $user->id . '/'. $avatar, '');
+                request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
                 $user->update(['avatar' => $avatar]);
             }
 
@@ -113,7 +113,7 @@ class RegisterController extends Controller
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'username' => $input['username'],
-                'password' => Hash::make($input['password']),
+                'password' => $input['password'],
                 'country_id' => $input['country'],
                 'address' => $input['address'],
                 'avatar' => 'user.jpg'

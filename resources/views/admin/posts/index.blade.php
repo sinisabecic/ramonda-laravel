@@ -57,25 +57,25 @@
                             <td>
                                 <img
                                     @if($post->banner)
-                                        src="{{env('BANNER') .'/'. $post->banner}}"
+                                    src="{{env('BANNER') .'/'. $post->banner}}"
                                     @else
-                                        src="{{ env('APP_URL') }}/storage/uploads/WIN_20211223_17_10_40_Pro.jpg"
+                                    src="{{ env('APP_URL') }}/storage/uploads/WIN_20211223_17_10_40_Pro.jpg"
                                     @endif
                                     alt=""
                                     height="43px"
                                     width="43px">
                             </td>
-{{--                            <td>--}}
-{{--                                <img--}}
-{{--                                    @if($user->avatar)--}}
-{{--                                    src="{{env('AVATAR') .'/'. $post->id .'/'. $user->avatar}}"--}}
-{{--                                    @else--}}
-{{--                                    src="uploads/{{ 'user.jpg' }}"--}}
-{{--                                    @endif--}}
-{{--                                    alt=""--}}
-{{--                                    height="43px"--}}
-{{--                                    width="43px">--}}
-{{--                            </td>--}}
+                            {{--                            <td>--}}
+                            {{--                                <img--}}
+                            {{--                                    @if($user->avatar)--}}
+                            {{--                                    src="{{env('AVATAR') .'/'. $post->id .'/'. $user->avatar}}"--}}
+                            {{--                                    @else--}}
+                            {{--                                    src="uploads/{{ 'user.jpg' }}"--}}
+                            {{--                                    @endif--}}
+                            {{--                                    alt=""--}}
+                            {{--                                    height="43px"--}}
+                            {{--                                    width="43px">--}}
+                            {{--                            </td>--}}
 
                             <td>
                                  <span class="badge badge-pill badge-secondary small">
@@ -117,13 +117,13 @@
                                             Remove
                                         </button>
                                     </div>
-                                @if(!$post->deleted_at)
-                                    <div class="px-1">
-                                        <a href="{{ route("posts.edit", $post->id) }}" id="editpost"
-                                           class="btn btn-primary editPostBtn" data-id="{{ $post->id }}">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    @if(!$post->deleted_at)
+                                        <div class="px-1">
+                                            <a href="{{ route("posts.edit", $post->id) }}" id="editpost"
+                                               class="btn btn-primary editPostBtn" data-id="{{ $post->id }}">
+                                                Edit
+                                            </a>
+                                        </div>
                                 @endif
                             </td>
                         </tr>
@@ -486,7 +486,14 @@
                 .prop('checked', false)
                 .prop('selected', false);
         }
+
     </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
 @endsection
 
 

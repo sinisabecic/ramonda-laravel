@@ -3,12 +3,13 @@
 
 @section('content')
 
-    <form method="POST" action="" enctype="multipart/form-data" id="editUserForm">
-        @csrf
-        @method('PUT')
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="POST" action="" enctype="multipart/form-data" id="editUserForm">
+                @csrf
+                @method('PUT')
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
@@ -54,6 +55,15 @@
                 </div>
 
 
+                <div class="form-group row">
+                    <label for="password-confirm"
+                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password-confirm" type="password" class="form-control"
+                               name="password_confirmation" autocomplete="new-password" value="{{ $user->password }}">
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country')
@@ -82,8 +92,8 @@
 
                         @error('address')
                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
                 </div>
@@ -104,33 +114,101 @@
                     </div>
                 </div>
 
-        <div>
-            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
-            <div class="col-md-6" style="left: 25.8rem!important;top: -1.7rem!important;">
-                <input type="file" id="image"
-                       class="my-pond @error('image') is-invalid @enderror"
-                       name="image" value="{{ old('image') }}">
+                <div>
+                    <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Profil image') }}</label>
+                    <div class="col-md-6" style="left: 12.6rem!important;top: -1.7rem!important;">
+                        <input type="file" id="avatar"
+                               class="form-control-file @error('avatar') is-invalid @enderror"
+                               name="avatar" value="{{ $user->avatar }}">
 
-                @error('image')
-                <span class="invalid-feedback" role="alert">
+                        @error('avatar')
+                        <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-                @enderror
-            </div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Save') }}
+                        </button>
+                        <a href="{{ route('users') }}" type="button" class="btn btn-secondary">
+                            {{ __('Cancel') }}
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Save') }}
-                </button>
-                <a href="{{ route('users') }}" type="button" class="btn btn-secondary">
-                    {{ __('Cancel') }}
-                </a>
+
+        <div class="col-sm-6">
+            <div class="d-flex justify-content-center">
+                <img
+                    @if($user->avatar)
+                    src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
+                    @else
+                    src="uploads/{{ 'user.jpg' }}"
+                    @endif
+                    alt=""
+                    height="50%"
+                    width="50%"
+                    class="rounded">
             </div>
         </div>
-    </form>
+    </div>
 
 
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            //? Za izmjenu korisnika
+            $('#editUserForm').submit(function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                $.ajax({
+                    method: 'POST',
+                    url: "/users/" + {{ $user->id }},
+                    data: formData,
+                    success: function () {
+                        Swal.fire({
+                            title: 'User edited!',
+                            // text: '',
+                            icon: 'success',
+                            toast: true,
+                            position: 'top-right',
+                            showConfirmButton: false,
+                            timer: 2500,
+                        });
+                    },
+                    error: function () {
+                        // alert('Greska! Pokusaj ponovo');
+                        Swal.fire({
+                            title: 'Error! Something went wrong',
+                            // text: '',
+                            icon: 'error',
+                            toast: true,
+                            position: 'top-right',
+                            showConfirmButton: false,
+                            timer: 2500,
+                        })
+                    },
+                    contentType: false,
+                    processData: false,
+                })
+                ;
+            });
+
+        });
+    </script>
 @endsection

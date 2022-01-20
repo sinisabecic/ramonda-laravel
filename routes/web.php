@@ -598,11 +598,13 @@ Route::group([
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
         ->name('update', 'users.update')
-        ->name('destroy', 'user.delete')
-        ->name('profile', 'user.profile');
+        ->name('destroy', 'user.delete');
+
     Route::delete('/users/{id}/remove', 'UsersController@remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
+    Route::get('/admin/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
 
+    
     //? Posts
     Route::resource('/posts', 'PostsController')
         ->name('index', 'posts.index')

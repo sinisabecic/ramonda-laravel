@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,8 @@ class User extends Authenticatable
     //! Soft delete
     protected $dates = ['deleted_at'];
 
+//    protected $status = ['status']; //? Ovo za sad necu jos koristiti
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -43,8 +46,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function find($id)
+    //? I pri azuriranju korisnika, radice enkripciju. Zato je ovo pozeljno
+    public function setPasswordAttribute($value)
     {
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function posts()
@@ -175,7 +180,6 @@ class User extends Authenticatable
 
 
     }
-
 
 
 }

@@ -36,6 +36,12 @@ trait SoftDeletes
         $this->dates[] = $this->getDeletedAtColumn();
     }
 
+    //? Po ugledu na soft delete, ovo mi treba za status
+    public function initializeStatus()
+    {
+        $this->status[] = $this->getStatusColumn();
+    }
+
     /**
      * Force a hard delete on a soft deleted model.
      *
@@ -185,6 +191,11 @@ trait SoftDeletes
     public function getDeletedAtColumn()
     {
         return defined('static::DELETED_AT') ? static::DELETED_AT : 'deleted_at';
+    }
+
+    public function getStatusColumn()
+    {
+        return defined('static::STATUS') ? static::STATUS : 'status';
     }
 
     /**

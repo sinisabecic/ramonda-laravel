@@ -1,7 +1,10 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
+
+            <span>Copyright &copy; <a href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
+                {{ \Carbon\Carbon::createFromDate()->format('Y.') }}
+            </span>
         </div>
     </div>
 </footer>
@@ -32,7 +35,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{{ url('/logout') }}">Logout</a>
+                <a class="btn btn-danger" href="{{ url('/logout') }}">Logout</a>
             </div>
         </div>
     </div>
@@ -52,17 +55,9 @@
 {{-- Za JS oblik koda --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript"
-        src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
-
 
 <script src="{{ asset('js/jquery.mask.js') }}"></script>
 {{--<script src="{{ asset('js/functions.js') }}"></script>--}}
-
-<!-- Page level custom scripts -->
-<script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
 
 
 @yield('script')
