@@ -574,6 +574,13 @@ Route::get('/user/{id}/getsinglephoto', function ($id) {
 //})->name('isadmin');
 //
 //
+//? Dozvola po ulozi(Permissions by role)
+//Route::get('/roles/{id}/permissions', function ($id) {
+//    $roles = \App\Role::find($id);
+//    foreach ($roles->permissions as $role_permission) {
+//        return $role_permission;
+//    }
+//});
 //// * MEJL
 //Route::get('/sendmail', function () {
 //
@@ -595,7 +602,7 @@ Route::group([
 
     Route::get('/admin', 'HomeController')->name('admin');
     //? Users
-    Route::resource('/users', 'UsersController')
+    Route::resource('/admin/users', 'UsersController')
         ->name('index', 'users')
         ->name('store', 'users.store')
         ->name('update', 'users.update')
@@ -616,5 +623,14 @@ Route::group([
     Route::delete('/posts/{id}/remove', 'PostsController@remove');
     Route::put('/posts/{id}/restore', 'PostsController@restore');
 
+    //? Roles
+    Route::resource('/admin/roles', 'RolesController')
+        ->name('index', 'roles')
+        ->name('store', 'roles.store')
+        ->name('update', 'roles.update')
+        ->name('destroy', 'roles.delete');
+    Route::delete('/admin/roles/{id}/remove', 'RolesController@remove');
+    Route::put('/admin/roles/{id}/restore', 'RolesController@restore');
 });
+
 

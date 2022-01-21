@@ -30,6 +30,12 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('roles') }}">
+            <i class="fas fa-user-tag"></i>
+            <span>Roles</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('posts.index') }}">
             <i class="fas fa-fw fa-blog"></i>
             <span>Posts</span></a>

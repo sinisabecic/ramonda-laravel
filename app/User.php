@@ -101,7 +101,7 @@ class User extends Authenticatable
     // Jos dinamicniji nacin od getIsAdminAttribute funkcije koji samo provjerava je li admin
     public function hasRole($role_name)
     {
-        if ($this->roles->where('name', $role_name)->first()) {
+        if ($this->roles->where('slug', $role_name)->first()) {
             return true;
         }
         return false;
