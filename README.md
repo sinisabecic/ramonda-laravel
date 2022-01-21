@@ -1,4 +1,4 @@
-### Instructions
+### Instrukcije
 
 - **npm install**
 - **composer install**
