@@ -58,7 +58,7 @@
                                     @if($user->avatar !== 'user.jpg')
                                     src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
                                     @else
-                                    src="uploads/{{ 'user.jpg' }}"
+                                    src="/uploads/{{ 'user.jpg' }}"
                                     @endif
                                     alt=""
                                     height="43px"
@@ -183,7 +183,7 @@
                 var formData = new FormData(this);
 
                 $.ajax({
-                    url: "{{ route('register') }}",
+                    url: "{{ route('users.store') }}",
                     method: 'POST',
                     data: formData,
                     success: function () {

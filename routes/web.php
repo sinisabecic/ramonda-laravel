@@ -597,6 +597,7 @@ Route::group([
     //? Users
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
+        ->name('store', 'users.store')
         ->name('update', 'users.update')
         ->name('destroy', 'user.delete');
 
@@ -604,7 +605,7 @@ Route::group([
     Route::put('/users/{id}/restore', 'UsersController@restore');
     Route::get('/admin/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
 
-    
+
     //? Posts
     Route::resource('/posts', 'PostsController')
         ->name('index', 'posts.index')

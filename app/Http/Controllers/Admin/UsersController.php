@@ -50,7 +50,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => $request->password,
+            'country_id' => $request->country,
+            'address' => $request->address,
+            'avatar' => 'user.jpg',
+        ]);
+
+        $user->roles()->sync($request->roles);
+
+        if (request()->hasFile('avatar')) {
+            $avatar = request()->file('avatar')->getClientOriginalName();
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            $user->update(['avatar' => $avatar]);
+        }
+
+//        return $user;
     }
 
     /**
@@ -86,7 +104,7 @@ class UsersController extends Controller
      */
     public function update(User $user)
     {
-        $attributes = request()->validate([
+        $inputs = request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
@@ -101,10 +119,10 @@ class UsersController extends Controller
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
             request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            $attributes['avatar'] = $avatar;
+            $inputs['avatar'] = $avatar;
         }
-        $user->roles()->sync(request()->input('role'));
-        $user->update($attributes);
+        $user->roles()->sync(request()->input('roles'));
+        $user->update($inputs);
     }
 
     public function restore(User $user, $id)

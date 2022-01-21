@@ -7,7 +7,7 @@
         <div class="col-sm-6">
             <form method="POST" action="" enctype="multipart/form-data" id="editUserForm">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                     <div class="col-md-6">
@@ -98,19 +98,21 @@
                     </div>
                 </div>
 
+
                 <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
+                    <label for="roles" class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
                     <div class="col-md-6">
-                        <select class="form-control" name="role" id="role">
-                            @foreach ($user->roles as $role)
-                                <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-                            @endforeach
-
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
-                        </select>
+                        @foreach ($roles as $role)
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="roles[]"
+                                       value="{{ $role->id }}" id="{{ $role->name }}"
+                                       @isset($user) @if(in_array($role->id, $user->roles->pluck('id')->toArray())) checked @endif @endisset
+                                >
+                                <label for="{{ $role->name }}" class="form-check-label">
+                                    {{ $role->name }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -146,10 +148,10 @@
         <div class="col-sm-6">
             <div class="d-flex justify-content-center">
                 <img
-                    @if($user->avatar)
+                    @if($user->avatar !== 'user.jpg')
                     src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
                     @else
-                    src="uploads/{{ 'user.jpg' }}"
+                    src="/uploads/{{ 'user.jpg' }}"
                     @endif
                     alt=""
                     height="50%"
@@ -178,7 +180,7 @@
                 const formData = new FormData(this);
                 $.ajax({
                     method: 'POST',
-                    url: "/users/" + {{ $user->id }},
+                    url: "{{ route('users.update', $user->id) }}",
                     data: formData,
                     success: function () {
                         Swal.fire({

@@ -85,43 +85,23 @@ class RegisterController extends Controller
      */
     protected function create(array $input)
     {
-
-        // Prikazi samo ukoliko si prijavljen kao administrator
-        if (auth()->check() && auth()->user()->is_admin) {
-
-            $user = User::create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'username' => $input['username'],
-                'password' => $input['password'],
-                'country_id' => $input['country'],
-                'address' => $input['address'],
-                'avatar' => $input['avatar'],
-            ]);
-
-            $user->roles()->attach([$input['role']]);
-
-            if (request()->hasFile('avatar')) {
-                $avatar = request()->file('avatar')->getClientOriginalName();
-                request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-                $user->update(['avatar' => $avatar]);
-            }
-
-        } else {
-
-            $user = User::create([
-                'name' => $input['name'],
-                'email' => $input['email'],
-                'username' => $input['username'],
-                'password' => $input['password'],
-                'country_id' => $input['country'],
-                'address' => $input['address'],
-                'avatar' => 'user.jpg'
-            ]);
-            $user->roles()->attach([5]); // svaki novi korisnik je nomad
-//            $user->photos()->create(['path' => 'default.jpg']);
-
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'username' => $input['username'],
+            'password' => $input['password'],
+            'country_id' => $input['country'],
+            'address' => $input['address'],
+            'avatar' => 'user.jpg',
+        ]);
+        if (request()->hasFile('avatar')) {
+            $avatar = request()->file('avatar')->getClientOriginalName();
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            $user->update(['avatar' => $avatar]);
         }
+
+        $user->roles()->attach([5]); // svaki novi korisnik je nomad
+//            $user->photos()->create(['avatar' => 'default.jpg']);
 
         //        Mail::to($user->email)->send(new WelcomeMail());
         return $user && response()->json();
