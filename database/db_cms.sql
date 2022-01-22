@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2022 at 02:09 AM
+-- Generation Time: Jan 22, 2022 at 03:19 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -431,11 +431,17 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-                                                                                                              (1, 'All Permissions', 'all-permissions', 'User has all privileges', '2022-01-21 16:42:59', '2022-01-21 16:42:59', NULL),
+                                                                                                              (1, 'Full Control', 'full-control', 'User has all privileges', '2022-01-21 16:42:59', '2022-01-21 16:42:59', NULL),
                                                                                                               (2, 'View Dashboard', 'view-dashboard', 'User can only view a dashboard content', '2022-01-20 18:00:51', '2022-01-20 18:00:51', NULL),
-                                                                                                              (5, 'Colby Stevens', 'colby-stevens', 'Aut aut ipsum consequat Tempo', '2022-01-22 01:07:23', '2022-01-22 01:07:23', NULL),
-                                                                                                              (6, 'Dacey Hutchinson', 'dacey-hutchinson', 'Omnis quos exercitation numqua', '2022-01-22 01:07:39', '2022-01-22 01:07:39', NULL),
-                                                                                                              (7, 'Cade Atkins', 'cade-atkins', 'Ab eiusmod sunt qui irure fuga', '2022-01-22 01:07:42', '2022-01-22 01:07:42', NULL);
+                                                                                                              (5, 'Colby Stevens', 'colby-stevens', 'Aut aut ipsum consequat Tempo', '2022-01-22 01:07:23', '2022-01-22 01:15:51', '2022-01-22 01:15:51'),
+                                                                                                              (6, 'Dacey Hutchinson', 'dacey-hutchinson', 'Omnis quos exercitation numqua', '2022-01-22 01:07:39', '2022-01-22 01:15:49', '2022-01-22 01:15:49'),
+                                                                                                              (7, 'Cade Atkins', 'cade-atkins', 'Ab eiusmod sunt qui irure fuga', '2022-01-22 01:07:42', '2022-01-22 01:12:33', '2022-01-22 01:12:33'),
+                                                                                                              (8, 'View Only', 'view-only', 'Enables users to view application pages. The View Only permission level is used for the Excel Services Viewers group.', '2022-01-22 01:21:35', '2022-01-22 01:21:35', NULL),
+                                                                                                              (9, 'Limited Access', 'limited-access', 'Enables users to access shared resources and a specific asset. Limited Access is designed to be combined with fine-grained permissions to enable users to access a specific list, document library, folder, list item, or document, without enabling them to access the whole site. Limited Access cannot be edited or deleted.', '2022-01-22 01:23:24', '2022-01-22 01:23:24', NULL),
+                                                                                                              (10, 'Read', 'read', 'Enables users to view pages and list items, and to download documents.', '2022-01-22 01:23:39', '2022-01-22 01:23:39', NULL),
+                                                                                                              (11, 'Contribute', 'contribute', 'Enables users to manage personal views, edit items and user information, delete versions in existing lists and document libraries, and add, remove, and update personal Web Parts.', '2022-01-22 01:23:54', '2022-01-22 01:23:54', NULL),
+                                                                                                              (12, 'Edit', 'edit', 'Enables users to manage lists.', '2022-01-22 01:24:03', '2022-01-22 01:24:03', NULL),
+                                                                                                              (14, 'Design', 'design', 'Enables users to view, add, update, delete, approve, and customize items or pages in the website.', '2022-01-22 01:31:12', '2022-01-22 01:31:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -529,9 +535,11 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
-                                                                                                                          (93, 'Quod voluptate quibusdam dolor', '<p>Quod voluptate quibusdam dolorQuod voluptate quibusdam dolorQuod voluptate quibusdam dolor</p>', 'quod-voluptate', '2022-01-19 22:18:30', '2022-01-20 00:51:35', 137, NULL, '51630850633_b67a93c225_o.jpg'),
-                                                                                                                          (94, 'Novakova borba protiv korone: Đokovići vlasnici kompanije koja razvija tretman za sprečavanje zaražavanja', '<p><strong>Danski QuantBioRes razvija peptid koji sprečava da virus zarazi ljudske ćelije</strong></p>\n<div id=\"adoceanrsxfkrqnqpez\"></div>\n<div>\n<div>\n<p>Kako prenosi&nbsp;Rojters&nbsp;prvi reket sveta&nbsp;Novak Đoković&nbsp;ima 80 odsto vlasni&scaron;tva nad&nbsp;QuantBioRes&nbsp;kompanijom iz Danske. To potvrđuju izvr&scaron;ni direktor firme&nbsp;Ivan Lončarević, kao i zvanični podaci iz privrednog registra Danske.</p>\n<p>Kako se navodi, srpski teniser je jo&scaron; u junu 2020. godine napravio pomenutu investiciju, ali nije poznato u kom iznosu. U zvaničnim spisima stoji da je&nbsp;Jelena Đoković&nbsp;vlasnik 39,20 odsto deonica ove firme, dok je&nbsp;Novakov&nbsp;udeo u vlasni&scaron;tvu 40,8 odsto. Preostalih 20 odsto poseduje dotični&nbsp;Entoni Čarls Singsbi.</p>\n<div id=\"fingerprintNewsInText\"></div>\n<p>QuantBioRes&nbsp;ima 11 istraživača koji rade u Danskoj, Australiji i Sloveniji, a&nbsp;Lončarević&nbsp;napominje da se ne bave pravljenjem vakcine, već stvaranjem tretmana za borbu protiv virusa. Kompanija radi na razvijanju peptida, koji bi trebalo da spreči koronu da inficira ljudske ćelije. Klinička ispitivanja bi trebalo da počnu u Velikoj Britaniji ovog leta.</p>\n</div>\n</div>', 'Novakova-borba-protiv', '2022-01-19 22:50:02', '2022-01-20 00:51:33', 136, NULL, '1642615570007_djokovic.jpg'),
-                                                                                                                          (95, 'Ovo je naslov posta', 'Ovo je post', 'ovo-je-post', '2022-01-21 23:43:44', '2022-01-21 23:43:44', 1, NULL, NULL);
+                                                                                                                          (93, 'Itaque ut suscipit veniam vit', '<p>Quod voluptate quibusdam dolorQuod voluptate quibusdam dolorQuod voluptate quibusdam dolor</p>', 'itaque-ut-suscipit-veniam-vit', '2022-01-19 22:18:30', '2022-01-22 01:47:23', 143, NULL, '51630850633_b67a93c225_o.jpg'),
+                                                                                                                          (94, 'Novakova borba protiv korone: Đokovići vlasnici kompanije koja razvija tretman za sprečavanje zaražavanja', '<p><strong>Danski QuantBioRes razvija peptid koji sprečava da virus zarazi ljudske ćelije</strong></p>\r\n<div id=\"adoceanrsxfkrqnqpez\"></div>\r\n<div>\r\n<div>\r\n<p>Kako prenosi&nbsp;Rojters&nbsp;prvi reket sveta&nbsp;Novak Đoković&nbsp;ima 80 odsto vlasni&scaron;tva nad&nbsp;QuantBioRes&nbsp;kompanijom iz Danske. To potvrđuju izvr&scaron;ni direktor firme&nbsp;Ivan Lončarević, kao i zvanični podaci iz privrednog registra Danske.</p>\r\n<p>Kako se navodi, srpski teniser je jo&scaron; u junu 2020. godine napravio pomenutu investiciju, ali nije poznato u kom iznosu. U zvaničnim spisima stoji da je&nbsp;Jelena Đoković&nbsp;vlasnik 39,20 odsto deonica ove firme, dok je&nbsp;Novakov&nbsp;udeo u vlasni&scaron;tvu 40,8 odsto. Preostalih 20 odsto poseduje dotični&nbsp;Entoni Čarls Singsbi.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p>QuantBioRes&nbsp;ima 11 istraživača koji rade u Danskoj, Australiji i Sloveniji, a&nbsp;Lončarević&nbsp;napominje da se ne bave pravljenjem vakcine, već stvaranjem tretmana za borbu protiv virusa. Kompanija radi na razvijanju peptida, koji bi trebalo da spreči koronu da inficira ljudske ćelije. Klinička ispitivanja bi trebalo da počnu u Velikoj Britaniji ovog leta.</p>\r\n</div>\r\n</div>', 'novakova-borba-protiv-korone-dokovici-vlasnici-kompanije-koja-razvija-tretman-za-sprecavanje-zarazavanja', '2022-01-19 22:50:02', '2022-01-22 02:03:14', 1, NULL, '1642615570007_djokovic.jpg'),
+                                                                                                                          (95, 'Ovo je naslov posta', '<p>Ovo je post</p>', 'ovo-je-naslov-posta', '2022-01-21 23:43:44', '2022-01-22 02:03:00', 140, NULL, NULL),
+                                                                                                                          (96, 'Et ea voluptas et adipisci mod', '<p>Et ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci mod</p>', 'et-ea-voluptas-et-adipisci-mod', '2022-01-22 01:28:20', '2022-01-22 01:28:28', 143, '2022-01-22 01:28:28', 'aron-gestsson-L0SWkPAAke4-unsplash.jpg'),
+                                                                                                                          (97, 'Similique excepturi in laudant', '<p>wwwwwwwwwwwwwwwwwww</p>', 'similique-excepturi-in-laudant', '2022-01-22 01:48:11', '2022-01-22 01:48:36', 1, NULL, 'Trip Vutra.png');
 
 -- --------------------------------------------------------
 
@@ -941,7 +949,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `photos`
@@ -953,7 +961,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `products`
