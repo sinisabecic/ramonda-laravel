@@ -43,10 +43,16 @@
             <div class="col-md-6">
                 <select class="form-control" name="user_id" id="user_id">
 
-                    <option value="{{ $post->author->id }}" selected>{{ $post->author->username }}</option>
+                    <option value="{{ $post->author->id }}" selected> {{ $post->author->username }} <span
+                            class="text-primary">({{ $post->author->name }} from {{ $post->author->country->name }})</span>
+                    </option>
 
                     @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->username }}</option>
+                        {{-- ? Da se ne ponavlja ime autora dva puta --}}
+                        @if($post->author->id !== $user->id)
+                            <option value="{{ $user->id }}">{{ $user->username }} <span class="text-primary">({{ $user->name }} from {{ $user->country->name }})</span>
+                            </option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -57,7 +63,7 @@
             <div class="col-md-6" style="left: 25.8rem!important;top: -1.7rem!important;">
                 <input type="file" id="banner"
                        class="form-control-file @error('banner') is-invalid @enderror"
-                       name="banner" value="{{ $post->banner }}">
+                       name="banner">
 
                 @error('banner')
                 <span class="invalid-feedback" role="alert">

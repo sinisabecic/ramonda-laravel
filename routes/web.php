@@ -631,6 +631,27 @@ Route::group([
         ->name('destroy', 'roles.delete');
     Route::delete('/admin/roles/{id}/remove', 'RolesController@remove');
     Route::put('/admin/roles/{id}/restore', 'RolesController@restore');
+
+
+    //? Permissions
+    Route::resource('/admin/permissions', 'PermissionsController')
+        ->name('index', 'permissions')
+        ->name('store', 'permissions.store')
+        ->name('edit', 'permissions.edit')
+        ->name('update', 'permissions.update')
+        ->name('destroy', 'permissions.delete');
+    Route::delete('/admin/permissions/{id}/remove', 'PermissionsController@remove');
+    Route::put('/admin/permissions/{id}/restore', 'PermissionsController@restore');
+
+    //? Tags
+    Route::resource('/admin/tags', 'TagsController')
+        ->name('index', 'tags')
+        ->name('store', 'tags.store')
+        ->name('edit', 'tags.edit')
+        ->name('update', 'tags.update')
+        ->name('destroy', 'tags.delete');
+    Route::delete('/admin/tags/{id}/remove', 'TagsController@remove');
+    Route::put('/admin/tags/{id}/restore', 'TagsController@restore');
 });
 
 

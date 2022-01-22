@@ -136,6 +136,7 @@ class UsersController extends Controller
 //        else echo "greska";
     }
 
+    // ! Za test
     public function upload(User $user)
     {
         $attributes = request()->validate([

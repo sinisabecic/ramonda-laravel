@@ -26,12 +26,11 @@ class PostsController extends Controller
     public function create()
     {
         // Moze samo korisnik da vidi ovaj sadrzaj
-        $this->authorize('create',Post::class);
+        $this->authorize('create', Post::class);
 
         $users = User::all();
         return view('admin.posts.create', compact('users'));
     }
-
 
 
     //CreatePostRequest izricito za postove, tamo smo definisali validacije
@@ -46,16 +45,15 @@ class PostsController extends Controller
             'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if (request()->hasFile('banner')){
+        if (request()->hasFile('banner')) {
             $file = request()->file('banner');
             $banner = $file->getClientOriginalName();
-            request()->file('banner')->storeAs('banners/'. $banner, '');
+            request()->file('banner')->storeAs('banners/' . $banner, '');
             $inputs['banner'] = $banner;
         }
         $post->create($inputs);
 
     }
-
 
 
     public function show($id)
@@ -65,7 +63,6 @@ class PostsController extends Controller
         //? ili
         return view('posts.show', compact('post'));
     }
-
 
 
     public function edit($id)
@@ -86,18 +83,17 @@ class PostsController extends Controller
             'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if (request()->hasFile('banner')){
+        if (request()->hasFile('banner')) {
             $file = request()->file('banner');
             $banner = $file->getClientOriginalName();
-            request()->file('banner')->storeAs('banners/'. $banner, '');
+            request()->file('banner')->storeAs('banners/' . $banner, '');
             $post->banner = $banner;
         }
 
-        $post->update([
-            $post->title => $inputs['title'],
-            $post->content = $inputs['content'],
-            $post->user_id = $inputs['user_id']
-        ]);
+        $post->title = $inputs['title'];
+        $post->content = $inputs['content'];
+        $post->user_id = $inputs['user_id'];
+        $post->update();
 
     }
 

@@ -1,4 +1,3 @@
-<!-- Modal for edit user -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -10,7 +9,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="POST" action="{{ route('users.store') }}" id="addUserForm" enctype="multipart/form-data">
+                <form method="POST" action="" id="addUserForm" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('page-title', 'Roles')
+@section('page-title', 'Permissions')
 
 
 @section('content')
@@ -11,17 +11,17 @@
         <div class="card-body">
             <div class="d-flex justify-content-end">
                 <a href="#!" class="btn btn-primary btn-sm" data-toggle="modal"
-                   data-target="#addRoleModal"
+                   data-target="#addPermissionModal"
                    style="float: right">
-                    <i class="fas fa-user-plus"></i> New role
+                    <i class="fas fa-user-plus"></i> New permission
                 </a>
-                <a href="{{ route('roles') }}" class="btn btn-secondary btn-sm ml-1"
+                <a href="{{ route('permissions') }}" class="btn btn-secondary btn-sm ml-1"
                    style="float: right">
                     <i class="fas fa-redo-alt"></i> Refresh
                 </a>
             </div>
             <div class="table table-responsive">
-                <table class="display hover" id="dataTableRoles" width="100%"
+                <table class="display hover" id="dataTablePermissions" width="100%"
                        cellspacing="0">
                     <thead>
                     <tr>
@@ -29,87 +29,53 @@
                         {{--                                                        <input type="checkbox" id="selectAllBoxes">--}}
                         {{--                        </th>--}}
                         <th>ID</th>
-                        <th>Role</th>
+                        <th>Permission</th>
                         <th>Slug</th>
-                        <th>Role permissions</th>
+                        <th>Description</th>
                         <th>Created</th>
                         <th>Created at</th>
-                        <th>Deleted at</th>
+                        <th>Deleted</th>
                         <th>Action</th>
                     </tr>
                     </thead>
-
+                    {{--                    <tfoot>                    --}}
+                    {{--                    </tfoot>--}}
                     <tbody>
-                    @foreach($roles as $role)
-                        <tr class="row-role" data-id="{{ $role->id }}">
+                    @foreach($permissions as $permission)
+                        <tr class="row-permission" data-id="{{ $permission->id }}">
                             {{--                            <td>--}}
                             {{--                                <input type="checkbox" name="user_id[]" id="delete_user" class="checkBoxes"--}}
                             {{--                                       data-id="{{ $user->id }}">--}}
                             {{--                            </td>--}}
-                            <td><span class="small">{{ $role->id }}</span></td>
-                            <td class="role">
+                            <td><span class="small">{{ $permission->id }}</span></td>
+                            <td class="permission">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item m-0 p-0 py-1 bg-transparent">
-                                        @switch($role->name)
-                                            @case(ucfirst("administrator"))
                                             <span
-                                                class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("guest"))
-                                            <span
-                                                class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("subscriber"))
-                                            <span
-                                                class="badge badge-pill badge-warning text-dark rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("partner"))
-                                            <span
-                                                class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("head"))
-                                            <span
-                                                class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("moderator"))
-                                            <span
-                                                class="badge badge-pill badge-link rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("nomad"))
-                                            <span
-                                                class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @default(ucfirst("nomad"))
-                                            <span
-                                                class="badge badge-pill badge-danger rounded-0">{{ $role->name }}</span>
-                                        @endswitch
+                                                class="badge badge-pill badge-primary rounded-0">{{ $permission->name }}</span>
                                     </li>
                                 </ul>
                             </td>
                             <td>
-                                <p class="small"><strong>{{ $role->slug }}</strong></p>
+                                <p class="small"><strong>{{ $permission->slug }}</strong></p>
                             </td>
                             <td>
-                                <p class="small"><strong>
-                                        @foreach($role->permissions as $role_permission)
-                                            {{ $role_permission->slug }};
-                                        @endforeach
-                                    </strong></p>
+                                <p class="small">{{ $permission->description }}</p>
                             </td>
                             <td>
                                  <span class="badge badge-pill badge-secondary small">
-                                     {{ $role->created_at->diffForHumans() }}
+                                     {{ $permission->created_at->diffForHumans() }}
                                 </span>
                             </td>
                             <td>
                                 <span class="badge badge-pill small">
-                                    {{ $role->created_at->format('d.m.Y. H:i:s') }}
+                                    {{ $permission->created_at->format('d.m.Y. H:i:s') }}
                                 </span>
                             </td>
                             <td>
                                 <span class="badge badge-pill small deletedAt">
-                                     @if($role->deleted_at)
-                                        {{ $role->deleted_at->format('d.m.Y. H:i:s') }}
+                                     @if($permission->deleted_at)
+                                        {{ $permission->deleted_at->format('d.m.Y. H:i:s') }}
                                     @else
                                         {{ 'NULL' }}
                                     @endif
@@ -118,32 +84,34 @@
                             <td>
                                 <div class="d-inline-flex">
 
-                                    @if(!$role->deleted_at)
+                                    @if(!$permission->deleted_at)
                                         <div class="px-1">
-                                            <button type="button" onclick="deleteRole('{{ $role->id }}')"
-                                                    class="btn btn-danger deleteRoleBtn">
+                                            <button type="button" onclick="deletePermission('{{ $permission->id }}')"
+                                                    class="btn btn-danger deletePermissionBtn">
                                                 Delete
                                             </button>
                                         </div>
                                     @else
                                         <div class="px-1">
-                                            <button type="button" onclick="restoreRole('{{ $role->id }}')"
-                                                    class="btn btn-dark restoreRoleBtn">
+                                            <button type="button" onclick="restorePermission('{{ $permission->id }}')"
+                                                    class="btn btn-dark restorePermissionBtn">
                                                 Restore
                                             </button>
                                         </div>
                                     @endif
 
                                     <div class="px-1">
-                                        <button type="button" onclick="forceDeleteRole('{{ $role->id }}')"
-                                                class="btn btn-warning text-dark forceDeleteRoleBtn">
+                                        <button type="button" onclick="forceDeletePermission('{{ $permission->id }}')"
+                                                class="btn btn-warning text-dark forceDeletePermissionBtn">
                                             Remove
                                         </button>
                                     </div>
-                                    @if(!$role->deleted_at)
+                                    @if(!$permission->deleted_at)
                                         <div class="px-1">
-                                            <a href="{{ route("roles.edit", $role->id) }}" id="editrole"
-                                               class="btn btn-primary editRoleBtn" data-id="{{ $role->id }}">
+                                            <a href="{{ route("permissions.edit", $permission->id) }}"
+                                               id="editpermission"
+                                               class="btn btn-primary editPermissionBtn"
+                                               data-id="{{ $permission->id }}">
                                                 Edit
                                             </a>
                                         </div>
@@ -158,7 +126,7 @@
     </div>
 @endsection
 
-@include('admin.layouts.add_role')
+@include('admin.layouts.add_permission')
 
 @section('script')
     <script>
@@ -172,21 +140,21 @@
             });
 
             //? Za dodavanje korisnika
-            $('#addRoleForm').submit(function (e) {
+            $('#addPermissionForm').submit(function (e) {
                 e.preventDefault();
 
                 var formData = new FormData(this);
 
                 $.ajax({
                     method: 'POST',
-                    url: "{{ route('roles.store') }}",
+                    url: "{{ route('permissions.store') }}",
                     data: formData,
                     success: function () {
-                        $('#addRoleModal').modal('hide');
-                        clearFields('#addRoleModal');
+                        $('#addPermissionModal').modal('hide');
+                        clearFields('#addPermissionModal');
 
                         Swal.fire({
-                            title: 'Role added!',
+                            title: 'Permission added!',
                             // text: '',
                             icon: 'success',
                             toast: true,
@@ -214,16 +182,16 @@
 
 
             //? Za izmjenu korisnika
-            $('#editRoleForm').submit(function (e) {
+            $('#editPermissionForm').submit(function (e) {
                 e.preventDefault();
                 const formData = new FormData(this);
                 $.ajax({
-                    url: "/admin/roles/" + {{ $role->id }},
+                    url: "/admin/permissions/" + {{ $permission->id }},
                     method: 'POST',
                     data: formData,
                     success: function () {
                         Swal.fire({
-                            title: 'User edited!',
+                            title: 'Permission edited!',
                             // text: '',
                             icon: 'success',
                             toast: true,
@@ -255,7 +223,7 @@
 
         //? Za brisanje korisnika
         // * Noviji nacin
-        function deleteRole(item) {
+        function deletePermission(item) {
 
             $.ajaxSetup({
                 headers: {
@@ -264,7 +232,7 @@
             });
 
             Swal.fire({
-                title: 'Delete user?',
+                title: 'Delete permission?',
                 // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
@@ -279,7 +247,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "DELETE",
-                        url: "/admin/roles/" + formData.id,
+                        url: "/admin/permissions/" + formData.id,
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -295,7 +263,7 @@
                                 })
                             } else {
                                 Swal.fire({
-                                    title: 'Role has been deleted!',
+                                    title: 'Permission has been deleted!',
                                     // text: '',
                                     icon: 'success',
                                     toast: true,
@@ -304,11 +272,11 @@
                                     timer: 2500,
 
                                 })
-                                console.log("Izbrisana rola ID: " + formData.id);
+                                console.log("Izbrisana dozvola ID: " + formData.id);
 
                                 // window.location.reload(true);
-                                $(".row-role[data-id=" + formData.id + "] .deleteRoleBtn").text("Deleted").attr("disabled", "disabled");
-                                $(".row-role[data-id=" + formData.id + "] .editRoleBtn").fadeOut('slow');
+                                $(".row-permission[data-id=" + formData.id + "] .deletePermissionBtn").text("Deleted").attr("disabled", "disabled");
+                                $(".row-permission[data-id=" + formData.id + "] .editPermissionBtn").fadeOut('slow');
 
                                 var currentdate = new Date();
                                 var timestamp = currentdate.getDate() + "."
@@ -318,7 +286,7 @@
                                     + currentdate.getMinutes() + ":"
                                     + currentdate.getSeconds();
 
-                                $(".row-role[data-id=" + formData.id + "] .deletedAt").text(timestamp);
+                                $(".row-permission[data-id=" + formData.id + "] .deletedAt").text(timestamp);
 
 
                             }
@@ -329,9 +297,7 @@
         }
 
 
-        //? Za restore korisnika
-        // * Noviji nacin
-        function restoreRole(item) {
+        function restorePermission(item) {
 
             $.ajaxSetup({
                 headers: {
@@ -340,7 +306,7 @@
             });
 
             Swal.fire({
-                title: 'Restore role?',
+                title: 'Restore permission?',
                 // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
@@ -355,7 +321,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "PUT",
-                        url: "/admin/roles/" + formData.id + "/restore",
+                        url: "/admin/permissions/" + formData.id + "/restore",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -371,7 +337,7 @@
                                 })
                             } else {
                                 Swal.fire({
-                                    title: 'Role has been restored!',
+                                    title: 'Permission has been restored!',
                                     // text: '',
                                     icon: 'success',
                                     toast: true,
@@ -379,10 +345,10 @@
                                     showConfirmButton: false,
                                     timer: 2500,
                                 })
-                                console.log("Ozivljena rola ID: " + formData.id);
+                                console.log("Ozivljena dozvola ID: " + formData.id);
 
-                                $(".row-role[data-id=" + formData.id + "] .restoreRoleBtn").text("Restored").attr("disabled", "disabled");
-                                $(".row-role[data-id=" + formData.id + "] .deletedAt").text("NULL");
+                                $(".row-permission[data-id=" + formData.id + "] .restorePermissionBtn").text("Restored").attr("disabled", "disabled");
+                                $(".row-permission[data-id=" + formData.id + "] .deletedAt").text("NULL");
                             }
                         }
                     })
@@ -393,7 +359,7 @@
 
         //? Za permanentno brisanje korisnika
         // * Noviji nacin
-        function forceDeleteRole(item) {
+        function forceDeletePermission(item) {
 
             $.ajaxSetup({
                 headers: {
@@ -403,7 +369,7 @@
 
             Swal.fire({
                 title: 'Delete permanently?',
-                text: "You won't be able to restore user!",
+                text: "You won't be able to restore permission!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -417,7 +383,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "DELETE",
-                        url: "/admin/roles/" + formData.id + "/remove",
+                        url: "/admin/permissions/" + formData.id + "/remove",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -433,7 +399,7 @@
                                 })
                             } else {
                                 Swal.fire({
-                                    title: 'Role permanently deleted!',
+                                    title: 'Permission permanently deleted!',
                                     // text: '',
                                     icon: 'success',
                                     toast: true,
@@ -442,10 +408,10 @@
                                     timer: 2500,
 
                                 })
-                                console.log("Permanentno izbrisan Role ID: " + formData.id);
+                                console.log("Permanentno izbrisana dozvola ID: " + formData.id);
 
                                 // window.location.reload(true);
-                                $(".row-role[data-id=" + formData.id + "]")
+                                $(".row-permission[data-id=" + formData.id + "]")
                                     .children('td, th')
                                     .animate({
                                         padding: 0

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class RolesController extends Controller
      */
     public function index()
     {
-        return view('admin.roles', ['roles' => Role::withTrashed()->get()]);
+        return view('admin.roles', [
+            'roles' => Role::withTrashed()->get(),
+            'permissions' => Permission::all()
+        ]);
     }
 
     /**
@@ -36,7 +40,11 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = Role::create([
+            'name' => $request->role,
+        ]);
+
+        $role->permissions()->attach($request->permissions);
     }
 
     /**

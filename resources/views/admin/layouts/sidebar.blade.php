@@ -36,9 +36,21 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('permissions') }}">
+            <i class="fas fa-ban"></i>
+            <span>Permissions</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('posts.index') }}">
             <i class="fas fa-fw fa-blog"></i>
             <span>Posts</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('tags') }}">
+            <i class="fas fa-hashtag"></i>
+            <span>Tags</span></a>
     </li>
 
 {{--    <!-- Divider -->--}}
