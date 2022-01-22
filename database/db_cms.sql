@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2022 at 07:13 PM
+-- Generation Time: Jan 22, 2022 at 02:09 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -420,17 +420,22 @@ CREATE TABLE `permissions` (
                                `id` int(11) NOT NULL,
                                `name` varchar(255) COLLATE latin1_bin NOT NULL,
                                `slug` varchar(255) COLLATE latin1_bin NOT NULL,
+                               `description` text COLLATE latin1_bin DEFAULT NULL,
                                `created_at` timestamp NULL DEFAULT NULL,
-                               `updated_at` timestamp NULL DEFAULT NULL
+                               `updated_at` timestamp NULL DEFAULT NULL,
+                               `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 --
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-                                                                                 (1, 'All Permissions', 'all-permissions', '2022-01-21 16:42:59', '2022-01-21 16:42:59'),
-                                                                                 (2, 'View Dashboard', 'view-dashboard', '2022-01-20 18:00:51', '2022-01-20 18:00:51');
+INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+                                                                                                              (1, 'All Permissions', 'all-permissions', 'User has all privileges', '2022-01-21 16:42:59', '2022-01-21 16:42:59', NULL),
+                                                                                                              (2, 'View Dashboard', 'view-dashboard', 'User can only view a dashboard content', '2022-01-20 18:00:51', '2022-01-20 18:00:51', NULL),
+                                                                                                              (5, 'Colby Stevens', 'colby-stevens', 'Aut aut ipsum consequat Tempo', '2022-01-22 01:07:23', '2022-01-22 01:07:23', NULL),
+                                                                                                              (6, 'Dacey Hutchinson', 'dacey-hutchinson', 'Omnis quos exercitation numqua', '2022-01-22 01:07:39', '2022-01-22 01:07:39', NULL),
+                                                                                                              (7, 'Cade Atkins', 'cade-atkins', 'Ab eiusmod sunt qui irure fuga', '2022-01-22 01:07:42', '2022-01-22 01:07:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -511,6 +516,7 @@ CREATE TABLE `posts` (
                          `id` int(10) UNSIGNED NOT NULL,
                          `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `created_at` timestamp NULL DEFAULT NULL,
                          `updated_at` timestamp NULL DEFAULT NULL,
                          `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -522,16 +528,10 @@ CREATE TABLE `posts` (
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `title`, `content`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
-                                                                                                                  (52, 'Praesentium asperiores volupta', '<p>Praesentium asperiores voluptaPraesentium asperiores voluptaPraesentium asperiores voluptaPraesentium asperiores volupta</p>', '2022-01-19 16:13:09', '2022-01-19 16:13:09', 137, NULL, NULL),
-                                                                                                                  (55, 'In omnis cumque et rerum nostr', '<p>In omnis cumque et rerum nostrIn omnis cumque et rerum nostrIn omnis cumque et rerum nostrIn omnis cumque et rerum nostrIn omnis cumque et rerum nostr</p>', '2022-01-19 16:27:03', '2022-01-19 16:27:03', 1, NULL, NULL),
-                                                                                                                  (58, 'Inventore reprehenderit qui t', '<p>Inventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui tInventore reprehenderit qui t</p>', '2022-01-19 16:41:17', '2022-01-19 16:41:17', 136, NULL, NULL),
-                                                                                                                  (81, 'Ab qui amet in officia dolor', '<p>Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor Ab qui amet in officia dolor&nbsp;</p>', '2022-01-19 20:13:55', '2022-01-19 20:13:55', 139, NULL, 'canaleto.jpg'),
-                                                                                                                  (87, 'Sint sed fugiat esse volupta', '<p>Sint sed fugiat esse voluptaSint sed fugiat esse voluptaSint sed fugiat esse voluptaSint sed fugiat esse voluptaSint sed fugiat esse volupta</p>', '2022-01-19 21:58:59', '2022-01-19 21:58:59', 133, NULL, 'we are partizan.jpg'),
-                                                                                                                  (91, 'Sed voluptas amet tempor labo', '<p>Sed voluptas amet tempor labo</p>', '2022-01-19 22:05:45', '2022-01-19 22:05:45', 133, NULL, 'TEATRO-INFERNALE-olio-su-tela-110-x-160-cm-anno-2018.jpg'),
-                                                                                                                  (92, 'Fuga Ad exercitation quaerat', '<p>Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat Fuga Ad exercitation quaerat&nbsp;</p>', '2022-01-19 22:17:09', '2022-01-20 00:51:36', 1, NULL, 'banner3.jpg'),
-                                                                                                                  (93, 'Quod voluptate quibusdam dolor', '<p>Quod voluptate quibusdam dolorQuod voluptate quibusdam dolorQuod voluptate quibusdam dolor</p>', '2022-01-19 22:18:30', '2022-01-20 00:51:35', 137, NULL, '51630850633_b67a93c225_o.jpg'),
-                                                                                                                  (94, 'Novakova borba protiv korone: Đokovići vlasnici kompanije koja razvija tretman za sprečavanje zaražavanja', '<p><strong>Danski QuantBioRes razvija peptid koji sprečava da virus zarazi ljudske ćelije</strong></p>\r\n<div id=\"adoceanrsxfkrqnqpez\"></div>\r\n<div>\r\n<div>\r\n<p>Kako prenosi&nbsp;Rojters&nbsp;prvi reket sveta&nbsp;Novak Đoković&nbsp;ima 80 odsto vlasni&scaron;tva nad&nbsp;QuantBioRes&nbsp;kompanijom iz Danske. To potvrđuju izvr&scaron;ni direktor firme&nbsp;Ivan Lončarević, kao i zvanični podaci iz privrednog registra Danske.</p>\r\n<p>Kako se navodi, srpski teniser je jo&scaron; u junu 2020. godine napravio pomenutu investiciju, ali nije poznato u kom iznosu. U zvaničnim spisima stoji da je&nbsp;Jelena Đoković&nbsp;vlasnik 39,20 odsto deonica ove firme, dok je&nbsp;Novakov&nbsp;udeo u vlasni&scaron;tvu 40,8 odsto. Preostalih 20 odsto poseduje dotični&nbsp;Entoni Čarls Singsbi.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p>QuantBioRes&nbsp;ima 11 istraživača koji rade u Danskoj, Australiji i Sloveniji, a&nbsp;Lončarević&nbsp;napominje da se ne bave pravljenjem vakcine, već stvaranjem tretmana za borbu protiv virusa. Kompanija radi na razvijanju peptida, koji bi trebalo da spreči koronu da inficira ljudske ćelije. Klinička ispitivanja bi trebalo da počnu u Velikoj Britaniji ovog leta.</p>\r\n</div>\r\n</div>', '2022-01-19 22:50:02', '2022-01-20 00:51:33', 136, NULL, '1642615570007_djokovic.jpg');
+INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
+                                                                                                                          (93, 'Quod voluptate quibusdam dolor', '<p>Quod voluptate quibusdam dolorQuod voluptate quibusdam dolorQuod voluptate quibusdam dolor</p>', 'quod-voluptate', '2022-01-19 22:18:30', '2022-01-20 00:51:35', 137, NULL, '51630850633_b67a93c225_o.jpg'),
+                                                                                                                          (94, 'Novakova borba protiv korone: Đokovići vlasnici kompanije koja razvija tretman za sprečavanje zaražavanja', '<p><strong>Danski QuantBioRes razvija peptid koji sprečava da virus zarazi ljudske ćelije</strong></p>\n<div id=\"adoceanrsxfkrqnqpez\"></div>\n<div>\n<div>\n<p>Kako prenosi&nbsp;Rojters&nbsp;prvi reket sveta&nbsp;Novak Đoković&nbsp;ima 80 odsto vlasni&scaron;tva nad&nbsp;QuantBioRes&nbsp;kompanijom iz Danske. To potvrđuju izvr&scaron;ni direktor firme&nbsp;Ivan Lončarević, kao i zvanični podaci iz privrednog registra Danske.</p>\n<p>Kako se navodi, srpski teniser je jo&scaron; u junu 2020. godine napravio pomenutu investiciju, ali nije poznato u kom iznosu. U zvaničnim spisima stoji da je&nbsp;Jelena Đoković&nbsp;vlasnik 39,20 odsto deonica ove firme, dok je&nbsp;Novakov&nbsp;udeo u vlasni&scaron;tvu 40,8 odsto. Preostalih 20 odsto poseduje dotični&nbsp;Entoni Čarls Singsbi.</p>\n<div id=\"fingerprintNewsInText\"></div>\n<p>QuantBioRes&nbsp;ima 11 istraživača koji rade u Danskoj, Australiji i Sloveniji, a&nbsp;Lončarević&nbsp;napominje da se ne bave pravljenjem vakcine, već stvaranjem tretmana za borbu protiv virusa. Kompanija radi na razvijanju peptida, koji bi trebalo da spreči koronu da inficira ljudske ćelije. Klinička ispitivanja bi trebalo da počnu u Velikoj Britaniji ovog leta.</p>\n</div>\n</div>', 'Novakova-borba-protiv', '2022-01-19 22:50:02', '2022-01-20 00:51:33', 136, NULL, '1642615570007_djokovic.jpg'),
+                                                                                                                          (95, 'Ovo je naslov posta', 'Ovo je post', 'ovo-je-post', '2022-01-21 23:43:44', '2022-01-21 23:43:44', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -585,9 +585,9 @@ INSERT INTO `roles` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_
                                                                                          (2, 'Subscriber', 'subscriber', '2021-12-24 13:44:06', '2022-01-21 17:33:32', NULL),
                                                                                          (3, 'Guest', 'guest', '2021-12-24 13:44:06', '2022-01-21 18:10:30', NULL),
                                                                                          (4, 'Partner', 'partner', '2021-12-24 23:08:59', '2022-01-21 18:10:26', NULL),
-                                                                                         (5, 'Nomad', 'nomad', '2021-12-24 23:08:59', '2022-01-21 18:10:25', NULL),
-                                                                                         (6, 'Head', 'head', '2021-12-24 23:08:59', '2022-01-21 18:10:23', NULL),
-                                                                                         (7, 'Moderator', 'moderator', '2022-01-20 17:29:07', '2022-01-21 18:10:21', NULL);
+                                                                                         (5, 'Nomad', 'nomad', '2021-12-24 23:08:59', '2022-01-21 23:46:36', NULL),
+                                                                                         (6, 'Head', 'head', '2021-12-24 23:08:59', '2022-01-21 23:48:17', NULL),
+                                                                                         (7, 'Moderator', 'moderator', '2022-01-20 17:29:07', '2022-01-22 00:46:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -682,7 +682,8 @@ INSERT INTO `taggables` (`tag_id`, `taggable_id`, `taggable_type`) VALUES
                                                                        (3, 5, 'App\\Video'),
                                                                        (7, 1, 'App\\Post'),
                                                                        (2, 2, 'App\\Post'),
-                                                                       (2, 6, 'App\\Post');
+                                                                       (2, 6, 'App\\Post'),
+                                                                       (5, 95, 'App\\Post');
 
 -- --------------------------------------------------------
 
@@ -693,6 +694,7 @@ INSERT INTO `taggables` (`tag_id`, `taggable_id`, `taggable_type`) VALUES
 CREATE TABLE `tags` (
                         `id` bigint(20) UNSIGNED NOT NULL,
                         `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                         `created_at` timestamp NULL DEFAULT NULL,
                         `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -701,15 +703,15 @@ CREATE TABLE `tags` (
 -- Dumping data for table `tags`
 --
 
-INSERT INTO `tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
-                                                                  (1, 'sport', '2021-12-24 22:30:47', '2021-12-25 21:18:30'),
-                                                                  (2, 'education', '2021-12-24 22:31:00', NULL),
-                                                                  (3, 'science', NULL, NULL),
-                                                                  (4, 'lazio', NULL, NULL),
-                                                                  (5, 'partizan', NULL, NULL),
-                                                                  (6, 'zmajeva kugla', NULL, NULL),
-                                                                  (7, 'ramonda', NULL, NULL),
-                                                                  (8, 'framework', NULL, NULL);
+INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+                                                                          (1, 'sport', 'sport', '2021-12-24 22:30:47', '2021-12-25 21:18:30'),
+                                                                          (2, 'education', 'education', '2021-12-24 22:31:00', '2022-01-21 23:38:13'),
+                                                                          (3, 'science', 'science', '2022-01-21 23:38:00', '2022-01-21 23:38:15'),
+                                                                          (4, 'lazio', 'lazio', '2022-01-21 23:38:02', '2022-01-21 23:38:16'),
+                                                                          (5, 'partizan', 'partizan', '2022-01-21 23:38:04', '2022-01-21 23:38:18'),
+                                                                          (6, 'zmajeva kugla', 'zmajeva-kugla', '2022-01-21 23:38:06', '2022-01-21 23:38:19'),
+                                                                          (7, 'ramonda', 'ramonda', '2022-01-21 23:38:08', '2022-01-21 23:38:21'),
+                                                                          (8, 'framework', 'framework', '2022-01-21 23:38:10', '2022-01-21 23:38:22');
 
 -- --------------------------------------------------------
 
@@ -851,6 +853,7 @@ ALTER TABLE `photos`
 ALTER TABLE `posts`
     ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `posts_title_unique` (`title`),
+  ADD UNIQUE KEY `slug` (`slug`),
   ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
@@ -884,7 +887,8 @@ ALTER TABLE `staff`
 -- Indexes for table `tags`
 --
 ALTER TABLE `tags`
-    ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`);
 
 --
 -- Indexes for table `users`
@@ -937,7 +941,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `photos`
@@ -949,7 +953,7 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -961,7 +965,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `staff`
