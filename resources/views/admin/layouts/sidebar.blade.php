@@ -21,7 +21,6 @@
 {{--    <!-- Divider -->--}}
 {{--    <hr class="sidebar-divider">--}}
 
-
 <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users') }}">

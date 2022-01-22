@@ -18,10 +18,11 @@ class IsAdminMiddleware
     {
         //? Uvijek ide na negaciju uslov. Jer ovo $next je kao neki else true/continue
         // * getIsAdminAttribute() je is_admin/isAdmin funkcija iz User modela
-        if (!auth()->check() || !auth()->user()->is_admin) { // moze i isAdmin, svejedno je
-            return abort(403);
-        }
 
+
+        if (!auth()->check() || !auth()->user()->is_admin) { // moze i isAdmin, svejedno je
+            return redirect()->back();
+        }
 
         return $next($request); // next me vodi na zeljenu rutu
     }

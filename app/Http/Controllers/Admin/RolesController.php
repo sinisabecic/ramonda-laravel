@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RolesController extends Controller
 {
@@ -62,11 +63,14 @@ class RolesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        return view('admin.roles.edit_role', [
+            'role' => Role::findOrFail($id),
+            'permissions' => Permission::all()
+        ]);
     }
 
     /**
@@ -76,16 +80,21 @@ class RolesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Role $role)
     {
-        //
+        $inputs = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $role->permissions()->sync(request()->input('permissions'));
+        $role->update($inputs);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Role $role)
     {

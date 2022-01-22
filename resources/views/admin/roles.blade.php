@@ -31,7 +31,7 @@
                         <th>ID</th>
                         <th>Role</th>
                         <th>Slug</th>
-                        <th>Role permissions</th>
+                        <th>Permissions</th>
                         <th>Created</th>
                         <th>Created at</th>
                         <th>Deleted at</th>
