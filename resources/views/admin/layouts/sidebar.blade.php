@@ -28,19 +28,19 @@
                 <i class="fas fa-fw fa-user"></i>
                 <span>Users</span></a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('roles') }}">
+                <i class="fas fa-user-tag"></i>
+                <span>Roles</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('permissions') }}">
+                <i class="fas fa-ban"></i>
+                <span>Permissions</span></a>
+        </li>
     @endif
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('roles') }}">
-            <i class="fas fa-user-tag"></i>
-            <span>Roles</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('permissions') }}">
-            <i class="fas fa-ban"></i>
-            <span>Permissions</span></a>
-    </li>
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('posts.index') }}">
             <i class="fas fa-fw fa-blog"></i>

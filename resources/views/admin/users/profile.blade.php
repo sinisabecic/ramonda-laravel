@@ -99,24 +99,27 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                @if(auth()->user()->hasRole('admin'))
+                    <div class="form-group row">
+                        <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
-                    <div class="col-md-6">
-                        <select class="form-control" name="role" id="role">
-                            @foreach ($user->roles as $role)
-                                <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-                            @endforeach
+                        <div class="col-md-6">
+                            <select class="form-control" name="role" id="role">
+                                @foreach ($user->roles as $role)
+                                    <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
+                                @endforeach
 
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
-                        </select>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div>
-                    <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Profil image') }}</label>
+                    <label for="avatar"
+                           class="col-md-4 col-form-label text-md-right">{{ __('Profil image') }}</label>
                     <div class="col-md-6" style="left: 12.6rem!important;top: -1.7rem!important;">
                         <input type="file" id="avatar"
                                class="form-control-file @error('avatar') is-invalid @enderror"
@@ -150,7 +153,7 @@
                     @if($user->avatar !== 'user.jpg')
                     src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
                     @else
-                    src="uploads/{{ 'user.jpg' }}"
+                    src="/uploads/{{ 'user.jpg' }}"
                     @endif
                     alt=""
                     height="50%"
@@ -177,7 +180,7 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 $.ajax({
-                    url: "/users/" + {{ $user->id }},
+                    url: "/admin/users/" + {{ $user->id }}, // Bitno je da isti url bude za sve kako bi prosao, da se ne pravi if elle uslov
                     method: 'POST',
                     data: formData,
                     success: function () {

@@ -597,7 +597,7 @@ Route::group([
 //    'prefix' => 'admin',
 //    'as' => 'admin.',
     'namespace' => 'Admin', // da ne pisemo Admin\HomeController u action:
-    'middleware' => ['auth', 'role:admin,moderator'],
+    'middleware' => ['auth', 'role:admin'],
 ], function () {
 
     Route::get('/admin', 'HomeController')->name('admin');
@@ -653,37 +653,3 @@ Route::group([
     Route::delete('/admin/tags/{id}/remove', 'TagsController@remove');
     Route::put('/admin/tags/{id}/restore', 'TagsController@restore');
 });
-
-//? Moderator
-//Route::group([
-////    'prefix' => 'admin',
-////    'as' => 'admin.',
-//    'namespace' => 'Admin', // da ne pisemo Admin\HomeController u action:
-//    'middleware' => ['auth', 'role:moderator'],
-//], function () {
-//
-//    Route::get('/admin', 'HomeController')->name('admin');
-//
-//    //? Posts
-//    Route::resource('/posts', 'PostsController')
-//        ->name('index', 'posts.index')
-//        ->name('store', 'posts.store')
-//        ->name('edit', 'posts.edit')
-//        ->name('update', 'posts.update')
-//        ->name('destroy', 'posts.destroy');
-//    Route::delete('/posts/{id}/remove', 'PostsController@remove');
-//    Route::put('/posts/{id}/restore', 'PostsController@restore');
-//
-//
-//    //? Tags
-//    Route::resource('/admin/tags', 'TagsController')
-//        ->name('index', 'tags')
-//        ->name('store', 'tags.store')
-//        ->name('edit', 'tags.edit')
-//        ->name('update', 'tags.update')
-//        ->name('destroy', 'tags.delete');
-//    Route::delete('/admin/tags/{id}/remove', 'TagsController@remove');
-//    Route::put('/admin/tags/{id}/restore', 'TagsController@restore');
-//});
-
-

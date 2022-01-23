@@ -196,4 +196,26 @@ class UsersController extends Controller
         ]);
     }
 
+    public function profileEdit(User $user)
+    {
+        $inputs = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
+            'password' => ['string', 'min:8'],
+            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
+            'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
+            'address' => ['string'],
+        ]);
+
+
+        if (request()->hasFile('avatar')) {
+            $file = request()->file('avatar');
+            $avatar = $file->getClientOriginalName();
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            $inputs['avatar'] = $avatar;
+        }
+        $user->update($inputs);
+    }
+
 }
