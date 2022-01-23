@@ -22,12 +22,13 @@
 {{--    <hr class="sidebar-divider">--}}
 
 <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('users') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Users</span></a>
-    </li>
-
+    @if (auth()->check() && auth()->user()->hasRole('admin'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users') }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Users</span></a>
+        </li>
+    @endif
     <li class="nav-item">
         <a class="nav-link" href="{{ route('roles') }}">
             <i class="fas fa-user-tag"></i>

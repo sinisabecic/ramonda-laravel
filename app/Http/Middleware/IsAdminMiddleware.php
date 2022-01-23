@@ -20,7 +20,7 @@ class IsAdminMiddleware
         // * getIsAdminAttribute() je is_admin/isAdmin funkcija iz User modela
 
 
-        if (!auth()->check() || !auth()->user()->is_admin) { // moze i isAdmin, svejedno je
+        if (!auth()->check() || !auth()->user()->is_admin) {
             return redirect()->back();
         }
 

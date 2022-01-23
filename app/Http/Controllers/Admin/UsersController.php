@@ -26,6 +26,7 @@ class UsersController extends Controller
      */
     public function index()
     {
+//        if (auth()->user()->hasRole('Administrator'))
         $users = User::withTrashed()->get();
         $countries = Country::all();
         $roles = Role::all();
