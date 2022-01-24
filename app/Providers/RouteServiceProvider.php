@@ -15,6 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $admin = 'App\Http\Controllers\Admin';
 
     /**
      * The path to the "home" route for your application.
@@ -55,6 +56,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapRolesRoutes();
 
         $this->mapPermissionsRoutes();
+
+        $this->mapTagsRoutes();
         //
     }
 
@@ -76,32 +79,40 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('admin')
             ->middleware('web')
-            ->namespace($this->namespace)
+            ->namespace($this->admin)
             ->group(base_path('routes/web/posts.php'));
     }
 
     protected function mapUsersRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
-            ->namespace($this->namespace)
+            ->middleware(['web', 'auth', 'role:admin'])
+            ->namespace($this->namespace) //? u users.php je sve podeseno
             ->group(base_path('routes/web/users.php'));
     }
 
     protected function mapRolesRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
-            ->namespace($this->namespace)
+            ->middleware(['web', 'auth', 'role:admin'])
+            ->namespace($this->admin)
             ->group(base_path('routes/web/roles.php'));
     }
 
     protected function mapPermissionsRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
-            ->namespace($this->namespace)
+            ->middleware(['web', 'auth', 'role:admin'])
+            ->namespace($this->admin)
             ->group(base_path('routes/web/permissions.php'));
+    }
+
+    protected function mapTagsRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web', 'auth'])
+            ->namespace($this->admin)
+            ->group(base_path('routes/web/tags.php'));
     }
 
     /**
