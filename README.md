@@ -7,8 +7,8 @@
 - **u filesystems.php staviti public umjesto local**
 
 ### Za login
-- **Username:**sinisa (role: admin)
-- **Password:**sinisa94
+- Username: sinisa (role: admin)
+- Password: sinisa94
 ----------------------------------
-- **Username:**ema (role: auhor)
-- **Password:**sinisa94
+- Username: ema (role: auhor)
+- Password: sinisa94
