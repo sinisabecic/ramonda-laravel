@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PermissionsController extends Controller
 {
@@ -57,11 +58,13 @@ class PermissionsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        return view('admin.permissions.edit_permission', [
+            'permission' => Permission::findOrFail($id),
+        ]);
     }
 
     /**
@@ -71,9 +74,14 @@ class PermissionsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Permission $permission)
     {
-        //
+        $inputs = request()->validate([
+            'name' => ['required', 'string', 'max:255', Rule::unique('permissions')->ignore($permission)],
+            'description' => ['required', 'string', Rule::unique('permissions')->ignore($permission)],
+        ]);
+
+        $permission->update($inputs);
     }
 
     /**
