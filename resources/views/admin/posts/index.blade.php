@@ -102,7 +102,7 @@
                                                 Delete
                                             </button>
                                         </div>
-                                    @else
+                                    @elseif(auth()->user()->is_admin || auth()->user()->hasRole('head'))
                                         <div class="px-1">
                                             <button type="button" onclick="restorePost('{{ $post->id }}')"
                                                     class="btn btn-dark restorePostBtn">
@@ -111,12 +111,15 @@
                                         </div>
                                     @endif
 
-                                    <div class="px-1">
-                                        <button type="button" onclick="forceDeletePost('{{ $post->id }}')"
-                                                class="btn btn-warning text-dark forceDeletePostBtn">
-                                            Remove
-                                        </button>
-                                    </div>
+
+                                    @if(auth()->user()->is_admin)
+                                        <div class="px-1">
+                                            <button type="button" onclick="forceDeletePost('{{ $post->id }}')"
+                                                    class="btn btn-warning text-dark forceDeletePostBtn">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    @endif
                                     @if(!$post->deleted_at)
                                         <div class="px-1">
                                             <a href="{{ route("posts.edit", $post->id) }}" id="editpost"
@@ -196,7 +199,7 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 $.ajax({
-                    url: "/posts/" + {{ $post->id }},
+                    url: "/admin/posts/" + {{ $post->id }},
                     method: 'POST',
                     data: formData,
                     success: function () {
@@ -257,7 +260,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "DELETE",
-                        url: "/posts/" + formData.id,
+                        url: "/admin/posts/" + formData.id,
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -323,7 +326,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "PUT",
-                        url: "/posts/" + formData.id + "/restore",
+                        url: "/admin/posts/" + formData.id + "/restore",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -364,7 +367,12 @@
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
 
@@ -383,12 +391,11 @@
                 if (result.isConfirmed) {
                     const formData = {id: item};
                     $.ajax({
-                        type: "DELETE",
-                        url: "/posts/" + formData.id + "/remove",
+                        method: "DELETE",
+                        url: "/admin/posts/" + formData.id + "/remove",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
-                                console.log(response.error);
                                 Swal.fire({
                                     title: 'Error! Try again.',
                                     // text: '',
@@ -430,53 +437,6 @@
                 }
             });
         }
-
-
-        //* Edit user in modal form
-        // $(document).on("click", "#edituser", function () {
-        //     $("#editModalLabel").html("Edit user data");
-        //     // $(".modal-body form").attr("action", "http://localhost/ramonda/users/update");
-        //
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        //     });
-        //
-        //     const id = $(this).data("id");
-        //
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "/users/edit",
-        //         data: {user_id: id},
-        //         dataType: "JSON",
-        //         success: function (data) {
-        //             if (data.error) {
-        //                 console.log(data.error);
-        //                 alert(data.error);
-        //             } else {
-        //                 console.log(data[0]);
-        //
-        //                 $("#id").val(data[0].id);
-        //                 $("#name").val(data[0].name);
-        //                 $("#username").val(data[0].username);
-        //                 $("#email").val(data[0].email);
-        //                 // $("#password").val(data[0].password);
-        //                 $("#address").val(data[0].address);
-        //                 $("#city").val(data[0].city);
-        //                 $("#country").val(data[0].country);
-        //                 $("#phone").val(data[0].phone);
-        //                 $("#zip").val(data[0].zip);
-        //                 $("#is_admin").val(data[0].is_admin);
-        //             }
-        //         },
-        //         error: function (error) {
-        //             console.log(error);
-        //             alert("Greška, učitajte ponovo");
-        //         },
-        //         async: false,
-        //     });
-        // });
 
 
         function clearFields(form) {

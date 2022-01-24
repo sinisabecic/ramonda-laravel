@@ -34,6 +34,10 @@
                     <a class="navbar-brand" href="{{ url('/admin') }}">
                         {{ __('Admin') }}
                     </a>
+                @elseif(auth()->user()->hasAnyRole(['author', 'partner', 'user']))
+                    <a class="navbar-brand" href="{{ url('/admin') }}">
+                        {{ __('Dashboard') }}
+                    </a>
                 @endif
             @endif
 

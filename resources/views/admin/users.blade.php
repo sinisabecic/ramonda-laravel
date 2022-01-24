@@ -86,13 +86,9 @@
                                                 <span
                                                     class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case(ucfirst("head"))
+                                                @case(ucfirst("author"))
                                                 <span
                                                     class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
-                                                @break
-                                                @case(ucfirst("moderator"))
-                                                <span
-                                                    class="badge badge-pill badge-link rounded-0">{{ $role->name }}</span>
                                                 @break
                                                 @case(ucfirst("nomad"))
                                                 <span
@@ -131,20 +127,24 @@
                                             </button>
                                         </div>
                                     @else
+                                        @if(auth()->user()->is_admin)
+                                            <div class="px-1">
+                                                <button type="button" onclick="restoreUser('{{ $user->id }}')"
+                                                        class="btn btn-dark restoreBtn">
+                                                    Restore
+                                                </button>
+                                            </div>
+                                        @endif
+                                    @endif
+
+                                    @if(auth()->user()->is_admin)
                                         <div class="px-1">
-                                            <button type="button" onclick="restoreUser('{{ $user->id }}')"
-                                                    class="btn btn-dark restoreBtn">
-                                                Restore
+                                            <button type="button" onclick="forceDeleteUser('{{ $user->id }}')"
+                                                    class="btn btn-warning text-dark forceDeleteBtn">
+                                                Remove
                                             </button>
                                         </div>
                                     @endif
-
-                                    <div class="px-1">
-                                        <button type="button" onclick="forceDeleteUser('{{ $user->id }}')"
-                                                class="btn btn-warning text-dark forceDeleteBtn">
-                                            Remove
-                                        </button>
-                                    </div>
                                     @if(!$user->deleted_at)
                                         <div class="px-1">
                                             <a href="{{ route("users.edit", $user->id) }}" id="edituser"
@@ -223,7 +223,7 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 $.ajax({
-                    url: "/users/" + {{ $user->id }},
+                    url: "/admin/users/" + {{ $user->id }},
                     method: 'POST',
                     data: formData,
                     success: function () {
@@ -264,7 +264,12 @@
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
 
@@ -284,7 +289,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "DELETE",
-                        url: "/users/" + formData.id,
+                        url: "/admin/users/" + formData.id,
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -350,7 +355,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "PUT",
-                        url: "/users/" + formData.id + "/restore",
+                        url: "/admin/users/" + formData.id + "/restore",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -411,7 +416,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "DELETE",
-                        url: "/users/" + formData.id + "/remove",
+                        url: "/admin/users/" + formData.id + "/remove",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -457,53 +462,6 @@
                 }
             });
         }
-
-
-        //* Edit user in modal form
-        // $(document).on("click", "#edituser", function () {
-        //     $("#editModalLabel").html("Edit user data");
-        //     // $(".modal-body form").attr("action", "http://localhost/ramonda/users/update");
-        //
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        //     });
-        //
-        //     const id = $(this).data("id");
-        //
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "/users/edit",
-        //         data: {user_id: id},
-        //         dataType: "JSON",
-        //         success: function (data) {
-        //             if (data.error) {
-        //                 console.log(data.error);
-        //                 alert(data.error);
-        //             } else {
-        //                 console.log(data[0]);
-        //
-        //                 $("#id").val(data[0].id);
-        //                 $("#name").val(data[0].name);
-        //                 $("#username").val(data[0].username);
-        //                 $("#email").val(data[0].email);
-        //                 // $("#password").val(data[0].password);
-        //                 $("#address").val(data[0].address);
-        //                 $("#city").val(data[0].city);
-        //                 $("#country").val(data[0].country);
-        //                 $("#phone").val(data[0].phone);
-        //                 $("#zip").val(data[0].zip);
-        //                 $("#is_admin").val(data[0].is_admin);
-        //             }
-        //         },
-        //         error: function (error) {
-        //             console.log(error);
-        //             alert("Greška, učitajte ponovo");
-        //         },
-        //         async: false,
-        //     });
-        // });
 
 
         function clearFields(form) {

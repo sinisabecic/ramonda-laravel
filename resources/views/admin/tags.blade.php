@@ -33,7 +33,9 @@
                         <th>Slug</th>
                         <th>Created</th>
                         <th>Created at</th>
-                        <th>Deleted at</th>
+                        @if(auth()->user()->is_admin)
+                            <th>Deleted at</th>
+                        @endif
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -62,7 +64,8 @@
                                     {{ $tag->created_at->format('d.m.Y. H:i:s') }}
                                 </span>
                             </td>
-                            <td>
+                            @if(auth()->user()->is_admin)
+                                <td>
                                 <span class="badge badge-pill small deletedAt">
                                      @if($tag->deleted_at)
                                         {{ $tag->deleted_at->format('d.m.Y. H:i:s') }}
@@ -70,7 +73,8 @@
                                         {{ 'NULL' }}
                                     @endif
                                 </span>
-                            </td>
+                                </td>
+                            @endif
                             <td>
                                 <div class="d-inline-flex">
 
@@ -81,7 +85,7 @@
                                                 Delete
                                             </button>
                                         </div>
-                                    @else
+                                    @elseif(auth()->user()->is_admin)
                                         <div class="px-1">
                                             <button type="button" onclick="restoreTag('{{ $tag->id }}')"
                                                     class="btn btn-dark restoreTagBtn">
@@ -89,13 +93,14 @@
                                             </button>
                                         </div>
                                     @endif
-
-                                    <div class="px-1">
-                                        <button type="button" onclick="forceDeleteTag('{{ $tag->id }}')"
-                                                class="btn btn-warning text-dark forceDeleteTagBtn">
-                                            Remove
-                                        </button>
-                                    </div>
+                                    @if(auth()->user()->is_admin)
+                                        <div class="px-1">
+                                            <button type="button" onclick="forceDeleteTag('{{ $tag->id }}')"
+                                                    class="btn btn-warning text-dark forceDeleteTagBtn">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    @endif
                                     @if(!$tag->deleted_at)
                                         <div class="px-1">
                                             <a href="{{ route("tags.edit", $tag->id) }}" id="edittag"

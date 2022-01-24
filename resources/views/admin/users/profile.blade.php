@@ -62,7 +62,7 @@
 
                     <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control"
-                               name="password_confirmation" autocomplete="new-password" value="{{ $user->password }}">
+                               name="password" autocomplete="new-password" value="{{ $user->password }}">
                     </div>
                 </div>
 
@@ -102,17 +102,18 @@
                 @if(auth()->user()->hasRole('admin'))
                     <div class="form-group row">
                         <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
                         <div class="col-md-6">
-                            <select class="form-control" name="role" id="role">
-                                @foreach ($user->roles as $role)
-                                    <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-                                @endforeach
-
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                @endforeach
-                            </select>
+                            @foreach ($roles as $role)
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="roles[]"
+                                           value="{{ $role->id }}" id="{{ $role->name }}"
+                                           @isset($user) @if(in_array($role->id, auth()->user()->roles->pluck('id')->toArray())) checked @endif @endisset
+                                    >
+                                    <label for="{{ $role->name }}" class="form-check-label">
+                                        {{ $role->name }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 @endif
@@ -172,7 +173,12 @@
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
             //? Za izmjenu korisnika
@@ -180,8 +186,12 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 $.ajax({
-                    url: "/admin/users/" + {{ $user->id }}, // Bitno je da isti url bude za sve kako bi prosao, da se ne pravi if elle uslov
                     method: 'POST',
+                    @if(auth()->user()->is_admin)
+                    url: "{{ route('users.update', $user->id) }}",
+                    @else
+                    url: "{{ route('user.profile.update', $user->id) }}",
+                    @endif
                     data: formData,
                     success: function () {
                         Swal.fire({

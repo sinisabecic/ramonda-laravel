@@ -61,7 +61,7 @@
 
                     <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control"
-                               name="password_confirmation" autocomplete="new-password" value="{{ $user->password }}">
+                               name="password" autocomplete="new-password" value="{{ $user->password }}">
                     </div>
                 </div>
 
@@ -171,7 +171,12 @@
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
             //? Za izmjenu korisnika
@@ -180,7 +185,7 @@
                 const formData = new FormData(this);
                 $.ajax({
                     method: 'POST',
-                    url: "{{ route('users.update', $user->id) }}",
+                    url: "/admin/users/{{ $user->id }}",
                     data: formData,
                     success: function () {
                         Swal.fire({

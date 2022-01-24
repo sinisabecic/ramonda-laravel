@@ -51,11 +51,11 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item m-0 p-0 py-1 bg-transparent">
                                         @switch($role->name)
-                                            @case(ucfirst("administrator"))
+                                            @case(ucfirst("admin"))
                                             <span
                                                 class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
                                             @break
-                                            @case(ucfirst("guest"))
+                                            @case(ucfirst("user"))
                                             <span
                                                 class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
                                             @break
@@ -67,13 +67,9 @@
                                             <span
                                                 class="badge badge-pill badge-info rounded-0">{{ $role->name }}</span>
                                             @break
-                                            @case(ucfirst("head"))
+                                            @case(ucfirst("author"))
                                             <span
                                                 class="badge badge-pill badge-primary rounded-0">{{ $role->name }}</span>
-                                            @break
-                                            @case(ucfirst("moderator"))
-                                            <span
-                                                class="badge badge-pill badge-link rounded-0">{{ $role->name }}</span>
                                             @break
                                             @case(ucfirst("nomad"))
                                             <span

@@ -122,6 +122,7 @@ class UsersController extends Controller
             request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
             $inputs['avatar'] = $avatar;
         }
+
         $user->roles()->sync(request()->input('roles'));
         $user->update($inputs);
     }
@@ -196,7 +197,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function profileEdit(User $user)
+    public function profileUpdate(User $user)
     {
         $inputs = request()->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -207,7 +208,6 @@ class UsersController extends Controller
             'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
             'address' => ['string'],
         ]);
-
 
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
