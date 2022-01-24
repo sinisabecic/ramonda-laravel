@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 01:21 AM
+-- Generation Time: Jan 24, 2022 at 01:29 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -543,7 +543,6 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
-                                                                                                                          (95, 'Ovo je naslov posta', '<p>Ovo je post</p>', 'ovo-je-naslov-posta', '2022-01-21 23:43:44', '2022-01-23 23:37:34', 140, NULL, NULL),
                                                                                                                           (96, 'Et ea voluptas et adipisci mod', '<p>Et ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci mod</p>', 'et-ea-voluptas-et-adipisci-mod', '2022-01-22 01:28:20', '2022-01-22 01:28:28', 143, '2022-01-22 01:28:28', 'aron-gestsson-L0SWkPAAke4-unsplash.jpg'),
                                                                                                                           (97, 'Praesentium cupidatat temporib', '<p>wwwwwwwwwwwwwwwwwww</p>', 'praesentium-cupidatat-temporib', '2022-01-22 01:48:11', '2022-01-23 22:08:33', 137, NULL, 'Trip Vutra.png'),
                                                                                                                           (98, 'Libero quibusdam labore corpor', '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>', 'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-23 22:12:38', 141, NULL, 'rosette-nebula-1920×1080.jpg');
@@ -628,7 +627,6 @@ INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUE
                                                                                (136, 3, '2022-01-17 15:19:51', NULL),
                                                                                (137, 4, '2022-01-20 03:26:22', NULL),
                                                                                (138, 5, '2022-01-18 01:38:15', NULL),
-                                                                               (140, 1, '2022-01-18 15:07:07', NULL),
                                                                                (141, 4, '2022-01-21 14:00:55', NULL),
                                                                                (142, 2, '2022-01-20 03:23:15', NULL),
                                                                                (143, 5, '2022-01-20 16:03:47', NULL),
@@ -758,7 +756,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `co
                                                                                                                                                                                             (136, 'Lamar Hubbard', 'ryjyvabyk@mailinator.com', NULL, '$2y$10$m8GD6xqIviNc/7aBRhQ/temTXhecIWAU.WddjF0.shbZ2Opc/Nwue', 168, 'NatalijinaRamonda.jpg', NULL, '2022-01-17 15:19:51', '2022-01-23 22:59:34', '2022-01-23 22:59:34', 'Officia neque aliquid dolor ip', 'gadajygoh'),
                                                                                                                                                                                             (137, 'May Armstrong', 'nenu@mailinator.com', NULL, '$2y$10$ffWCUg1L4exb.odoBmGqu.7wCO7rB606batrhnGyB7cwXmYynnRgm', 206, 'logo-2.png', NULL, '2022-01-17 15:21:22', '2022-01-17 23:40:31', NULL, 'Sed eius cumque dolores repreh', 'jidovyg'),
                                                                                                                                                                                             (138, 'Nyssa Whitehead', 'relozyh@mailinator.com', NULL, '$2y$10$PfhedyRCu6jqyoqji5nWuenNGGlZvVmLtEzRcKw8rn9MVBM1FtBNG', 172, 'WIN_20211223_17_10_40_Pro.jpg', NULL, '2022-01-17 16:12:46', '2022-01-20 03:00:53', '2022-01-20 03:00:53', 'Fugiat ad irure dolore aperiam', 'tydiv'),
-                                                                                                                                                                                            (140, 'Zoza Maričić Balboa', 'zoza@gmail.com', NULL, '$2y$10$Vwb1/jB4W.rhE2qh/.496u8USrMnj8c/j8AYvNw5fx9wTUNOUg8Qy', 245, 'viber_image_2022-01-17_13-23-22-972.jpg', NULL, '2022-01-18 15:07:07', '2022-01-23 19:44:08', NULL, 'Zimbabwe n.n.', 'zoza'),
                                                                                                                                                                                             (141, 'Emerald Hogan', 'wiwidu@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 188, 'new.jpg', NULL, '2022-01-20 01:59:00', '2022-01-20 03:08:44', NULL, 'Eveniet magna qui ipsum et v', 'user'),
                                                                                                                                                                                             (142, 'Abdul Payne', 'wise@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 198, 'user.jpg', NULL, '2022-01-20 03:13:01', '2022-01-20 03:13:01', NULL, 'Rem quis nobis ut magnam quia', 'korisnik'),
                                                                                                                                                                                             (143, 'Nomad', 'zokygyr@mailinator.com', NULL, '$2y$10$/F0uToFzN4TS4fYMW1pp4u4QFb0s10A4gKTJPkAGECvMdKRlF5EXC', 13, 'default.png', NULL, '2022-01-20 16:03:47', '2022-01-23 19:16:47', NULL, 'Ipsam saepe dolorum voluptas n', 'nomad'),
