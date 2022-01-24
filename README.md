@@ -5,7 +5,7 @@
 - **php artisan ui bootstrap --auth**
 - **php artisan laravel/ui ukoliko nema u vendor laravel/ui**
 - **u filesystems.php staviti public umjesto local**
-- **db_cms.sql importovati**
+- **database/db_cms.sql importovati**
 
 ### Za login
 - Username: sinisa (role: admin)
