@@ -74,7 +74,7 @@
                                                 <span
                                                     class="badge badge-pill badge-dark rounded-0">{{ $role->name }}</span>
                                                 @break
-                                                @case(ucfirst("guest"))
+                                                @case(ucfirst("user"))
                                                 <span
                                                     class="badge badge-pill badge-success rounded-0">{{ $role->name }}</span>
                                                 @break
