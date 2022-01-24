@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/posts', 'PostsController@show');
-Route::get('/posts/{id}', 'PostsController@show');
+//? Posts (public)
+Route::get('/posts', 'Admin\PostsController@show');
+Route::get('/posts/{id}', 'Admin\PostsController@show');
 
 Route::middleware(['auth'])->group(function () {
 
