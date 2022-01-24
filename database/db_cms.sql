@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 01:29 AM
+-- Generation Time: Jan 24, 2022 at 03:48 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -749,7 +749,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `avatar`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`) VALUES
-                                                                                                                                                                                            (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$g6jTaB56KsZn0s89j7BPzudZLjYo.CgNfyIGdngr/pOPvNK95ASoG', 147, 'IMG_20210409_133526_2.jpg', 'YsqCqOxfCicv736jsbe4iRgDPQZXowxKDTNRvGrJnanKqXgdeXAfkCXfSp6e', '2021-12-28 23:26:57', '2022-01-24 00:00:30', NULL, 'Partizanski put bb', 'sinisa'),
+                                                                                                                                                                                            (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'IMG_20210409_133526_2.jpg', 'YsqCqOxfCicv736jsbe4iRgDPQZXowxKDTNRvGrJnanKqXgdeXAfkCXfSp6e', '2021-12-28 23:26:57', '2022-01-24 00:00:30', NULL, 'Partizanski put bb', 'sinisa'),
                                                                                                                                                                                             (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$BMKarP3TScYNRNw.l5gty.SqP7NBnXL1mDk0gPd9cuc5.kW1KGPFq', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-23 23:54:09', NULL, 'Deserunt repudiandae dolorem e', 'ema'),
                                                                                                                                                                                             (4, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'default.jpg', NULL, '2021-12-24 12:55:38', '2022-01-23 19:04:13', NULL, 'Momisici', 'ivan'),
                                                                                                                                                                                             (135, 'Ray Roy', 'rynemu@mailinator.com', NULL, '$2y$10$Kiv3zuypn0P/5AHmA.WdaeI0uFnR4fULFOfT6EpgU/HhpIZ4wybnO', 232, 'portfolio.png', NULL, '2022-01-17 15:17:06', '2022-01-24 00:21:02', NULL, 'Ipsum et cupiditate soluta asp', 'xibop'),
