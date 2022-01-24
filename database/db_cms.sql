@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 04:22 PM
+-- Generation Time: Jan 24, 2022 at 04:46 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -438,7 +438,8 @@ INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `created_at`, `u
                                                                                                               (10, 'Read', 'read', 'Enables users to view pages and list items, and to download documents.', '2022-01-22 01:23:39', '2022-01-22 01:23:39', NULL),
                                                                                                               (11, 'Contribute', 'contribute', 'Enables users to manage personal views, edit items and user information, delete versions in existing lists and document libraries, and add, remove, and update personal Web Parts.', '2022-01-22 01:23:54', '2022-01-22 01:23:54', NULL),
                                                                                                               (12, 'Edit', 'edit', 'Enables users to manage lists.', '2022-01-22 01:24:03', '2022-01-24 15:20:28', NULL),
-                                                                                                              (14, 'Design', 'design', 'Enables users to view, add, update, delete, approve, and customize items or pages in the website.', '2022-01-22 01:31:12', '2022-01-24 15:22:14', NULL);
+                                                                                                              (14, 'Design', 'design', 'Enables users to view, add, update, delete, approve, and customize items or pages in the website.', '2022-01-22 01:31:12', '2022-01-24 15:22:14', NULL),
+                                                                                                              (17, 'No access', 'no-access', 'The user doesn’t have access to anything.', '2022-01-24 15:44:30', '2022-01-24 15:44:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -460,12 +461,15 @@ CREATE TABLE `permission_role` (
 INSERT INTO `permission_role` (`permission_id`, `role_id`, `created_at`, `updated_at`) VALUES
                                                                                            (1, 1, '2022-01-20 18:04:30', NULL),
                                                                                            (2, 6, '2022-01-22 16:45:29', NULL),
+                                                                                           (2, 14, '2022-01-24 15:23:55', NULL),
                                                                                            (9, 2, '2022-01-22 17:08:27', NULL),
                                                                                            (9, 5, '2022-01-22 17:09:05', NULL),
                                                                                            (10, 3, '2022-01-22 16:57:47', NULL),
+                                                                                           (10, 14, '2022-01-24 15:23:55', NULL),
                                                                                            (11, 4, '2022-01-22 17:08:57', NULL),
                                                                                            (11, 6, '2022-01-22 17:09:41', NULL),
                                                                                            (12, 6, '2022-01-22 16:45:29', NULL),
+                                                                                           (12, 14, '2022-01-24 15:23:55', NULL),
                                                                                            (14, 6, '2022-01-22 16:45:29', NULL);
 
 -- --------------------------------------------------------
@@ -597,7 +601,8 @@ INSERT INTO `roles` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_
                                                                                          (3, 'User', 'user', '2021-12-24 13:44:06', '2022-01-23 23:58:32', NULL),
                                                                                          (4, 'Partner', 'partner', '2021-12-24 23:08:59', '2022-01-21 18:10:26', NULL),
                                                                                          (5, 'Nomad', 'nomad', '2021-12-24 23:08:59', '2022-01-21 23:46:36', NULL),
-                                                                                         (6, 'Author', 'author', '2021-12-24 23:08:59', '2022-01-21 23:48:17', NULL);
+                                                                                         (6, 'Author', 'author', '2021-12-24 23:08:59', '2022-01-21 23:48:17', NULL),
+                                                                                         (14, 'Manager', 'manager', '2022-01-24 15:23:55', '2022-01-24 15:23:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -747,7 +752,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `avatar`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`) VALUES
                                                                                                                                                                                             (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'IMG_20210409_133526_2.jpg', 'YsqCqOxfCicv736jsbe4iRgDPQZXowxKDTNRvGrJnanKqXgdeXAfkCXfSp6e', '2021-12-28 23:26:57', '2022-01-24 00:00:30', NULL, 'Partizanski put bb', 'sinisa'),
-                                                                                                                                                                                            (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$BMKarP3TScYNRNw.l5gty.SqP7NBnXL1mDk0gPd9cuc5.kW1KGPFq', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-23 23:54:09', NULL, 'Deserunt repudiandae dolorem e', 'ema'),
+                                                                                                                                                                                            (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$O.dCGR3snfR3xgtfmqhfDuSPay19FywPQN7MbdsnRGDfq.j9J7wma', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-24 15:45:44', NULL, 'Deserunt repudiandae dolorem e', 'ema'),
                                                                                                                                                                                             (4, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'default.jpg', NULL, '2021-12-24 12:55:38', '2022-01-23 19:04:13', NULL, 'Momisici', 'ivan'),
                                                                                                                                                                                             (135, 'Ray Roy', 'rynemu@mailinator.com', NULL, '$2y$10$Kiv3zuypn0P/5AHmA.WdaeI0uFnR4fULFOfT6EpgU/HhpIZ4wybnO', 232, 'portfolio.png', NULL, '2022-01-17 15:17:06', '2022-01-24 00:21:02', NULL, 'Ipsum et cupiditate soluta asp', 'xibop'),
                                                                                                                                                                                             (136, 'Lamar Hubbard', 'ryjyvabyk@mailinator.com', NULL, '$2y$10$m8GD6xqIviNc/7aBRhQ/temTXhecIWAU.WddjF0.shbZ2Opc/Nwue', 168, 'NatalijinaRamonda.jpg', NULL, '2022-01-17 15:19:51', '2022-01-23 22:59:34', '2022-01-23 22:59:34', 'Officia neque aliquid dolor ip', 'gadajygoh'),
@@ -944,7 +949,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `photos`
@@ -968,7 +973,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `staff`
