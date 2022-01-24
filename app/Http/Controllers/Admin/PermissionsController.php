@@ -15,7 +15,7 @@ class PermissionsController extends Controller
      */
     public function index()
     {
-        return view('admin.permissions', ['permissions' => Permission::all()]);
+        return view('admin.permissions', ['permissions' => Permission::withTrashed()->get()]);
     }
 
     /**
