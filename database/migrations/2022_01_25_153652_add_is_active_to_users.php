@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnDeletedAtToUsers extends Migration
+class AddIsActiveToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddColumnDeletedAtToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->softDeletes();
+            $table->integer('is_active')->default(0);
         });
     }
 
@@ -27,8 +26,7 @@ class AddColumnDeletedAtToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn('deleted_at');
+            $table->dropColumn('is_active');
         });
     }
 }
