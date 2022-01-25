@@ -102,6 +102,17 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+
+                        <div class="col-md-6">
+                            <select class="form-control" name="is_active" id="is_active">
+                                <option value="1">{{ __('Active') }}</option>
+                                <option value="0">{{ __('Not active') }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address')
                                 }}</label>
 

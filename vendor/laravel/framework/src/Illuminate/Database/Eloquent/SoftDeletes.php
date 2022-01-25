@@ -39,7 +39,7 @@ trait SoftDeletes
     //? Po ugledu na soft delete, ovo mi treba za status
     public function initializeStatus()
     {
-        $this->status[] = $this->getStatusColumn();
+        $this->is_active[] = $this->getStatusColumn();
     }
 
     /**

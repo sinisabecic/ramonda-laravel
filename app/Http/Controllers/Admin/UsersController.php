@@ -19,11 +19,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
 //        if (auth()->user()->hasRole('Administrator'))
@@ -33,22 +29,13 @@ class UsersController extends Controller
         return view('admin.users', compact('users', 'countries', 'roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $user = User::create([
@@ -58,6 +45,7 @@ class UsersController extends Controller
             'password' => $request->password,
             'country_id' => $request->country,
             'address' => $request->address,
+            'is_active' => $request->is_active,
             'avatar' => 'user.jpg',
         ]);
 
@@ -72,12 +60,7 @@ class UsersController extends Controller
 //        return $user;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -109,9 +92,9 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'password' => ['string', 'min:8'],
+            'is_active' => ['required'],
             'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
-            'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
+            'country_id' => ['string'],
             'address' => ['string'],
         ]);
 
@@ -124,6 +107,23 @@ class UsersController extends Controller
         }
 
         $user->roles()->sync(request()->input('roles'));
+        $user->update($inputs);
+    }
+
+    //? View page
+    public function editPassword($id)
+    {
+        return view('admin.users.edit_password', [
+            'user' => User::findOrFail($id)
+        ]);
+    }
+
+    public function updatePassword(User $user)
+    {
+        $inputs = request()->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
         $user->update($inputs);
     }
 

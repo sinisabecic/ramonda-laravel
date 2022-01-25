@@ -95,7 +95,10 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+//        return $request->only($this->username(), 'password');
+
+        //? Samo ukoliko je korisnik aktivan (is_active = 1)
+        return ['username' => $request->{$this->username()}, 'password' => $request->password, 'is_active' => 1];
     }
 
     /**

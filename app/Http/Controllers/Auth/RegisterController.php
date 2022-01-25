@@ -90,6 +90,7 @@ class RegisterController extends Controller
             'email' => $input['email'],
             'username' => $input['username'],
             'password' => $input['password'],
+//            'is_active' => 0, // u bazi je default 0
             'country_id' => $input['country'],
             'address' => $input['address'],
             'avatar' => 'user.jpg',

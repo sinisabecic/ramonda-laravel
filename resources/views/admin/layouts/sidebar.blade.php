@@ -24,33 +24,65 @@
 <!-- Nav Item - Tables -->
     @if (auth()->check() && auth()->user()->hasRole('admin'))
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users') }}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Users</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('roles') }}">
-                <i class="fas fa-user-tag"></i>
-                <span>Roles</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('permissions') }}">
-                <i class="fas fa-ban"></i>
-                <span>Permissions</span></a>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-power-off"></i>
+                <span>Authorization</span>
+            </a>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded-sm">
+                    <h6 class="collapse-header">Manage authorization:</h6>
+                    <a class="collapse-item" href="{{ route('users') }}">
+                        <i class="fas fa-fw fa-user"></i>
+                        Users
+                    </a>
+                    <a class="collapse-item" href="{{ route('roles') }}">
+                        <i class="fas fa-user-tag"></i>
+                        Roles
+                    </a>
+                    <a class="collapse-item" href="{{ route('permissions') }}">
+                        <i class="fas fa-ban"></i>
+                        Permissions
+                    </a>
+                </div>
+            </div>
         </li>
     @endif
+
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('posts.index') }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-blog"></i>
-            <span>Posts</span></a>
+            <span>Blog</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded-sm">
+                <h6 class="collapse-header">Custom blog:</h6>
+                <a class="collapse-item" href="{{ route('posts.index') }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    Posts
+                </a>
+                <a class="collapse-item" href="{{ route('tags') }}">
+                    <i class="fas fa-hashtag"></i>
+                    Tags
+                </a>
+            </div>
+        </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('tags') }}">
-            <i class="fas fa-hashtag"></i>
-            <span>Tags</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-photo-video"></i>
+            <span>Components</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded-sm">
+                <h6 class="collapse-header">Custom media:</h6>
+                <a class="collapse-item" href="buttons.html">All media</a>
+                <a class="collapse-item" href="cards.html">Upload media</a>
+            </div>
+        </div>
     </li>
 
 {{--    <!-- Divider -->--}}

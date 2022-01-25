@@ -56,16 +56,6 @@
 
 
                 <div class="form-group row">
-                    <label for="password-confirm"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control"
-                               name="password" autocomplete="new-password" value="{{ $user->password }}">
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country')
                                         }}</label>
 
@@ -95,6 +85,27 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+
+                    <div class="col-md-6">
+                        <select class="form-control" name="is_active" id="is_active">
+
+                            @isset($user) @if($user->is_active == '1')
+                                <option value="1" selected>{{ __('Active') }}</option>
+                                <option value="0">{{ __('Not active') }}</option>
+                            @endif
+
+                            @if($user->is_active == '0')
+                                <option value="0" selected>{{ __('Not active') }}</option>
+                                <option value="1">{{ __('Active') }}</option>
+                            @endif
+                            @endisset
+
+                        </select>
                     </div>
                 </div>
 

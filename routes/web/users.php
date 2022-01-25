@@ -20,11 +20,10 @@ Route::group([
 });
 
 //? Users
+
 Route::group([
-//    'prefix' => 'admin',
-//    'as' => 'admin.',
     'namespace' => 'Admin',
-    'middleware' => ['role:admin', 'auth'],
+    'middleware' => ['auth'],
 ], function () {
     Route::resource('/users', 'UsersController')
         ->name('index', 'users')
@@ -34,6 +33,12 @@ Route::group([
 
     Route::delete('/users/{id}/remove', 'UsersController@remove')->name('users.remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
+
+    Route::get('/users/{id}/edit/new-password', 'UsersController@editPassword')
+        ->name('users.edit.password');
+
+    Route::patch('/users/{id}/edit/new-password/update', 'UsersController@updatePassword')
+        ->name('users.update.password');
 
 
 });

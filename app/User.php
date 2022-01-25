@@ -27,8 +27,6 @@ class User extends Authenticatable
     //! Soft delete
     protected $dates = ['deleted_at'];
 
-//    protected $status = ['status']; //? Ovo za sad necu jos koristiti
-
     /**
      * The attributes that should be hidden for arrays.
      *
