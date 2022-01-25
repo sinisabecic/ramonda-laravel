@@ -80,6 +80,13 @@ class User extends Authenticatable
         ->withPivot('created_at'); //->withPivot('created_at');
     }
 
+    public function role()
+    {
+        foreach (auth()->user()->roles as $role) {
+            return $role;
+        }
+    }
+
     public function hasAnyRole($roles)
     {
         if (is_array($roles)) {

@@ -5,7 +5,10 @@
         {{--        <div class="sidebar-brand-icon rotate-n-15">--}}
         {{--            <i class="fas fa-laugh-wink"></i>--}}
         {{--        </div>--}}
-        <div class="sidebar-brand-text mx-3">{{ config('app.name') }}</div>
+        <div class="sidebar-brand-text mx-3">
+            {{ config('app.name') }} <span
+                class="badge bg-secondary">{{ auth()->user()->role()->name }}</span>
+        </div>
     </a>
 
     <!-- Divider -->
