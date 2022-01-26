@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2022 at 04:46 PM
+-- Generation Time: Jan 26, 2022 at 06:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -396,7 +396,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
                                                           (21, '2021_12_25_201112_create_commentables_table', 5),
                                                           (22, '2021_12_25_203857_add_some_columns_to_comments_table', 6),
                                                           (23, '2021_12_28_011525_add_column_path_to_posts_table', 7),
-                                                          (24, '2021_12_29_010201_add_column_address_to_users_table', 8);
+                                                          (24, '2021_12_29_010201_add_column_address_to_users_table', 8),
+                                                          (25, '2022_01_25_145532_create_sessions_table', 9),
+                                                          (26, '2022_01_25_153652_add_is_active_to_users', 10);
 
 -- --------------------------------------------------------
 
@@ -431,8 +433,8 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `slug`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-                                                                                                              (1, 'Full Control', 'full-control', 'User has all privileges', '2022-01-21 16:42:59', '2022-01-21 16:42:59', NULL),
-                                                                                                              (2, 'View Dashboard', 'view-dashboard', 'User can only view a dashboard content', '2022-01-20 18:00:51', '2022-01-20 18:00:51', NULL),
+                                                                                                              (1, 'Full Control', 'full-control', 'User has all privileges', '2022-01-21 16:42:59', '2022-01-24 15:47:39', NULL),
+                                                                                                              (2, 'View Dashboard', 'view-dashboard', 'User can only view a dashboard.', '2022-01-20 18:00:51', '2022-01-24 15:57:28', NULL),
                                                                                                               (8, 'View Only', 'view-only', 'Enables users to view application pages. The View Only permission level is used for the Excel Services Viewers group.', '2022-01-22 01:21:35', '2022-01-22 01:21:35', NULL),
                                                                                                               (9, 'Limited Access', 'limited-access', 'Enables users to access shared resources and a specific asset. Limited Access is designed to be combined with fine-grained permissions to enable users to access a specific list, document library, folder, list item, or document, without enabling them to access the whole site. Limited Access cannot be edited or deleted.', '2022-01-22 01:23:24', '2022-01-22 01:23:24', NULL),
                                                                                                               (10, 'Read', 'read', 'Enables users to view pages and list items, and to download documents.', '2022-01-22 01:23:39', '2022-01-22 01:23:39', NULL),
@@ -544,9 +546,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
-                                                                                                                          (96, 'Et ea voluptas et adipisci mod', '<p>Et ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci mod</p>', 'et-ea-voluptas-et-adipisci-mod', '2022-01-22 01:28:20', '2022-01-22 01:28:28', 143, '2022-01-22 01:28:28', 'aron-gestsson-L0SWkPAAke4-unsplash.jpg'),
-                                                                                                                          (97, 'Praesentium cupidatat temporib', '<p>wwwwwwwwwwwwwwwwwww</p>', 'praesentium-cupidatat-temporib', '2022-01-22 01:48:11', '2022-01-23 22:08:33', 137, NULL, 'Trip Vutra.png'),
-                                                                                                                          (98, 'Libero quibusdam labore corpor', '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>', 'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-23 22:12:38', 141, NULL, 'rosette-nebula-1920×1080.jpg');
+                                                                                                                          (96, 'Et ea voluptas et adipisci mod', '<p>Et ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci mod</p>', 'et-ea-voluptas-et-adipisci-mod', '2022-01-22 01:28:20', '2022-01-24 16:03:44', 141, NULL, 'aron-gestsson-L0SWkPAAke4-unsplash.jpg'),
+                                                                                                                          (98, 'Libero quibusdam labore corpor', '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>', 'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL, 'rosette-nebula-1920×1080.jpg');
 
 -- --------------------------------------------------------
 
@@ -625,15 +626,27 @@ INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUE
                                                                                (1, 1, '2022-01-17 15:16:23', NULL),
                                                                                (2, 6, '2022-01-23 23:54:09', NULL),
                                                                                (4, 6, '2022-01-23 18:12:40', NULL),
-                                                                               (135, 4, '2022-01-17 15:17:06', NULL),
-                                                                               (136, 3, '2022-01-17 15:19:51', NULL),
-                                                                               (137, 4, '2022-01-20 03:26:22', NULL),
                                                                                (138, 5, '2022-01-18 01:38:15', NULL),
                                                                                (141, 4, '2022-01-21 14:00:55', NULL),
                                                                                (142, 2, '2022-01-20 03:23:15', NULL),
-                                                                               (143, 5, '2022-01-20 16:03:47', NULL),
-                                                                               (144, 2, '2022-01-21 14:17:41', NULL),
-                                                                               (154, 3, '2022-01-21 16:30:12', NULL);
+                                                                               (154, 3, '2022-01-21 16:30:12', NULL),
+                                                                               (196, 5, '2022-01-26 17:00:18', NULL),
+                                                                               (197, 3, '2022-01-26 17:00:39', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+                            `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                            `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+                            `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                            `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                            `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
+                            `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -743,26 +756,24 @@ CREATE TABLE `users` (
                          `updated_at` timestamp NULL DEFAULT NULL,
                          `deleted_at` timestamp NULL DEFAULT NULL,
                          `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                         `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+                         `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `is_active` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `avatar`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`) VALUES
-                                                                                                                                                                                            (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'IMG_20210409_133526_2.jpg', 'YsqCqOxfCicv736jsbe4iRgDPQZXowxKDTNRvGrJnanKqXgdeXAfkCXfSp6e', '2021-12-28 23:26:57', '2022-01-24 00:00:30', NULL, 'Partizanski put bb', 'sinisa'),
-                                                                                                                                                                                            (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$O.dCGR3snfR3xgtfmqhfDuSPay19FywPQN7MbdsnRGDfq.j9J7wma', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-24 15:45:44', NULL, 'Deserunt repudiandae dolorem e', 'ema'),
-                                                                                                                                                                                            (4, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'default.jpg', NULL, '2021-12-24 12:55:38', '2022-01-23 19:04:13', NULL, 'Momisici', 'ivan'),
-                                                                                                                                                                                            (135, 'Ray Roy', 'rynemu@mailinator.com', NULL, '$2y$10$Kiv3zuypn0P/5AHmA.WdaeI0uFnR4fULFOfT6EpgU/HhpIZ4wybnO', 232, 'portfolio.png', NULL, '2022-01-17 15:17:06', '2022-01-24 00:21:02', NULL, 'Ipsum et cupiditate soluta asp', 'xibop'),
-                                                                                                                                                                                            (136, 'Lamar Hubbard', 'ryjyvabyk@mailinator.com', NULL, '$2y$10$m8GD6xqIviNc/7aBRhQ/temTXhecIWAU.WddjF0.shbZ2Opc/Nwue', 168, 'NatalijinaRamonda.jpg', NULL, '2022-01-17 15:19:51', '2022-01-23 22:59:34', '2022-01-23 22:59:34', 'Officia neque aliquid dolor ip', 'gadajygoh'),
-                                                                                                                                                                                            (137, 'May Armstrong', 'nenu@mailinator.com', NULL, '$2y$10$ffWCUg1L4exb.odoBmGqu.7wCO7rB606batrhnGyB7cwXmYynnRgm', 206, 'logo-2.png', NULL, '2022-01-17 15:21:22', '2022-01-17 23:40:31', NULL, 'Sed eius cumque dolores repreh', 'jidovyg'),
-                                                                                                                                                                                            (138, 'Nyssa Whitehead', 'relozyh@mailinator.com', NULL, '$2y$10$PfhedyRCu6jqyoqji5nWuenNGGlZvVmLtEzRcKw8rn9MVBM1FtBNG', 172, 'WIN_20211223_17_10_40_Pro.jpg', NULL, '2022-01-17 16:12:46', '2022-01-20 03:00:53', '2022-01-20 03:00:53', 'Fugiat ad irure dolore aperiam', 'tydiv'),
-                                                                                                                                                                                            (141, 'Emerald Hogan', 'wiwidu@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 188, 'new.jpg', NULL, '2022-01-20 01:59:00', '2022-01-20 03:08:44', NULL, 'Eveniet magna qui ipsum et v', 'user'),
-                                                                                                                                                                                            (142, 'Abdul Payne', 'wise@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 198, 'user.jpg', NULL, '2022-01-20 03:13:01', '2022-01-20 03:13:01', NULL, 'Rem quis nobis ut magnam quia', 'korisnik'),
-                                                                                                                                                                                            (143, 'Nomad', 'zokygyr@mailinator.com', NULL, '$2y$10$/F0uToFzN4TS4fYMW1pp4u4QFb0s10A4gKTJPkAGECvMdKRlF5EXC', 13, 'default.png', NULL, '2022-01-20 16:03:47', '2022-01-23 19:16:47', NULL, 'Ipsam saepe dolorum voluptas n', 'nomad'),
-                                                                                                                                                                                            (144, 'Molly Chandler', 'bamuhoboqa@mailinator.com', NULL, '$2y$10$cG9nM.pqnYTNel5CKq79oehsjDV4SZb8RDX6r/6EhJfAwMvFHtNiK', 41, 'user.jpg', NULL, '2022-01-21 14:14:47', '2022-01-21 14:14:47', NULL, 'Ratione quo saepe voluptas eum', 'dypibe'),
-                                                                                                                                                                                            (154, 'Fulton Barr', 'sygatito@mailinator.com', NULL, '$2y$10$Rtkk89V0y.f.SzYAJJVxJ.4nd20HP6ZNUQpxDw20Kmrgoaktn0CV2', 165, 'user.jpg', NULL, '2022-01-21 15:05:48', '2022-01-23 22:22:01', NULL, 'Quam porro commodo sed aut eni', 'fulton');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `avatar`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`) VALUES
+                                                                                                                                                                                                         (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147, 'IMG_20210409_133526_2.jpg', 'c5xqoRC2h8e5H8fS6raLjAHxAbzmpx5T6wEB8Ni9b5jW5j6CMegboFNEOVEz', '2021-12-28 23:26:57', '2022-01-26 16:15:08', NULL, 'Partizanski put bb', 'sinisa', 1),
+                                                                                                                                                                                                         (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-26 16:13:11', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
+                                                                                                                                                                                                         (4, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'default.jpg', NULL, '2021-12-24 12:55:38', '2022-01-23 19:04:13', NULL, 'Momisici', 'ivan', 0),
+                                                                                                                                                                                                         (138, 'Nyssa Whitehead', 'relozyh@mailinator.com', NULL, '$2y$10$PfhedyRCu6jqyoqji5nWuenNGGlZvVmLtEzRcKw8rn9MVBM1FtBNG', 172, 'WIN_20211223_17_10_40_Pro.jpg', NULL, '2022-01-17 16:12:46', '2022-01-20 03:00:53', '2022-01-20 03:00:53', 'Fugiat ad irure dolore aperiam', 'tydiv', 0),
+                                                                                                                                                                                                         (141, 'Emerald Hogan', 'wiwidu@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 188, 'new.jpg', NULL, '2022-01-20 01:59:00', '2022-01-20 03:08:44', NULL, 'Eveniet magna qui ipsum et v', 'user', 0),
+                                                                                                                                                                                                         (142, 'Abdul Payne', 'wise@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 198, 'user.jpg', NULL, '2022-01-20 03:13:01', '2022-01-20 03:13:01', NULL, 'Rem quis nobis ut magnam quia', 'korisnik', 0),
+                                                                                                                                                                                                         (154, 'Fulton Barr', 'sygatito@mailinator.com', NULL, '$2y$10$31xOHCBufapreIojGSKouePzC9h8jrTbLE/h/iRX/IGMhaDgzdSii', 165, 'user.jpg', NULL, '2022-01-21 15:05:48', '2022-01-25 16:08:20', NULL, 'Quam porro commodo sed aut eni', 'fulton', 1),
+                                                                                                                                                                                                         (196, 'Candace Mooney', 'repytox@mailinator.com', NULL, '$2y$10$yr8BZOPkOfLlv4KhktJDzO4GKU2a8WVuit3GssoP.oa01t.svS2ry', 193, 'user.jpg', NULL, '2022-01-26 17:00:18', '2022-01-26 17:00:18', NULL, 'Id adipisicing itaque ratione', 'xepuj', 0),
+                                                                                                                                                                                                         (197, 'Madison Rogers', 'zose@mailinator.com', NULL, '$2y$10$Ri64KCUdv6h5avLRwqtqo.fPeRvM4c8gWGiYrL1Q0O2s4whZYCBgu', 64, 'png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png', NULL, '2022-01-26 17:00:39', '2022-01-26 17:00:39', NULL, 'Id aut et voluptates minima au', 'rafoten', 0);
 
 -- --------------------------------------------------------
 
@@ -886,6 +897,14 @@ ALTER TABLE `role_user`
   ADD KEY `role_id` (`role_id`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -943,7 +962,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -991,7 +1010,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT for table `videos`
