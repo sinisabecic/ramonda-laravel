@@ -61,6 +61,7 @@
 
 
 @yield('script')
+@yield('modal')
 
 </body>
 

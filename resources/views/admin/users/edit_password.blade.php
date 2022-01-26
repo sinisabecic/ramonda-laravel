@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('page-title', 'Change password')
+@section('page-title', 'Change password for: ' . $user->name)
 
 @section('content')
 
@@ -7,7 +7,8 @@
         <div class="col-sm-6">
             <form method="POST" action="" enctype="multipart/form-data" id="editPasswordForm">
                 @csrf
-                @method('PATCH')
+                @method('PUT')
+
                 <div class="form-group row">
                     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('New Password')
                                 }}</label>

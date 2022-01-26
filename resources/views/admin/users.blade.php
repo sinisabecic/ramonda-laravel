@@ -422,7 +422,6 @@
 
 
         //? Za permanentno brisanje korisnika
-        // * Noviji nacin
         function forceDeleteUser(item) {
 
             $.ajaxSetup({

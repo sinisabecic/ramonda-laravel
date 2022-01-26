@@ -37,7 +37,7 @@ Route::group([
     Route::get('/users/{id}/edit/new-password', 'UsersController@editPassword')
         ->name('users.edit.password');
 
-    Route::patch('/users/{id}/edit/new-password/update', 'UsersController@updatePassword')
+    Route::put('/users/{id}/edit/new-password/update', 'UsersController@updatePassword')
         ->name('users.update.password');
 
 

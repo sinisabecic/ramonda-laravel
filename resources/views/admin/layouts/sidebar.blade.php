@@ -6,8 +6,38 @@
         {{--            <i class="fas fa-laugh-wink"></i>--}}
         {{--        </div>--}}
         <div class="sidebar-brand-text mx-3">
-            {{ config('app.name') }} <span
-                class="badge bg-secondary">{{ auth()->user()->role()->name }}</span>
+            {{ config('app.name') }}
+
+            @switch(auth()->user()->role()->name)
+                @case(ucfirst("admin"))
+                <span
+                    class="badge bg-gradient-dark">{{ auth()->user()->role()->name }}</span>
+                @break
+                @case(ucfirst("user"))
+                <span
+                    class="badge badge-pill badge-success">{ auth()->user()->role()->name }}</span>
+                @break
+                @case(ucfirst("subscriber"))
+                <span
+                    class="badge badge-pill badge-warning text-dark">{{ auth()->user()->role()->name }}</span>
+                @break
+                @case(ucfirst("partner"))
+                <span
+                    class="badge badge-pill badge-info">{{ auth()->user()->role()->name }}</span>
+                @break
+                @case(ucfirst("author"))
+                <span
+                    class="badge badge-pill badge-primary">{{ auth()->user()->role()->name }}</span>
+                @break
+                @case(ucfirst("nomad"))
+                <span
+                    class="badge badge-pill badge-danger">{{ auth()->user()->role()->name }}</span>
+                @break
+                @default(ucfirst("nomad"))
+                <span
+                    class="badge badge-pill badge-danger">{{ auth()->user()->role()->name }}</span>
+            @endswitch
+
         </div>
     </a>
 

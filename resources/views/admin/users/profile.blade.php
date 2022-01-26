@@ -57,16 +57,6 @@
 
 
                 <div class="form-group row">
-                    <label for="password-confirm"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control"
-                               name="password" autocomplete="new-password" value="{{ $user->password }}">
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country')
                                         }}</label>
 
@@ -141,6 +131,10 @@
                         </button>
                         <a href="{{ route('users') }}" type="button" class="btn btn-secondary">
                             {{ __('Cancel') }}
+                        </a>
+                        <a href="{{ route('users.edit.password', auth()->user()->id) }}" type="button"
+                           class="btn btn-outline-primary">
+                            {{ __('Edit Password') }}
                         </a>
                     </div>
                 </div>

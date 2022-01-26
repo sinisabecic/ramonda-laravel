@@ -25,9 +25,6 @@ class PostsController extends Controller
 
     public function create()
     {
-        // Moze samo korisnik da vidi ovaj sadrzaj
-        $this->authorize('create', Post::class);
-
         $users = User::all();
         return view('admin.posts.create', compact('users'));
     }

@@ -3,53 +3,56 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" id="addPostForm">
+    <form method="POST" action="" enctype="multipart/form-data" id="addPostForm">
         @csrf
         @method('POST')
-                <div class="form-group row">
-                    <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+        <div class="form-group row">
+            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="title" type="text" class="form-control @error('title') is-invalid @enderror"
-                               name="title" required autocomplete="name" autofocus>
+            <div class="col-md-6">
+                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror"
+                       name="title" required autocomplete="name" autofocus>
 
-                        @error('title')
-                        <span class="invalid-feedback" role="alert">
+                @error('title')
+                <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
-                </div>
+                @enderror
+            </div>
+        </div>
 
-                <div class="form-group row">
-                    <label for="editor" class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
+        <div class="form-group row">
+            <label for="editor" class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
 
-                    <div class="col-md-6">
+            <div class="col-md-6">
                         <textarea id="editor" cols="80" rows="10"
-                               class="form-control @error('content') is-invalid @enderror" name="content"></textarea>
+                                  class="form-control @error('content') is-invalid @enderror" name="content"></textarea>
 
-                        @error('content')
-                        <span class="invalid-feedback" role="alert">
+                @error('content')
+                <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
-                </div>
+                @enderror
+            </div>
+        </div>
 
-                <div class="form-group row">
-                    <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('Author') }}</label>
+        <div class="form-group row">
+            <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('Author') }}</label>
 
-                    <div class="col-md-6">
-                        <select class="form-control" name="user_id" id="user_id">
+            <div class="col-md-6">
+                <select class="form-control" name="user_id" id="user_id">
 
-                            <option value="{{ auth()->user()->id }}" selected>{{ auth()->user()->name }}</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"
 
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                                @if(in_array($user->id, auth()->user()->pluck('id')->toArray())) checked @endif
+
+                        >{{ $user->name }}</option>
+                    @endforeach
+
+                </select>
+            </div>
+        </div>
 
         <div>
             <label for="banner" class="col-md-4 col-form-label text-md-right">{{ __('Banner') }}</label>
@@ -141,7 +144,7 @@
 
         }
 
-    //? Editor
+        //? Editor
         tinymce.init({
             selector: 'textarea#editor',
             skin: 'bootstrap',

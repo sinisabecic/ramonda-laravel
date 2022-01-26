@@ -19,7 +19,7 @@ class Post extends Model
     //? Pri pozivu delete(), popunjava se ova kolona
     protected $dates = ['deleted_at'];
 
-    public $directory = '/uploads/';
+//    public $directory = '/uploads/';
     /**
      * @var mixed
      */
@@ -39,7 +39,6 @@ class Post extends Model
     {
         return $this->morphMany(Photo::class, 'imageable');
     }
-
 
     // taggable_id mu dodje kao id od posta
     // tag_id je id iz tabele tags

@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -53,7 +54,8 @@ class UsersController extends Controller
 
         if (request()->hasFile('avatar')) {
             $avatar = request()->file('avatar')->getClientOriginalName();
-            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->update(['avatar' => $avatar]);
         }
 
@@ -118,12 +120,15 @@ class UsersController extends Controller
         ]);
     }
 
-    public function updatePassword(User $user)
+    public function updatePassword($id)
     {
+        $user = User::whereId($id);
+
         $inputs = request()->validate([
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => 'required|string|confirmed|min:8',
         ]);
 
+        $inputs['password'] = Hash::make($inputs['password']);
         $user->update($inputs);
     }
 
@@ -142,19 +147,9 @@ class UsersController extends Controller
     public function upload(User $user)
     {
         $attributes = request()->validate([
-            'name' => ['required', 'string', 'max:255',],
-            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'password' => ['required', 'string', 'min:8'],
             'avatar' => ['file'],
         ]);
-//        $user = User::withTrashed()->findOrFail($id)->update([
-//            'name' => $request['name'],
-//            'email' => $request['email'],
-//            'username' => $request['username'],
-//            'address' => $request['address'],
-//            'country_id' => $request['country'],
-//        ]);
+
         if (request()->hasFile('image')) {
             $file = request()->file('image');
             $avatar = $file->getClientOriginalName();
@@ -169,7 +164,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-//            return redirect('/users');
 
         return response()->json([
             'message' => 'Data deleted successfully!'
@@ -178,12 +172,10 @@ class UsersController extends Controller
 
     public function remove($id)
     {
-        User::where('id', $id)->forceDelete();
-//        $user->forceDelete();
-//            return redirect('/users');
+        User::find($id)->forceDelete();
 
         return response()->json([
-            'message' => 'User deleted forever successfully!'
+            'message' => 'User deleted forever successfully!',
         ]);
     }
 
@@ -203,7 +195,6 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'password' => ['string', 'min:8'],
             'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
             'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
             'address' => ['string'],
@@ -212,7 +203,7 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, ''); //? Drugi nacin
             $inputs['avatar'] = $avatar;
         }
         $user->update($inputs);
