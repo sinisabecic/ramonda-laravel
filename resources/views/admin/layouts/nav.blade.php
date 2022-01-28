@@ -177,8 +177,8 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                 <img class="img-profile rounded-circle"
-                     @if(auth()->user()->avatar)
-                     src="{{env('AVATAR') .'/'. auth()->user()->id .'/'. auth()->user()->avatar}}"
+                     @if(auth()->user()->photo->url)
+                     src="{{env('AVATAR') .'/'. auth()->user()->id .'/'. auth()->user()->photo->url}}"
                      @else
                      src="uploads/{{ 'user.jpg' }}"
                     @endif

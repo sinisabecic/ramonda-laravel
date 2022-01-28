@@ -30,7 +30,7 @@
                         <button type="submit" class="btn btn-primary" id="editTag">
                             {{ __('Update') }}
                         </button>
-                        <a href="{{ route('tags') }}" class="btn btn-secondary">
+                        <a href="{{ route('blog.tags') }}" class="btn btn-secondary">
                             {{ __('Close') }}
                         </a>
                     </div>
@@ -58,7 +58,7 @@
                 const formData = new FormData(this);
                 $.ajax({
                     method: 'POST',
-                    url: "{{ route('tags.update', $tag->id) }}",
+                    url: "{{ route('blog.tags.update', $tag->id) }}",
                     data: formData,
                     success: function () {
                         Swal.fire({

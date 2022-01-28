@@ -19,13 +19,12 @@ class RolesController extends Controller
         ]);
     }
 
-
     public function create()
     {
         //
     }
 
-    
+
     public function store(Request $request)
     {
         $role = Role::create([
@@ -35,23 +34,13 @@ class RolesController extends Controller
         $role->permissions()->attach($request->permissions);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+
     public function edit($id)
     {
         return view('admin.roles.edit_role', [
@@ -60,13 +49,7 @@ class RolesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Role $role)
     {
         $inputs = request()->validate([
@@ -77,12 +60,7 @@ class RolesController extends Controller
         $role->update($inputs);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function destroy(Role $role)
     {
         $role->delete();

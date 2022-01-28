@@ -114,7 +114,7 @@
                     <div class="col-md-6" style="left: 12.6rem!important;top: -1.7rem!important;">
                         <input type="file" id="avatar"
                                class="form-control-file @error('avatar') is-invalid @enderror"
-                               name="avatar" value="{{ $user->avatar }}">
+                               name="avatar">
 
                         @error('avatar')
                         <span class="invalid-feedback" role="alert">
@@ -145,8 +145,8 @@
         <div class="col-sm-6">
             <div class="d-flex justify-content-center">
                 <img
-                    @if($user->avatar !== 'user.jpg')
-                    src="{{env('AVATAR') .'/'. $user->id .'/'. $user->avatar}}"
+                    @if($user->photo->url !== 'user.jpg')
+                    src="{{env('AVATAR') .'/'. $user->id .'/'. $user->photo->url}}"
                     @else
                     src="/uploads/{{ 'user.jpg' }}"
                     @endif

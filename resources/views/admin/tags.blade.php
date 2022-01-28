@@ -20,7 +20,7 @@
                    style="float: right">
                     <i class="fas fa-user-plus"></i> New tag
                 </a>
-                <a href="{{ route('tags') }}" class="btn btn-secondary btn-sm ml-1"
+                <a href="{{ route('blog.tags') }}" class="btn btn-secondary btn-sm ml-1"
                    style="float: right">
                     <i class="fas fa-redo-alt"></i> Refresh
                 </a>
@@ -108,7 +108,7 @@
                                     @endif
                                     @if(!$tag->deleted_at)
                                         <div class="px-1">
-                                            <a href="{{ route("tags.edit", $tag->id) }}" id="edittag"
+                                            <a href="{{ route("blog.tags.edit", $tag->id) }}" id="edittag"
                                                class="btn btn-primary editTagBtn" data-id="{{ $tag->id }}">
                                                 Edit
                                             </a>
@@ -145,7 +145,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: "{{ route('tags.store') }}",
+                    url: "{{ route('blog.tags.store') }}",
                     data: formData,
                     success: function () {
                         $('#addTagModal').modal('hide');

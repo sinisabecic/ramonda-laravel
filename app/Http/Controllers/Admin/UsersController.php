@@ -20,11 +20,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
-
     public function index()
     {
-//        if (auth()->user()->hasRole('Administrator'))
-        $users = User::withTrashed()->get();
+        $users = User::with('photos')->withTrashed()->get();
         $countries = Country::all();
         $roles = Role::all();
         return view('admin.users', compact('users', 'countries', 'roles'));
@@ -47,7 +45,6 @@ class UsersController extends Controller
             'country_id' => $request->country,
             'address' => $request->address,
             'is_active' => $request->is_active,
-            'avatar' => 'user.jpg',
         ]);
 
         $user->roles()->sync($request->roles);
@@ -56,7 +53,7 @@ class UsersController extends Controller
             $avatar = request()->file('avatar')->getClientOriginalName();
 //            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
             Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
-            $user->update(['avatar' => $avatar]);
+            $user->photo()->create(['url' => $avatar]);
         }
 
 //        return $user;
@@ -104,8 +101,10 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            $inputs['avatar'] = $avatar;
+            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
+//            $inputs['avatar'] = $avatar;
+            $user->photo()->update(['url' => $avatar]);
+
         }
 
         $user->roles()->sync(request()->input('roles'));
@@ -203,8 +202,10 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, ''); //? Drugi nacin
-            $inputs['avatar'] = $avatar;
+//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, ''); //? Drugi nacin
+            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
+//            $inputs['avatar'] = $avatar;
+            $user->photo()->update(['url' => $avatar]);
         }
         $user->update($inputs);
     }

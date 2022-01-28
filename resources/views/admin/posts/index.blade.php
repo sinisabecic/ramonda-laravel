@@ -16,11 +16,11 @@
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-end">
-                <a href="{{ route('posts.create') }}" class="btn btn-primary btn-sm"
+                <a href="{{ route('blog.posts.create') }}" class="btn btn-primary btn-sm"
                    style="float: right">
                     <i class="fas fa-user-plus"></i> New post
                 </a>
-                <a href="{{ route('posts.index') }}" class="btn btn-secondary btn-sm ml-1"
+                <a href="{{ route('blog.posts') }}" class="btn btn-secondary btn-sm ml-1"
                    style="float: right">
                     <i class="fas fa-redo-alt"></i> Refresh
                 </a>
@@ -127,7 +127,7 @@
                                     @endif
                                     @if(!$post->deleted_at)
                                         <div class="px-1">
-                                            <a href="{{ route("posts.edit", $post->id) }}" id="editpost"
+                                            <a href="{{ route("blog.posts.edit", $post->id) }}" id="editpost"
                                                class="btn btn-primary editPostBtn" data-id="{{ $post->id }}">
                                                 Edit
                                             </a>
@@ -148,97 +148,7 @@
 
 @section('script')
     <script>
-        //? Dodavanje korisnika
-        $(document).ready(function () {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            //? Za dodavanje korisnika
-            $('#addUserForm').submit(function (e) {
-                e.preventDefault();
-
-                var formData = new FormData(this);
-
-                $.ajax({
-                    url: "{{ route('register') }}",
-                    method: 'POST',
-                    data: formData,
-                    success: function () {
-                        $('#addModal').modal('hide');
-                        clearFields('#addModal');
-
-                        Swal.fire({
-                            title: 'User added!',
-                            // text: '',
-                            icon: 'success',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        });
-                    },
-                    error: function () {
-                        // alert('Greska! Pokusaj ponovo');
-                        Swal.fire({
-                            title: 'Error! Something went wrong',
-                            // text: '',
-                            icon: 'error',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        })
-                    },
-                    contentType: false,
-                    processData: false,
-                });
-            });
-
-
-            //? Za izmjenu korisnika
-            $('#editUserForm').submit(function (e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-                $.ajax({
-                    url: "/admin/posts/" + {{ $post->id }},
-                    method: 'POST',
-                    data: formData,
-                    success: function () {
-                        Swal.fire({
-                            title: 'Post edited!',
-                            // text: '',
-                            icon: 'success',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        });
-                    },
-                    error: function () {
-                        // alert('Greska! Pokusaj ponovo');
-                        Swal.fire({
-                            title: 'Error! Something went wrong',
-                            // text: '',
-                            icon: 'error',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        })
-                    },
-                    contentType: false,
-                    processData: false,
-                })
-                ;
-            });
-
-        });
-
-
+        
         //? Za brisanje korisnika
         // * Noviji nacin
         function deletePost(item) {

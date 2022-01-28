@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use function redirect;
 use function view;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {

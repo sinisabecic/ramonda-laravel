@@ -139,6 +139,13 @@ class User extends Authenticatable
         return $this->morphOne(Photo::class, 'imageable');
     }
 
+    public function avatar()
+    {
+        foreach (auth()->user()->photos as $img) {
+
+        }
+    }
+
     // /**
     //  * Get the address associated with the User
     //  ! Nije mi bila potrebna vise ova funkcija, zato sto je zamisao da addresa bude proizvoljna

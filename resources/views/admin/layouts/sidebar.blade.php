@@ -29,11 +29,7 @@
                 <span
                     class="badge badge-pill badge-primary">{{ auth()->user()->role()->name }}</span>
                 @break
-                @case(ucfirst("nomad"))
-                <span
-                    class="badge badge-pill badge-danger">{{ auth()->user()->role()->name }}</span>
-                @break
-                @default(ucfirst("nomad"))
+                @default
                 <span
                     class="badge badge-pill badge-danger">{{ auth()->user()->role()->name }}</span>
             @endswitch
@@ -45,7 +41,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item @if(Str::contains(request()->route()->getName(), 'admin')) active @endif">
         <a class="nav-link" href="{{route('admin')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -56,24 +52,29 @@
 
 <!-- Nav Item - Tables -->
     @if (auth()->check() && auth()->user()->hasRole('admin'))
-        <li class="nav-item">
+        <li class="nav-item @if(Str::contains(request()->route()->getName(), ['users', 'roles', 'permissions'])) active @endif">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-power-off"></i>
                 <span>Authorization</span>
             </a>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseOne"
+                 class="collapse @if(Str::contains(request()->route()->getName(), ['users', 'roles', 'permissions'])) show @endif"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded-sm">
                     <h6 class="collapse-header">Manage authorization:</h6>
-                    <a class="collapse-item" href="{{ route('users') }}">
+                    <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'users')) active @endif"
+                       href="{{ route('users') }}">
                         <i class="fas fa-fw fa-user"></i>
                         Users
                     </a>
-                    <a class="collapse-item" href="{{ route('roles') }}">
+                    <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'roles')) active @endif"
+                       href="{{ route('roles') }}">
                         <i class="fas fa-user-tag"></i>
                         Roles
                     </a>
-                    <a class="collapse-item" href="{{ route('permissions') }}">
+                    <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'permissions')) active @endif"
+                       href="{{ route('permissions') }}">
                         <i class="fas fa-ban"></i>
                         Permissions
                     </a>
@@ -82,20 +83,28 @@
         </li>
     @endif
 
-    <li class="nav-item">
+    <li class="nav-item @if(Str::contains(request()->route()->getName(), 'blog')) active @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-blog"></i>
             <span>Blog</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse @if(Str::contains(request()->route()->getName(), 'blog')) show @endif"
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded-sm">
                 <h6 class="collapse-header">Custom blog:</h6>
-                <a class="collapse-item" href="{{ route('posts.index') }}">
+                <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'posts')) active @endif"
+                   href="{{ route('blog.posts') }}">
                     <i class="fas fa-clipboard-list"></i>
                     Posts
                 </a>
-                <a class="collapse-item" href="{{ route('tags') }}">
+                <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'categories')) active @endif"
+                   href="{{ route('blog.categories') }}">
+                    <i class="fas fa-align-justify"></i>
+                    Categories
+                </a>
+                <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'tags')) active @endif"
+                   href="{{ route('blog.tags') }}">
                     <i class="fas fa-hashtag"></i>
                     Tags
                 </a>
@@ -112,7 +121,7 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded-sm">
                 <h6 class="collapse-header">Custom media:</h6>
-                <a class="collapse-item" href="buttons.html">All media</a>
+                <a class="collapse-item" href="{{ route('media.photos') }}">All media</a>
                 <a class="collapse-item" href="cards.html">Upload media</a>
             </div>
         </div>

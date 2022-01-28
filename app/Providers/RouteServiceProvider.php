@@ -58,6 +58,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapPermissionsRoutes();
 
         $this->mapTagsRoutes();
+
+        $this->mapCategoriesRoutes();
+        $this->mapPhotosRoutes();
         //
     }
 
@@ -110,9 +113,25 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapTagsRoutes()
     {
         Route::prefix('admin')
-            ->middleware(['web', 'auth'])
+            ->middleware(['web'])
             ->namespace($this->admin)
             ->group(base_path('routes/web/tags.php'));
+    }
+
+    protected function mapCategoriesRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web'])
+            ->namespace($this->admin)
+            ->group(base_path('routes/web/categories.php'));
+    }
+
+    protected function mapPhotosRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web'])
+            ->namespace($this->admin)
+            ->group(base_path('routes/web/photos.php'));
     }
 
     /**

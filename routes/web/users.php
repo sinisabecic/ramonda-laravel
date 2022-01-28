@@ -14,7 +14,7 @@ Route::group([
 
 Route::group([
     'namespace' => 'Admin',
-    'middleware' => ['auth', 'can:updateProfile,user'],
+    'middleware' => ['auth'],
 ], function () {
     Route::put('/users/{user}/profile', 'UsersController@profileUpdate')->name('user.profile.update');
 });

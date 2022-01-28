@@ -74,7 +74,7 @@
                 <button type="submit" class="btn btn-primary">
                     {{ __('Create') }}
                 </button>
-                <a href="{{ route('posts.index') }}" type="button" class="btn btn-secondary">
+                <a href="{{ route('blog.posts') }}" type="button" class="btn btn-secondary">
                     {{ __('Cancel') }}
                 </a>
             </div>
@@ -103,7 +103,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: "{{ route('posts.store') }}",
+                    url: "{{ route('blog.posts.store') }}",
                     data: formData,
                     success: function () {
                         clearFields('#addPostForm');
