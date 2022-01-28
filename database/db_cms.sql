@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2022 at 06:34 PM
+-- Generation Time: Jan 28, 2022 at 08:01 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -46,6 +46,42 @@ INSERT INTO `addresses` (`id`, `name`, `created_at`, `updated_at`) VALUES
                                                                        (5, 'Koce Popovica 46, Podgorica', NULL, NULL),
                                                                        (6, 'Ksenije Cicvaric bb, Podgorica', NULL, NULL),
                                                                        (7, 'OVA TABELA SE VISE NE KORISTI', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+                              `id` int(11) UNSIGNED NOT NULL,
+                              `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                              `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                              `created_at` timestamp NULL DEFAULT NULL,
+                              `updated_at` timestamp NULL DEFAULT NULL,
+                              `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
+                                                                                              (1, 'News', 'news', '2022-01-26 18:24:27', '2022-01-27 14:49:50', NULL),
+                                                                                              (3, 'Books', 'books', '2022-01-27 15:03:35', '2022-01-27 15:24:16', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category_post`
+--
+
+CREATE TABLE `category_post` (
+                                 `category_id` int(11) UNSIGNED NOT NULL,
+                                 `post_id` int(11) UNSIGNED NOT NULL,
+                                 `created_at` timestamp NULL DEFAULT NULL,
+                                 `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 -- --------------------------------------------------------
 
@@ -398,7 +434,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
                                                           (23, '2021_12_28_011525_add_column_path_to_posts_table', 7),
                                                           (24, '2021_12_29_010201_add_column_address_to_users_table', 8),
                                                           (25, '2022_01_25_145532_create_sessions_table', 9),
-                                                          (26, '2022_01_25_153652_add_is_active_to_users', 10);
+                                                          (26, '2022_01_25_153652_add_is_active_to_users', 10),
+                                                          (27, '2022_01_26_183415_create_categories_table', 11),
+                                                          (28, '2022_01_26_184121_add_deleted_at_column_categories_tale', 12);
 
 -- --------------------------------------------------------
 
@@ -502,26 +540,28 @@ INSERT INTO `permission_user` (`permission_id`, `user_id`, `created_at`, `update
 
 CREATE TABLE `photos` (
                           `id` bigint(20) UNSIGNED NOT NULL,
-                          `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                          `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user.jpg',
                           `imageable_id` bigint(20) UNSIGNED NOT NULL,
                           `imageable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                           `created_at` timestamp NULL DEFAULT NULL,
-                          `updated_at` timestamp NULL DEFAULT NULL,
-                          `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+                          `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `photos`
 --
 
-INSERT INTO `photos` (`id`, `path`, `imageable_id`, `imageable_type`, `created_at`, `updated_at`, `url`) VALUES
-                                                                                                             (1, 'sinisa.jpg', 1, 'App\\User', '2021-12-24 15:38:08', NULL, NULL),
-                                                                                                             (2, 'post_image.jpg', 3, 'App\\Staff', '2021-12-24 15:39:36', '2021-12-25 17:56:04', NULL),
-                                                                                                             (3, 'laravel.jpg', 1, 'App\\Staff', '2021-12-24 15:39:36', '2021-12-25 17:54:05', NULL),
-                                                                                                             (4, 'post_image2.jpg', 3, 'App\\Staff', NULL, NULL, NULL),
-                                                                                                             (7, 'default.jpg', 3, 'App\\Staff', '2021-12-25 16:54:02', '2021-12-25 16:54:02', NULL),
-                                                                                                             (11, 'default.jpg', 112, 'App\\User', '2022-01-16 21:18:50', '2022-01-16 21:23:41', NULL),
-                                                                                                             (12, 'default.jpg', 127, 'App\\User', '2022-01-17 02:42:16', '2022-01-17 02:42:16', NULL);
+INSERT INTO `photos` (`id`, `url`, `imageable_id`, `imageable_type`, `created_at`, `updated_at`) VALUES
+                                                                                                     (2, 'post_image.jpg', 3, 'App\\Staff', '2021-12-24 15:39:36', '2021-12-25 17:56:04'),
+                                                                                                     (3, 'laravel.jpg', 96, 'App\\Post', '2021-12-24 15:39:36', '2021-12-25 17:54:05'),
+                                                                                                     (4, 'post_image2.jpg', 96, 'App\\Post', '2022-01-28 13:06:30', '2022-01-28 13:06:33'),
+                                                                                                     (7, 'avatar-372-456324-300x300.png', 3, 'App\\User', '2021-12-25 16:54:02', '2022-01-28 18:55:35'),
+                                                                                                     (11, 'images.png', 2, 'App\\User', '2022-01-16 21:18:50', '2022-01-28 18:13:45'),
+                                                                                                     (12, 'default.jpg', 127, 'App\\User', '2022-01-17 02:42:16', '2022-01-17 02:42:16'),
+                                                                                                     (13, 'IMG_20210409_133526.jpg', 1, 'App\\User', '2022-01-28 16:54:14', '2022-01-28 18:10:42'),
+                                                                                                     (14, 'Trip Vutra.png', 203, 'App\\User', '2022-01-28 17:23:24', '2022-01-28 17:23:24'),
+                                                                                                     (15, '20200917_181426.jpg', 204, 'App\\User', '2022-01-28 18:13:06', '2022-01-28 18:13:06'),
+                                                                                                     (16, 'viber_image_2022-01-17_13-23-22-972.jpg', 205, 'App\\User', '2022-01-28 18:59:26', '2022-01-28 18:59:41');
 
 -- --------------------------------------------------------
 
@@ -530,7 +570,7 @@ INSERT INTO `photos` (`id`, `path`, `imageable_id`, `imageable_type`, `created_a
 --
 
 CREATE TABLE `posts` (
-                         `id` int(10) UNSIGNED NOT NULL,
+                         `id` int(11) UNSIGNED NOT NULL,
                          `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
                          `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -546,8 +586,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`) VALUES
-                                                                                                                          (96, 'Et ea voluptas et adipisci mod', '<p>Et ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci modEt ea voluptas et adipisci mod</p>', 'et-ea-voluptas-et-adipisci-mod', '2022-01-22 01:28:20', '2022-01-24 16:03:44', 141, NULL, 'aron-gestsson-L0SWkPAAke4-unsplash.jpg'),
-                                                                                                                          (98, 'Libero quibusdam labore corpor', '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>', 'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL, 'rosette-nebula-1920×1080.jpg');
+    (98, 'Libero quibusdam labore corpor', '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>', 'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL, 'rosette-nebula-1920×1080.jpg');
 
 -- --------------------------------------------------------
 
@@ -597,7 +636,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
-                                                                                         (1, 'Admin', 'admin', '2021-12-24 13:44:06', '2022-01-21 17:27:25', NULL),
+                                                                                         (1, 'Admin', 'admin', '2021-12-24 13:44:06', '2022-01-27 14:46:57', NULL),
                                                                                          (2, 'Subscriber', 'subscriber', '2021-12-24 13:44:06', '2022-01-21 17:33:32', NULL),
                                                                                          (3, 'User', 'user', '2021-12-24 13:44:06', '2022-01-23 23:58:32', NULL),
                                                                                          (4, 'Partner', 'partner', '2021-12-24 23:08:59', '2022-01-21 18:10:26', NULL),
@@ -625,13 +664,8 @@ CREATE TABLE `role_user` (
 INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
                                                                                (1, 1, '2022-01-17 15:16:23', NULL),
                                                                                (2, 6, '2022-01-23 23:54:09', NULL),
-                                                                               (4, 6, '2022-01-23 18:12:40', NULL),
-                                                                               (138, 5, '2022-01-18 01:38:15', NULL),
-                                                                               (141, 4, '2022-01-21 14:00:55', NULL),
-                                                                               (142, 2, '2022-01-20 03:23:15', NULL),
-                                                                               (154, 3, '2022-01-21 16:30:12', NULL),
-                                                                               (196, 5, '2022-01-26 17:00:18', NULL),
-                                                                               (197, 3, '2022-01-26 17:00:39', NULL);
+                                                                               (3, 6, '2022-01-23 18:12:40', NULL),
+                                                                               (205, 2, '2022-01-28 18:59:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -727,7 +761,7 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_at`) VALUES
-                                                                                        (1, 'sport', 'sport', '2021-12-24 22:30:47', '2022-01-23 23:26:09', '2022-01-23 23:26:09'),
+                                                                                        (1, 'sport', 'sport', '2021-12-24 22:30:47', '2022-01-28 12:10:54', NULL),
                                                                                         (2, 'education', 'education', '2021-12-24 22:31:00', '2022-01-21 23:38:13', NULL),
                                                                                         (3, 'science', 'science', '2022-01-21 23:38:00', '2022-01-21 23:38:15', NULL),
                                                                                         (4, 'lazio', 'lazio', '2022-01-21 23:38:02', '2022-01-21 23:38:16', NULL),
@@ -750,7 +784,6 @@ CREATE TABLE `users` (
                          `email_verified_at` timestamp NULL DEFAULT NULL,
                          `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
                          `country_id` bigint(20) UNSIGNED NOT NULL,
-                         `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'user.jpg',
                          `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                          `created_at` timestamp NULL DEFAULT NULL,
                          `updated_at` timestamp NULL DEFAULT NULL,
@@ -764,16 +797,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `avatar`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`) VALUES
-                                                                                                                                                                                                         (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147, 'IMG_20210409_133526_2.jpg', 'c5xqoRC2h8e5H8fS6raLjAHxAbzmpx5T6wEB8Ni9b5jW5j6CMegboFNEOVEz', '2021-12-28 23:26:57', '2022-01-26 16:15:08', NULL, 'Partizanski put bb', 'sinisa', 1),
-                                                                                                                                                                                                         (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2, 'new.jpg', NULL, '2022-01-22 17:37:39', '2022-01-26 16:13:11', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
-                                                                                                                                                                                                         (4, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, 'default.jpg', NULL, '2021-12-24 12:55:38', '2022-01-23 19:04:13', NULL, 'Momisici', 'ivan', 0),
-                                                                                                                                                                                                         (138, 'Nyssa Whitehead', 'relozyh@mailinator.com', NULL, '$2y$10$PfhedyRCu6jqyoqji5nWuenNGGlZvVmLtEzRcKw8rn9MVBM1FtBNG', 172, 'WIN_20211223_17_10_40_Pro.jpg', NULL, '2022-01-17 16:12:46', '2022-01-20 03:00:53', '2022-01-20 03:00:53', 'Fugiat ad irure dolore aperiam', 'tydiv', 0),
-                                                                                                                                                                                                         (141, 'Emerald Hogan', 'wiwidu@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 188, 'new.jpg', NULL, '2022-01-20 01:59:00', '2022-01-20 03:08:44', NULL, 'Eveniet magna qui ipsum et v', 'user', 0),
-                                                                                                                                                                                                         (142, 'Abdul Payne', 'wise@mailinator.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 198, 'user.jpg', NULL, '2022-01-20 03:13:01', '2022-01-20 03:13:01', NULL, 'Rem quis nobis ut magnam quia', 'korisnik', 0),
-                                                                                                                                                                                                         (154, 'Fulton Barr', 'sygatito@mailinator.com', NULL, '$2y$10$31xOHCBufapreIojGSKouePzC9h8jrTbLE/h/iRX/IGMhaDgzdSii', 165, 'user.jpg', NULL, '2022-01-21 15:05:48', '2022-01-25 16:08:20', NULL, 'Quam porro commodo sed aut eni', 'fulton', 1),
-                                                                                                                                                                                                         (196, 'Candace Mooney', 'repytox@mailinator.com', NULL, '$2y$10$yr8BZOPkOfLlv4KhktJDzO4GKU2a8WVuit3GssoP.oa01t.svS2ry', 193, 'user.jpg', NULL, '2022-01-26 17:00:18', '2022-01-26 17:00:18', NULL, 'Id adipisicing itaque ratione', 'xepuj', 0),
-                                                                                                                                                                                                         (197, 'Madison Rogers', 'zose@mailinator.com', NULL, '$2y$10$Ri64KCUdv6h5avLRwqtqo.fPeRvM4c8gWGiYrL1Q0O2s4whZYCBgu', 64, 'png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png', NULL, '2022-01-26 17:00:39', '2022-01-26 17:00:39', NULL, 'Id aut et voluptates minima au', 'rafoten', 0);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`) VALUES
+                                                                                                                                                                                               (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147, 'c5xqoRC2h8e5H8fS6raLjAHxAbzmpx5T6wEB8Ni9b5jW5j6CMegboFNEOVEz', '2021-12-28 23:26:57', '2022-01-28 18:10:42', NULL, 'Partizanski put bb', 'sinisa', 1),
+                                                                                                                                                                                               (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2, NULL, '2022-01-22 17:37:39', '2022-01-28 18:13:45', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
+                                                                                                                                                                                               (3, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, NULL, '2021-12-24 12:55:38', '2022-01-28 18:34:42', NULL, 'Momisici', 'ivan', 1),
+                                                                                                                                                                                               (205, 'Paula Estes', 'gipe@mailinator.com', NULL, '$2y$10$jN6s.o/2Si0TQW5hEjK8e.197FWkv8Uuom3sUS7ByP5NcWoJE2M6G', 69, NULL, '2022-01-28 18:59:26', '2022-01-28 18:59:26', NULL, 'Iure quo aut facilis doloribus', 'vodakywin', 0);
 
 -- --------------------------------------------------------
 
@@ -808,6 +836,22 @@ INSERT INTO `videos` (`id`, `name`, `created_at`, `updated_at`) VALUES
 --
 ALTER TABLE `addresses`
     ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+    ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_name_unique` (`name`),
+  ADD UNIQUE KEY `categories_slug_unique` (`slug`);
+
+--
+-- Indexes for table `category_post`
+--
+ALTER TABLE `category_post`
+    ADD PRIMARY KEY (`category_id`,`post_id`),
+  ADD UNIQUE KEY `category_id` (`category_id`,`post_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `comments`
@@ -941,6 +985,12 @@ ALTER TABLE `addresses`
     MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+    MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
@@ -962,7 +1012,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -974,13 +1024,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+    MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1004,13 +1054,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT for table `videos`
@@ -1021,6 +1071,13 @@ ALTER TABLE `videos`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `category_post`
+--
+ALTER TABLE `category_post`
+    ADD CONSTRAINT `category_post_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `category_post_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `permission_role`
