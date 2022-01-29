@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2022 at 08:01 PM
+-- Generation Time: Jan 29, 2022 at 08:33 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -556,12 +556,13 @@ INSERT INTO `photos` (`id`, `url`, `imageable_id`, `imageable_type`, `created_at
                                                                                                      (3, 'laravel.jpg', 96, 'App\\Post', '2021-12-24 15:39:36', '2021-12-25 17:54:05'),
                                                                                                      (4, 'post_image2.jpg', 96, 'App\\Post', '2022-01-28 13:06:30', '2022-01-28 13:06:33'),
                                                                                                      (7, 'avatar-372-456324-300x300.png', 3, 'App\\User', '2021-12-25 16:54:02', '2022-01-28 18:55:35'),
-                                                                                                     (11, 'images.png', 2, 'App\\User', '2022-01-16 21:18:50', '2022-01-28 18:13:45'),
+                                                                                                     (11, 'images.png', 2, 'App\\User', '2022-01-16 21:18:50', '2022-01-29 19:13:20'),
                                                                                                      (12, 'default.jpg', 127, 'App\\User', '2022-01-17 02:42:16', '2022-01-17 02:42:16'),
-                                                                                                     (13, 'IMG_20210409_133526.jpg', 1, 'App\\User', '2022-01-28 16:54:14', '2022-01-28 18:10:42'),
+                                                                                                     (13, 'avatar-372-456324-300x300.png', 1, 'App\\User', '2022-01-28 16:54:14', '2022-01-29 18:56:21'),
                                                                                                      (14, 'Trip Vutra.png', 203, 'App\\User', '2022-01-28 17:23:24', '2022-01-28 17:23:24'),
                                                                                                      (15, '20200917_181426.jpg', 204, 'App\\User', '2022-01-28 18:13:06', '2022-01-28 18:13:06'),
-                                                                                                     (16, 'viber_image_2022-01-17_13-23-22-972.jpg', 205, 'App\\User', '2022-01-28 18:59:26', '2022-01-28 18:59:41');
+                                                                                                     (16, 'images.png', 205, 'App\\User', '2022-01-28 18:59:26', '2022-01-29 15:46:20'),
+                                                                                                     (17, 'png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png', 206, 'App\\User', '2022-01-29 15:47:41', '2022-01-29 18:35:03');
 
 -- --------------------------------------------------------
 
@@ -663,9 +664,11 @@ CREATE TABLE `role_user` (
 
 INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
                                                                                (1, 1, '2022-01-17 15:16:23', NULL),
+                                                                               (1, 14, '2022-01-29 19:27:06', NULL),
                                                                                (2, 6, '2022-01-23 23:54:09', NULL),
                                                                                (3, 6, '2022-01-23 18:12:40', NULL),
-                                                                               (205, 2, '2022-01-28 18:59:26', NULL);
+                                                                               (205, 2, '2022-01-28 18:59:26', NULL),
+                                                                               (206, 5, '2022-01-29 15:47:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -798,10 +801,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`) VALUES
-                                                                                                                                                                                               (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147, 'c5xqoRC2h8e5H8fS6raLjAHxAbzmpx5T6wEB8Ni9b5jW5j6CMegboFNEOVEz', '2021-12-28 23:26:57', '2022-01-28 18:10:42', NULL, 'Partizanski put bb', 'sinisa', 1),
-                                                                                                                                                                                               (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2, NULL, '2022-01-22 17:37:39', '2022-01-28 18:13:45', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
+                                                                                                                                                                                               (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL, '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147, 'aRDQHnInxniZK7zWusDCvML4KGGMqvSZMxQUbjasLj0L0atAvACNHNxmi2TV', '2021-12-28 23:26:57', '2022-01-28 18:10:42', NULL, 'Partizanski put bb', 'sinisa', 1),
+                                                                                                                                                                                               (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2, NULL, '2022-01-22 17:37:39', '2022-01-29 19:28:27', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
                                                                                                                                                                                                (3, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147, NULL, '2021-12-24 12:55:38', '2022-01-28 18:34:42', NULL, 'Momisici', 'ivan', 1),
-                                                                                                                                                                                               (205, 'Paula Estes', 'gipe@mailinator.com', NULL, '$2y$10$jN6s.o/2Si0TQW5hEjK8e.197FWkv8Uuom3sUS7ByP5NcWoJE2M6G', 69, NULL, '2022-01-28 18:59:26', '2022-01-28 18:59:26', NULL, 'Iure quo aut facilis doloribus', 'vodakywin', 0);
+                                                                                                                                                                                               (205, 'Paula Estes', 'gipe@mailinator.com', NULL, '$2y$10$jN6s.o/2Si0TQW5hEjK8e.197FWkv8Uuom3sUS7ByP5NcWoJE2M6G', 69, NULL, '2022-01-28 18:59:26', '2022-01-29 15:46:46', NULL, 'Iure quo aut facilis doloribus', 'vodakywin', 0),
+                                                                                                                                                                                               (206, 'Raphael Barker', 'jixowybi@mailinator.com', NULL, '$2y$10$iGbCQ2vtQ642TV.5VVRp2..3qoosIdYMXfHEO7uGcAxPn7U8We0fC', 94, NULL, '2022-01-29 15:47:41', '2022-01-29 15:47:41', NULL, 'Tempora odit qui est quia acc', 'tapesif', 0);
 
 -- --------------------------------------------------------
 
@@ -1024,7 +1028,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -1060,7 +1064,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT for table `videos`
