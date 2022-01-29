@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '46cf7bedd8da5be1a7656f0b53ffb5e3b5e92f0a',
+    'reference' => 'a749d48009755671ef459dcecd55cd255f004bef',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -439,7 +439,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '46cf7bedd8da5be1a7656f0b53ffb5e3b5e92f0a',
+      'reference' => 'a749d48009755671ef459dcecd55cd255f004bef',
     ),
     'laravel/tinker' => 
     array (
@@ -802,6 +802,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '570292577277f06f590635381a7f761a6cf4f026',
+    ),
+    'rahulhaque/laravel-filepond' => 
+    array (
+      'pretty_version' => 'v1.4.8',
+      'version' => '1.4.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2b4146f01c41f229e7e048ecfd01a1ef470c347a',
     ),
     'ralouphie/getallheaders' => 
     array (

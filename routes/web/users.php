@@ -10,17 +10,11 @@ Route::group([
 ], function () {
     Route::get('/', 'HomeController')->name('admin');
     Route::get('/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
-});
-
-Route::group([
-    'namespace' => 'Admin',
-    'middleware' => ['auth'],
-], function () {
     Route::put('/users/{user}/profile', 'UsersController@profileUpdate')->name('user.profile.update');
 });
 
-//? Users
 
+//? Users
 Route::group([
     'namespace' => 'Admin',
     'middleware' => ['auth'],

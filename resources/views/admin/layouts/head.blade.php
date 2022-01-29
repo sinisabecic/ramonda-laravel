@@ -20,8 +20,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    @yield('style')
     <link href="{{ asset('css/sb-admin.min.css') }}" rel="stylesheet">
+    @yield('style')
 
 </head>
 

@@ -1,4 +1,13 @@
 @extends('admin.layouts.app')
+@section('style')
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
+    <style>
+        .dropzone.dz-clickable {
+            width: 50%;
+            margin: 0.5rem 0 0 9.6rem;
+        }
+    </style>
+@endsection
 
 @section('page-title', 'User profile: ' . ucfirst($user->name))
 
@@ -6,7 +15,7 @@
 
     <div class="row">
         <div class="col-sm-6">
-            <form method="POST" action="" enctype="multipart/form-data" id="editProfileForm">
+            <form method="POST" action="" id="editProfileForm">
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -54,6 +63,29 @@
                         @enderror
                     </div>
                 </div>
+
+                @if(auth()->user()->hasRole('admin'))
+                    <div class="form-group row" hidden>
+                        <label for="is_active" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+
+                        <div class="col-md-6">
+                            <select class="form-control" name="is_active" id="is_active">
+
+                                @isset($user) @if($user->is_active == '1')
+                                    <option value="1" selected>{{ __('Active') }}</option>
+                                    <option value="0">{{ __('Not active') }}</option>
+                                @endif
+
+                                @if($user->is_active == '0')
+                                    <option value="0" selected>{{ __('Not active') }}</option>
+                                    <option value="1">{{ __('Active') }}</option>
+                                @endif
+                                @endisset
+
+                            </select>
+                        </div>
+                    </div>
+                @endif
 
 
                 <div class="form-group row">
@@ -108,22 +140,6 @@
                     </div>
                 @endif
 
-                <div>
-                    <label for="avatar"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Profil image') }}</label>
-                    <div class="col-md-6" style="left: 12.6rem!important;top: -1.7rem!important;">
-                        <input type="file" id="avatar"
-                               class="form-control-file @error('avatar') is-invalid @enderror"
-                               name="avatar">
-
-                        @error('avatar')
-                        <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                        @enderror
-                    </div>
-                </div>
-
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
@@ -155,13 +171,23 @@
                     width="50%"
                     class="rounded">
             </div>
+
+            <form action="{{ route('profile.photo.update', $user->id) }}" method="POST" enctype="multipart/form-data"
+                  class="dropzone"
+                  id="updateProfilePhoto">
+                @csrf
+                @method('PUT')
+            </form>
+
         </div>
+
     </div>
 
 @endsection
 
 
 @section('script')
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -181,7 +207,7 @@
                 const formData = new FormData(this);
                 $.ajax({
                     method: 'POST',
-                    @if(auth()->user()->is_admin)
+                    @if(auth()->user()->hasRole('admin'))
                     url: "{{ route('users.update', $user->id) }}",
                     @else
                     url: "{{ route('user.profile.update', $user->id) }}",
@@ -217,5 +243,26 @@
             });
 
         });
+
+        Dropzone.options.updateProfilePhoto = { // camelized version of the `id`
+            paramName: "avatar", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            init: function () {
+                this.on("addedfile", file => {
+                    console.log("Profile photo updated!");
+                    Swal.fire({
+                        title: 'Profile photo updated!',
+                        // text: '',
+                        icon: 'success',
+                        toast: true,
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 2500,
+                    });
+                });
+            },
+        };
+
+
     </script>
 @endsection

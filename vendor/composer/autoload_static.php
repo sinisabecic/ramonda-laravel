@@ -92,6 +92,7 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
             'RealRashid\\SweetAlert\\' => 22,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
+            'RahulHaque\\Filepond\\' => 20,
         ),
         'P' => 
         array (
@@ -319,6 +320,10 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
+        'RahulHaque\\Filepond\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src',
+        ),
         'Psy\\' => 
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
@@ -511,6 +516,7 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         'App\\Http\\Controllers\\Admin\\CountriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CountriesController.php',
         'App\\Http\\Controllers\\Admin\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/HomeController.php',
         'App\\Http\\Controllers\\Admin\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PermissionsController.php',
+        'App\\Http\\Controllers\\Admin\\PhotosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PhotosController.php',
         'App\\Http\\Controllers\\Admin\\PostsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PostsController.php',
         'App\\Http\\Controllers\\Admin\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RolesController.php',
         'App\\Http\\Controllers\\Admin\\TagsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TagsController.php',
@@ -4083,6 +4089,15 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'RahulHaque\\Filepond\\AbstractFilepond' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/AbstractFilepond.php',
+        'RahulHaque\\Filepond\\Console\\FilepondClear' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Console/FilepondClear.php',
+        'RahulHaque\\Filepond\\Facades\\Filepond' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Facades/Filepond.php',
+        'RahulHaque\\Filepond\\Filepond' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Filepond.php',
+        'RahulHaque\\Filepond\\FilepondServiceProvider' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/FilepondServiceProvider.php',
+        'RahulHaque\\Filepond\\Http\\Controllers\\FilepondController' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Http/Controllers/FilepondController.php',
+        'RahulHaque\\Filepond\\Models\\Filepond' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Models/Filepond.php',
+        'RahulHaque\\Filepond\\Services\\FilepondService' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Services/FilepondService.php',
+        'RahulHaque\\Filepond\\Traits\\HasFilepond' => __DIR__ . '/..' . '/rahulhaque/laravel-filepond/src/Traits/HasFilepond.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

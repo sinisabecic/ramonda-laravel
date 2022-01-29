@@ -78,13 +78,6 @@ class UsersController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return bool
-     */
     public function update(User $user)
     {
         $inputs = request()->validate([
@@ -92,23 +85,24 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'is_active' => ['required'],
-            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
+//            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
             'country_id' => ['string'],
             'address' => ['string'],
         ]);
 
+        $user->roles()->sync(request()->input('roles'));
+        $user->update($inputs);
+    }
 
+
+    public function updatePhoto(User $user)
+    {
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
-//            $inputs['avatar'] = $avatar;
+            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
             $user->photo()->update(['url' => $avatar]);
-
         }
-
-        $user->roles()->sync(request()->input('roles'));
-        $user->update($inputs);
     }
 
     //? View page
@@ -140,23 +134,6 @@ class UsersController extends Controller
         ]);
 //            return redirect('/users');
 //        else echo "greska";
-    }
-
-    // ! Za test
-    public function upload(User $user)
-    {
-        $attributes = request()->validate([
-            'avatar' => ['file'],
-        ]);
-
-        if (request()->hasFile('image')) {
-            $file = request()->file('image');
-            $avatar = $file->getClientOriginalName();
-            request()->file('image')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            $attributes['avatar'] = $avatar;
-        }
-        $user->update($attributes);
-        return redirect()->back();
     }
 
 
@@ -194,20 +171,21 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
             'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
             'address' => ['string'],
         ]);
 
+        $user->update($inputs);
+    }
+
+    public function updateProfilePhoto(User $user)
+    {
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, ''); //? Drugi nacin
             Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
-//            $inputs['avatar'] = $avatar;
             $user->photo()->update(['url' => $avatar]);
         }
-        $user->update($inputs);
     }
 
 }
