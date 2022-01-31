@@ -11,6 +11,12 @@ Route::group([
     Route::get('/', 'HomeController')->name('admin');
     Route::get('/users/{user}/profile', 'UsersController@profile')->name('user.profile.show');
     Route::put('/users/{user}/profile', 'UsersController@profileUpdate')->name('user.profile.update');
+
+    Route::get('/users/{id}/edit/new-password', 'UsersController@editPassword')
+        ->name('users.edit.password');
+
+    Route::put('/users/{id}/edit/new-password/update', 'UsersController@updatePassword')
+        ->name('users.update.password');
 });
 
 
@@ -27,12 +33,6 @@ Route::group([
 
     Route::delete('/users/{id}/remove', 'UsersController@remove')->name('users.remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
-
-    Route::get('/users/{id}/edit/new-password', 'UsersController@editPassword')
-        ->name('users.edit.password');
-
-    Route::put('/users/{id}/edit/new-password/update', 'UsersController@updatePassword')
-        ->name('users.update.password');
 
 
 });
