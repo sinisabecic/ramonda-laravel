@@ -16,6 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
     protected $admin = 'App\Http\Controllers\Admin';
+    protected $blog = 'App\Http\Controllers\Blog';
 
     /**
      * The path to the "home" route for your application.
@@ -61,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapCategoriesRoutes();
         $this->mapPhotosRoutes();
+        $this->mapBlogRoutes();
         //
     }
 
@@ -76,6 +78,14 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/web.php'));
+    }
+
+    protected function mapBlogRoutes()
+    {
+        Route::prefix('blog')
+            ->middleware('web')
+            ->namespace($this->blog)
+            ->group(base_path('routes/web/blog.php'));
     }
 
     protected function mapPostsRoutes()
