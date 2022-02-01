@@ -131,7 +131,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapCommentsRoutes()
     {
-        Route::middleware('web')
+        Route::prefix('admin')
+            ->middleware('web')
             ->namespace($this->admin)
             ->group(base_path('routes/web/comments.php'));
     }
