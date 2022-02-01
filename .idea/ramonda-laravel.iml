@@ -116,6 +116,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/livewire/livewire" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/realrashid/sweet-alert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rahulhaque/laravel-filepond" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-comments" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

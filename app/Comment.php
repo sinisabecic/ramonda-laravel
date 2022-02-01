@@ -12,14 +12,14 @@ class Comment extends Model
         return $this->morphTo();
     }
 
-    // Proba
-    // public function post()
-    // {
-    //     return $this->morphTo(Post::class, 'commentable');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    // public function video()
-    // {
-    //     return $this->morphTo(Video::class, 'commentable');
-    // }
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
 }

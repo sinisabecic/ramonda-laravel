@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a749d48009755671ef459dcecd55cd255f004bef',
+    'reference' => '404aac1eeb1de88c637bb3aef8372d87cfc2ec1c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -19,6 +19,15 @@
       array (
       ),
       'reference' => '73e5b88775c64ccc0b84fb60836b30dc9d92ac4a',
+    ),
+    'beyondcode/laravel-comments' => 
+    array (
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dd9d3c8d9fec2f9c305f1d2828df6b6a35e0c84d',
     ),
     'brick/math' => 
     array (
@@ -413,7 +422,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a749d48009755671ef459dcecd55cd255f004bef',
+      'reference' => '404aac1eeb1de88c637bb3aef8372d87cfc2ec1c',
     ),
     'laravel/tinker' => 
     array (

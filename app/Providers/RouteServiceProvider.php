@@ -63,6 +63,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapCategoriesRoutes();
         $this->mapPhotosRoutes();
         $this->mapBlogRoutes();
+        $this->mapCommentsRoutes();
         //
     }
 
@@ -126,6 +127,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web'])
             ->namespace($this->admin)
             ->group(base_path('routes/web/tags.php'));
+    }
+
+    protected function mapCommentsRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->admin)
+            ->group(base_path('routes/web/comments.php'));
     }
 
     protected function mapCategoriesRoutes()

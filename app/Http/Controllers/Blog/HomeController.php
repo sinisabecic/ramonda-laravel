@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('blog.posts', ['posts' => Post::all()]);
+        return view('blog.posts', ['posts' => Post::orderBy('created_at', 'desc')->get()]);
     }
 
     public function show($slug)

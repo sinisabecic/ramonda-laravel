@@ -169,6 +169,7 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'BeyondCode\\Comments\\' => 20,
         ),
         'A' => 
         array (
@@ -485,6 +486,10 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'BeyondCode\\Comments\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/beyondcode/laravel-comments/src',
+        ),
         'Asm89\\Stack\\' => 
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
@@ -527,6 +532,7 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\Blog\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Blog/HomeController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\User\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/HomeController.php',
@@ -564,6 +570,11 @@ class ComposerStaticInit628922923e54e6a585b1e3ffd72eecdb
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'BeyondCode\\Comments\\Comment' => __DIR__ . '/..' . '/beyondcode/laravel-comments/src/Comment.php',
+        'BeyondCode\\Comments\\CommentsServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-comments/src/CommentsServiceProvider.php',
+        'BeyondCode\\Comments\\Contracts\\Commentator' => __DIR__ . '/..' . '/beyondcode/laravel-comments/src/Contracts/Commentator.php',
+        'BeyondCode\\Comments\\Traits\\CanComment' => __DIR__ . '/..' . '/beyondcode/laravel-comments/src/Traits/CanComment.php',
+        'BeyondCode\\Comments\\Traits\\HasComments' => __DIR__ . '/..' . '/beyondcode/laravel-comments/src/Traits/HasComments.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',

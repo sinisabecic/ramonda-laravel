@@ -7,8 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
+use BeyondCode\Comments\Contracts\Commentator;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Commentator
 {
     use Notifiable;
     use SoftDeletes;
@@ -44,6 +45,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Check if a comment for a specific model needs to be approved.
+     * @param mixed $model
+     * @return bool
+     */
+    public function needsCommentApproval($model): bool
+    {
+        return true;
+    }
 
     //? I pri azuriranju korisnika, radice enkripciju. Zato je ovo pozeljno
     public function setPasswordAttribute($value)

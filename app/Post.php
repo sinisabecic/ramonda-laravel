@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use Illuminate\Support\Str;
+use BeyondCode\Comments\Traits\HasComments;
 
 class Post extends Model
 {
     use SoftDeletes;
+    use HasComments;
 
     protected $guarded = [];
     // protected $table = 'posts'; // pod uslovom da naziv modela nije Post nego neko dr ime

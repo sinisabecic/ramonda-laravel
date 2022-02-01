@@ -28,8 +28,9 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
 
-    Route::get('/', 'HomeController@index');
-    Route::get('/post/{slug}', 'HomeController@show');
+    Route::get('/', 'HomeController@index')->name('blog.home');
+    Route::get('/post/{slug}', 'HomeController@show')->name('blog.post');
 });
+
 
 

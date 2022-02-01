@@ -108,6 +108,11 @@
                     <i class="fas fa-hashtag"></i>
                     Tags
                 </a>
+                <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'comments')) active @endif"
+                   href="{{ route('blog.comments') }}">
+                    <i class="fas fa-user-slash"></i>
+                    Comments
+                </a>
             </div>
         </div>
     </li>
