@@ -205,8 +205,12 @@ class User extends Authenticatable implements Commentator
 
         //? I jos jedan
 //        return $this->roles()->where('role_id', 1)->first();
+    }
 
-
+    public function getGravatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "http://www.gravatar.com/avatar/$hash";
     }
 
 

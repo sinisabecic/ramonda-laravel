@@ -92,7 +92,6 @@
 
 @section('script')
     <script>
-
         function approveComment(item) {
 
             $.ajaxSetup({
@@ -232,14 +231,6 @@
                     })
                 }
             });
-        }
-
-        function clearFields(form) {
-            $(':input', form)
-                .not(':button, :submit, :reset, :hidden')
-                .val('')
-                .prop('checked', false)
-                .prop('selected', false);
         }
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
