@@ -17,7 +17,9 @@
                                  alt="..."/></a>
                         <div class="card-body">
                             <div class="small text-muted">{{ $post->created_at->diffForHumans() }}</div>
-                            <h2 class="card-title">{{ $post->title }}</h2>
+                            <a class="text-dark text-decoration-none" href="{{ route('blog.post', $post->slug) }}">
+                                <h2 class="card-title">{{ $post->title }}</h2>
+                            </a>
                             <p class="card-text">{!! $post->content !!}</p>
                             <a class="btn btn-primary" href="{{ route('blog.post', $post->slug) }}">Read more →</a>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Post;
@@ -18,9 +19,12 @@ class PostsController extends Controller
 
     public function index()
     {
-        $users = User::withTrashed()->get();
-        $posts = Post::withTrashed()->get();
-        return view('admin.posts.index', ['posts' => $posts, 'users' => $users]);
+        return view('admin.posts.index',
+            [
+                'posts' => Post::withTrashed()->get(),
+                'users' => User::withTrashed()->get(),
+            ]
+        );
     }
 
 
@@ -56,10 +60,12 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
         // return view('post')->with('id', $id);
         //? ili
-        return view('posts.show', compact('post'));
+        return view('posts.show', [
+            'post' => Post::findOrFail($id),
+        ]);
+
     }
 
 

@@ -13,9 +13,8 @@ class CommentsController extends Controller
     public function index()
     {
         return view('admin.comments', [
-                'posts' => Post::all()
-            ]
-        );
+            'posts' => Post::withTrashed()->get()
+        ]);
     }
 
     /**
@@ -28,15 +27,12 @@ class CommentsController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Post $post)
     {
-        //
+        $res = $post->comment(request()->input('comment'));
+        if ($res)
+            return redirect()->back();
     }
 
     /**

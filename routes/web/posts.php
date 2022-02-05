@@ -1,5 +1,6 @@
 <?php
 //? Posts
+use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -7,6 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/posts', 'PostsController@index');
 Route::get('/posts/create', 'PostsController@create');
 Route::get('/posts/{id}', 'PostsController@show');
+
+//? Comments
+Route::post('/posts/{post}/comment', 'CommentsController@store')->name('post.comment.store');
 
 Route::middleware(['auth'])->group(function () {
 

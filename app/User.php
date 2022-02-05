@@ -130,8 +130,13 @@ class User extends Authenticatable implements Commentator
      */
     public function country()
     {
-        return $this->hasOne(Country::class, 'id', 'country_id'); //? country_id je is tabele users
+        return $this->hasOne(Country::class, 'id', 'country_id');
     }
+
+//    public function city()
+//    {
+//        return $this->hasOneThrough(Country::class, City::class);
+//    }
 
 
     /**
@@ -148,13 +153,6 @@ class User extends Authenticatable implements Commentator
     public function photo()
     {
         return $this->morphOne(Photo::class, 'imageable');
-    }
-
-    public function avatar()
-    {
-        foreach (auth()->user()->photos as $img) {
-
-        }
     }
 
     // /**

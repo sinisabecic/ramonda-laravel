@@ -39,4 +39,13 @@ class Country extends Model
     {
         return $this->hasMany(User::class, 'country_id', 'id');
     }
+
+    //? Get all of the cities for the Country
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+
+        //? Za php artisan tinker
+//        $countryWithCity = Country::with('city')->findOrFail($id);
+    }
 }

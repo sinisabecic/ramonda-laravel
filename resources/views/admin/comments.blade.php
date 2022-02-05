@@ -51,7 +51,7 @@
                                     <p class="small"><strong>{{ $comment->comment }}</strong></p>
                                 </td>
                                 <td>
-                                    <a href="{{ route('blog.post', $post->slug) }}" target="_blank">
+                                    <a href="{{ route('blog.post', $post->slug) }}#{{ $comment->id }}" target="_blank">
                                         <span class="small">{{ $comment->commentable->title }}</span>
                                     </a>
                                 </td>

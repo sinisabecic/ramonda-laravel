@@ -8,6 +8,7 @@
         <div class="sidebar-brand-text mx-3">
             {{ config('app.name') }}
 
+
             @switch(auth()->user()->role()->name)
                 @case(ucfirst("admin"))
                 <span

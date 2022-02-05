@@ -6,15 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    protected $guarded = [];
+
     //
     public function commentable()
     {
         return $this->morphTo();
     }
 
-    public function user()
+//    public function replies()
+//    {
+//        return $this->hasMany(Comment::class, 'parent_id');
+//    }
+
+    public function replies()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(CommentReply::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function post()

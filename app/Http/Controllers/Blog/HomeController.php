@@ -15,6 +15,9 @@ class HomeController extends Controller
 
     public function show($slug)
     {
-        return view('blog.post', ['post' => Post::where('slug', $slug)->first()]);
+        return view('blog.post',
+            [
+                'post' => Post::where('slug', $slug)->first()
+            ]);
     }
 }
