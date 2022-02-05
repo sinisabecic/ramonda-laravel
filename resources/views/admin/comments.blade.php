@@ -39,7 +39,7 @@
                     <tbody>
                     @foreach($posts as $post)
                         @foreach($post->comments as $comment)
-                            <tr class="row-tag" data-id="{{ $comment->id }}">
+                            <tr class="row-comment" data-id="{{ $comment->id }}">
                                 {{--                            <td>--}}
                                 {{--                                <input type="checkbox" name="user_id[]" id="delete_user" class="checkBoxes"--}}
                                 {{--                                       data-id="{{ $user->id }}">--}}
@@ -64,18 +64,21 @@
                                     <div class="d-inline-flex">
                                         @if(!$comment->is_approved)
                                             <div class="px-1">
-                                                <a href="#!" id="edittag"
-                                                   class="btn btn-success" data-id="{{ $comment->id }}">
+                                                <button type="button" id="approveCommentBtn"
+                                                        class="btn btn-success" data-id="{{ $comment->id }}"
+                                                        onclick="approveComment('{{ $comment->id }}')"
+                                                >
                                                     Approve
-                                                </a>
+                                                </button>
                                             </div>
                                         @endif
                                         <div class="px-1">
-                                            <button type="button" onclick="forceDeleteTag('{{ $comment->id }}')"
-                                                    class="btn btn-danger forceDeleteTagBtn">
+                                            <button type="button" onclick="deleteComment('{{ $comment->id }}')"
+                                                    class="btn btn-danger deleteCommentBtn">
                                                 Delete
                                             </button>
                                         </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -87,147 +90,24 @@
     </div>
 @endsection
 
-@include('admin.tags.add_tag')
-
 @section('script')
     <script>
-        //? Dodavanje korisnika
-        $(document).ready(function () {
+
+        function approveComment(item) {
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            //? Za dodavanje korisnika
-            $('#addTagForm').submit(function (e) {
-                e.preventDefault();
-
-                var formData = new FormData(this);
-
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ route('blog.tags.store') }}",
-                    data: formData,
-                    success: function () {
-                        $('#addTagModal').modal('hide');
-                        clearFields('#addTagModal');
-
-                        Swal.fire({
-                            title: 'Tag added!',
-                            // text: '',
-                            icon: 'success',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        });
-                    },
-                    error: function () {
-                        // alert('Greska! Pokusaj ponovo');
-                        Swal.fire({
-                            title: 'Error! Something went wrong',
-                            // text: '',
-                            icon: 'error',
-                            toast: true,
-                            position: 'top-right',
-                            showConfirmButton: false,
-                            timer: 2500,
-                        })
-                    },
-                    contentType: false,
-                    processData: false,
-                });
-            });
-
-        });
-
-
-        function deleteTag(item) {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
 
             Swal.fire({
-                title: 'Delete tag?',
-                // text: "You won't be able to revert this!",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3C4B64',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes!',
-                toast: true,
-                position: 'top-right',
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const formData = {id: item};
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/tags/" + formData.id,
-                        data: formData,
-                        success: function (response) {
-                            if (response.error) {
-                                console.log(response.error);
-                                Swal.fire({
-                                    title: 'Error! Try again.',
-                                    // text: '',
-                                    icon: 'warning',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-                                })
-                            } else {
-                                Swal.fire({
-                                    title: 'Tag has been deleted!',
-                                    // text: '',
-                                    icon: 'success',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-
-                                })
-                                console.log("Izbrisan tag ID: " + formData.id);
-
-                                // window.location.reload(true);
-                                $(".row-tag[data-id=" + formData.id + "] .deleteTagBtn").text("Deleted").attr("disabled", "disabled");
-                                $(".row-tag[data-id=" + formData.id + "] .editTagBtn").fadeOut('slow');
-
-                                var currentdate = new Date();
-                                var timestamp = currentdate.getDate() + "."
-                                    + (currentdate.getMonth() + 1) + "."
-                                    + currentdate.getFullYear() + ". "
-                                    + currentdate.getHours() + ":"
-                                    + currentdate.getMinutes() + ":"
-                                    + currentdate.getSeconds();
-
-                                $(".row-tag[data-id=" + formData.id + "] .deletedAt").text(timestamp);
-
-
-                            }
-                        }
-                    })
-                }
-            });
-        }
-
-
-        function restoreTag(item) {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            Swal.fire({
-                title: 'Restore tag?',
+                title: 'Approve comment?',
                 // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
@@ -242,67 +122,7 @@
                     const formData = {id: item};
                     $.ajax({
                         type: "PUT",
-                        url: "/admin/tags/" + formData.id + "/restore",
-                        data: formData,
-                        success: function (response) {
-                            if (response.error) {
-                                console.log(response.error);
-                                Swal.fire({
-                                    title: 'Error! Try again.',
-                                    // text: '',
-                                    icon: 'error',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-                                })
-                            } else {
-                                Swal.fire({
-                                    title: 'Tag has been restored!',
-                                    // text: '',
-                                    icon: 'success',
-                                    toast: true,
-                                    position: 'top-right',
-                                    showConfirmButton: false,
-                                    timer: 2500,
-                                })
-                                console.log("Ozivljen tag ID: " + formData.id);
-
-                                $(".row-tag[data-id=" + formData.id + "] .restoreTagBtn").text("Restored").attr("disabled", "disabled");
-                                $(".row-tag[data-id=" + formData.id + "] .deletedAt").text("NULL");
-                            }
-                        }
-                    })
-                }
-            });
-        }
-
-
-        function forceDeleteTag(item) {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            Swal.fire({
-                title: 'Delete permanently?',
-                text: "You won't be able to restore tag!",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3C4B64',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes!',
-                toast: true,
-                position: 'top-right',
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const formData = {id: item};
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/admin/tags/" + formData.id + "/remove",
+                        url: "/admin/post/" + formData.id + "/comment/approve",
                         data: formData,
                         success: function (response) {
                             if (response.error) {
@@ -318,7 +138,7 @@
                                 })
                             } else {
                                 Swal.fire({
-                                    title: 'Tag permanently deleted!',
+                                    title: 'Comment has been approved!',
                                     // text: '',
                                     icon: 'success',
                                     toast: true,
@@ -327,10 +147,76 @@
                                     timer: 2500,
 
                                 })
-                                console.log("Permanentno izbrisan Tag ID: " + formData.id);
+                                console.log("Odobren Komentar ID: " + formData.id);
 
                                 // window.location.reload(true);
-                                $(".row-tag[data-id=" + formData.id + "]")
+                                $(".row-comment[data-id=" + formData.id + "] #approveCommentBtn").text("Approved").attr("disabled", "disabled");
+
+                            }
+                        }
+                    })
+                }
+            });
+        }
+
+        function deleteComment(item) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+            Swal.fire({
+                title: 'Delete comment?',
+                // text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const formData = {id: item};
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/post/" + formData.id + "/comment/delete",
+                        data: formData,
+                        success: function (response) {
+                            if (response.error) {
+                                console.log(response.error);
+                                Swal.fire({
+                                    title: 'Error! Try again.',
+                                    // text: '',
+                                    icon: 'warning',
+                                    toast: true,
+                                    position: 'top-right',
+                                    showConfirmButton: false,
+                                    timer: 2500,
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Comment has been deleted!',
+                                    // text: '',
+                                    icon: 'success',
+                                    toast: true,
+                                    position: 'top-right',
+                                    showConfirmButton: false,
+                                    timer: 2500,
+
+                                })
+                                console.log("Izbrisan Komentar ID: " + formData.id);
+
+                                // window.location.reload(true);
+                                $(".row-comment[data-id=" + formData.id + "]")
                                     .children('td, th')
                                     .animate({
                                         padding: 0
@@ -340,15 +226,13 @@
                                     .slideUp(function () {
                                         $(this).closest('tr').remove();
                                     });
-                                // .toggleClass("btn-danger")
-                                // .toggleClass("btn-dark")
+
                             }
                         }
                     })
                 }
             });
         }
-
 
         function clearFields(form) {
             $(':input', form)

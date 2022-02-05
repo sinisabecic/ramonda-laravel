@@ -16,21 +16,11 @@
             <hr/>
             <!-- Comment with nested comments-->
             @foreach($post->comments as $comment)
-                @if($comment->is_aproved == 1)
+                @if($comment->is_approved == 1)
                     <div class="d-flex mb-4" id="{{ $comment->id }}">
                         <!-- Parent comment-->
                         <div class="flex-shrink-0"><img class="rounded-circle" width="50" height="50"
-                                                        @if(auth()->user())
-                                                        @foreach (auth()->user()->photos as $img)
-                                                        @if($img->url !== 'user.jpg')
-                                                        src="{{env('AVATAR') .'/'. $img->imageable_id .'/'. $img->url }}"
-                                                        @else
                                                         src="/uploads/{{ 'user.jpg' }}"
-                                                        @endif
-                                                        @endforeach
-                                                        @else
-                                                        src="/uploads/{{ 'user.jpg' }}"
-                                                        @endif
                                                         alt="..."/></div>
                         <div class="ms-3">
                             <div class="fw-bold">{{ $comment->author->username ?? 'Anonymous' }}</div>
@@ -60,52 +50,53 @@
 @section('script')
     <script>
         //? Dodavanje korisnika
-        {{--$(document).ready(function () {--}}
+        $(document).ready(function () {
 
-        {{--    $.ajaxSetup({--}}
-        {{--        headers: {--}}
-        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--        }--}}
-        {{--    });--}}
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        {{--    $('#addCommentForm').submit(function (e) {--}}
-        {{--        e.preventDefault();--}}
+            {{--    $('#addCommentForm').submit(function (e) {--}}
+            {{--        e.preventDefault();--}}
 
-        {{--        var formData = new FormData(this);--}}
+            {{--        var formData = new FormData(this);--}}
 
-        {{--        $.ajax({--}}
-        {{--            method: 'POST',--}}
-        {{--            url: "{{ route('post.comment.store', $post->id) }}",--}}
-        {{--            data: formData,--}}
-        {{--            success: function () {--}}
-        {{--                // clearFields('#addCommentForm');--}}
-        {{--                Swal.fire({--}}
-        {{--                    title: 'Comment sent!',--}}
-        {{--                    text: 'Comment will be approved soon',--}}
-        {{--                    icon: 'success',--}}
-        {{--                    toast: true,--}}
-        {{--                    position: 'top-right',--}}
-        {{--                    showConfirmButton: false,--}}
-        {{--                    timer: 2500,--}}
-        {{--                });--}}
-        {{--            },--}}
-        {{--            error: function () {--}}
-        {{--                // alert('Greska! Pokusaj ponovo');--}}
-        {{--                Swal.fire({--}}
-        {{--                    title: 'Error! Something went wrong',--}}
-        {{--                    // text: '',--}}
-        {{--                    icon: 'error',--}}
-        {{--                    toast: true,--}}
-        {{--                    position: 'top-right',--}}
-        {{--                    showConfirmButton: false,--}}
-        {{--                    timer: 2500,--}}
-        {{--                })--}}
-        {{--            },--}}
-        {{--            contentType: false,--}}
-        {{--            processData: false,--}}
-        {{--        });--}}
-        {{--    });--}}
-        {{--});--}}
+            {{--        $.ajax({--}}
+            {{--            method: 'POST',--}}
+            {{--            url: "{{ route('post.comment.store', $post->id) }}",--}}
+            {{--            data: formData,--}}
+            {{--            success: function () {--}}
+            {{--                // clearFields('#addCommentForm');--}}
+            {{--                Swal.fire({--}}
+            {{--                    title: 'Comment sent!',--}}
+            {{--                    text: 'Comment will be approved soon',--}}
+            {{--                    icon: 'success',--}}
+            {{--                    toast: true,--}}
+            {{--                    position: 'top-right',--}}
+            {{--                    showConfirmButton: false,--}}
+            {{--                    timer: 2500,--}}
+            {{--                });--}}
+            {{--            },--}}
+            {{--            error: function () {--}}
+            {{--                // alert('Greska! Pokusaj ponovo');--}}
+            {{--                Swal.fire({--}}
+            {{--                    title: 'Error! Something went wrong',--}}
+            {{--                    // text: '',--}}
+            {{--                    icon: 'error',--}}
+            {{--                    toast: true,--}}
+            {{--                    position: 'top-right',--}}
+            {{--                    showConfirmButton: false,--}}
+            {{--                    timer: 2500,--}}
+            {{--                })--}}
+            {{--            },--}}
+            {{--            contentType: false,--}}
+            {{--            processData: false,--}}
+            {{--        });--}}
+            {{--    });--}}
+        });
+
 
         function clearFields(form) {
             $(':input', form)

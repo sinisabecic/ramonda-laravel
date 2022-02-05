@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/posts/{id}/restore', 'PostsController@restore');
     Route::delete('/posts/{id}/remove', 'PostsController@remove');
 
-
+    Route::put('/post/{comment}/comment/approve', 'CommentsController@approve')->name('post.comment.approve');
+    Route::delete('/post/{comment}/comment/delete', 'CommentsController@destroy')->name('post.comment.delete');
 });
 
