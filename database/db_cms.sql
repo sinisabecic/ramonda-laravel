@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2022 at 11:40 AM
+-- Generation Time: Feb 05, 2022 at 01:31 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -95,6 +95,30 @@ CREATE TABLE `category_post`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities`
+(
+    `id`         bigint(20) UNSIGNED                     NOT NULL,
+    `country_id` int(10) UNSIGNED                        NOT NULL,
+    `name`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `created_at` timestamp                               NULL DEFAULT NULL,
+    `updated_at` timestamp                               NULL DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `country_id`, `name`, `created_at`, `updated_at`)
+VALUES (1, 147, 'Podgorica', '2022-02-02 18:03:09', '2022-02-02 18:03:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -118,9 +142,34 @@ CREATE TABLE `comments`
 
 INSERT INTO `comments` (`id`, `commentable_type`, `commentable_id`, `comment`, `is_approved`, `user_id`, `created_at`,
                         `updated_at`)
-VALUES (1, 'App\\Post', 98, 'This is a comment from a user.', 0, NULL, '2022-02-01 08:07:13', '2022-02-01 08:07:13'),
-       (2, 'App\\Post', 98, 'Ovo je komentar od strane administratora', 0, 1, '2022-02-01 08:09:40',
-        '2022-02-01 08:09:40');
+VALUES (1, 'App\\Post', 1, 'This is a comment from a user.', 1, NULL, '2022-02-01 08:07:13', '2022-02-01 08:07:13'),
+       (2, 'App\\Post', 1, 'Ovo je komentar od strane administratora', 1, 1, '2022-02-01 08:09:40',
+        '2022-02-01 08:09:40'),
+       (3, 'App\\Post', 1, 'Natus excepturi ipsum ad elig', 0, 1, '2022-02-04 23:47:41', '2022-02-04 23:47:41'),
+       (4, 'App\\Post', 2, 'Iure quia similique omnis mole', 0, 1, '2022-02-05 00:06:32', '2022-02-05 00:06:32'),
+       (5, 'App\\Post', 2, 'Dolore quia ut amet voluptas', 0, 1, '2022-02-05 00:29:09', '2022-02-05 00:29:09'),
+       (6, 'App\\Post', 2, 'Maiores assumenda excepturi ma', 0, 1, '2022-02-05 00:30:44', '2022-02-05 00:30:44'),
+       (7, 'App\\Post', 2, 'Perferendis officia dolorem co', 0, NULL, '2022-02-05 00:31:13', '2022-02-05 00:31:13'),
+       (8, 'App\\Post', 2, 'Proident magna optio enim na', 0, NULL, '2022-02-05 00:31:32', '2022-02-05 00:31:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_replies`
+--
+
+CREATE TABLE `comment_replies`
+(
+    `id`         bigint(20) UNSIGNED                     NOT NULL,
+    `comment_id` int(10) UNSIGNED                        NOT NULL,
+    `author`     int(11)                                 NOT NULL,
+    `email`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `reply`      text COLLATE utf8mb4_unicode_ci         NOT NULL,
+    `created_at` timestamp                               NULL DEFAULT NULL,
+    `updated_at` timestamp                               NULL DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -605,12 +654,11 @@ VALUES (2, 'post_image.jpg', 3, 'App\\Staff', '2021-12-24 15:39:36', '2021-12-25
        (7, 'avatar-372-456324-300x300.png', 3, 'App\\User', '2021-12-25 16:54:02', '2022-01-28 18:55:35'),
        (11, 'images.png', 2, 'App\\User', '2022-01-16 21:18:50', '2022-01-29 19:13:20'),
        (12, 'default.jpg', 127, 'App\\User', '2022-01-17 02:42:16', '2022-01-17 02:42:16'),
-       (13, 'avatar-372-456324-300x300.png', 1, 'App\\User', '2022-01-28 16:54:14', '2022-01-31 13:22:27'),
+       (13, 'IMG_20210409_133526_2.jpg', 1, 'App\\User', '2022-01-28 16:54:14', '2022-02-03 12:53:47'),
        (14, 'Trip Vutra.png', 203, 'App\\User', '2022-01-28 17:23:24', '2022-01-28 17:23:24'),
        (15, '20200917_181426.jpg', 204, 'App\\User', '2022-01-28 18:13:06', '2022-01-28 18:13:06'),
        (16, 'images.png', 205, 'App\\User', '2022-01-28 18:59:26', '2022-01-29 15:46:20'),
-       (17, 'png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png', 206,
-        'App\\User', '2022-01-29 15:47:41', '2022-01-29 18:35:03');
+       (17, 'man2.jpg', 206, 'App\\User', '2022-01-29 15:47:41', '2022-02-03 12:53:14');
 
 -- --------------------------------------------------------
 
@@ -638,11 +686,11 @@ CREATE TABLE `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`)
-VALUES (98, 'Libero quibusdam labore corpor',
+VALUES (1, 'Libero quibusdam labore corpor',
         '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>',
         'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL,
         'rosette-nebula-1920×1080.jpg'),
-       (100, 'Bogdan se usijao u finišu i dao nadu Hoksima, ugasio je Anunobi (VIDEO)',
+       (2, 'Bogdan se usijao u finišu i dao nadu Hoksima, ugasio je Anunobi (VIDEO)',
         '<article>\r\n<div>\r\n<p><strong>Toronto slavio u Atlanti, srpski reprezentativac među najboljima u poraženoj ekipi</strong></p>\r\n<div id=\"adoceanrsxfkrqnqpez\"></div>\r\n<div>\r\n<div>\r\n<p>Sjajnoj seriji Atlante do&scaron;ao je kraj. Posle sedam vezanih pobeda, Toronto Reptorsi su savladali četu&nbsp;Nejta Mekmilana&nbsp;i to u Stejt Farm Areni -&nbsp;106:100.&nbsp;Bogdan Bogdanović&nbsp;je u fini&scaron;u mogao da izraste u junaka Jastrebova, sa dve trojke ih je doveo na samo pola ko&scaron;a zaostatka, ali je usledio odgovor&nbsp;Ou Džej Anunobija&nbsp;koji su gosti napravili ključni korak ka pobedi.</p>\r\n<p>Srpski reprezentativac je pokazao da se nalazi u dobroj formi. Susret je okončao kao drugi strelac poražene ekipe sa 18 poena, ali i pet skokova i četiri asistencije.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p>Koliko je važan za Hokse dokazao je i večeras, s ozbirom da je većinu poena ubacio u poslednjoj četvrtini (11), iako ga u prve tri &scaron;ut nije najbolje služio. Otvorio je odlučujući kvartal trojkom i deficit domaćina sveo na svega pet poena. Potom je dvojkom sredinom deonice pokrenuo seriju kojom je Atlanta pri&scaron;la na četiri poena zaostatka, a onda se u poslednja dva minuta usijao.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</article>',
         'bogdan-se-usijao-u-finisu-i-dao-nadu-hoksima-ugasio-je-anunobi-video', '2022-02-01 07:26:05',
         '2022-02-01 07:26:05', 1, NULL, '1643685040701_bogdan.jpg');
@@ -731,7 +779,6 @@ CREATE TABLE `role_user`
 
 INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`)
 VALUES (1, 1, '2022-01-17 15:16:23', NULL),
-       (1, 14, '2022-01-29 19:27:06', NULL),
        (2, 6, '2022-01-23 23:54:09', NULL),
        (3, 6, '2022-01-23 18:12:40', NULL),
        (205, 2, '2022-01-28 18:59:26', NULL),
@@ -887,9 +934,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `co
                      `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`)
 VALUES (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL,
         '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147,
-        'bssrdUIgv1NfY3Z6HOPtW4NrH8u3TCbIgX77GKX7sxl7d1D5K1gVhG3nmJ94', '2021-12-28 23:26:57', '2022-01-28 18:10:42',
+        'wXvk9Fi0RaeRfVqH80TIWoIXM5osf4gUZfKVXqaANhIVNtdwFtGvLTsApnDp', '2021-12-28 23:26:57', '2022-01-28 18:10:42',
         NULL, 'Partizanski put bb', 'sinisa', 1),
-       (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 2,
+       (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 147,
         NULL, '2022-01-22 17:37:39', '2022-01-29 19:28:27', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
        (3, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147,
         NULL, '2021-12-24 12:55:38', '2022-01-28 18:34:42', NULL, 'Momisici', 'ivan', 1),
@@ -954,12 +1001,27 @@ ALTER TABLE `category_post`
     ADD KEY `post_id` (`post_id`);
 
 --
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `name` (`name`),
+    ADD KEY `country_id` (`country_id`);
+
+--
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
     ADD PRIMARY KEY (`id`),
     ADD KEY `comments_commentable_type_commentable_id_index` (`commentable_type`, `commentable_id`),
     ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `comment_id` (`comment_id`);
 
 --
 -- Indexes for table `countries`
@@ -1095,11 +1157,24 @@ ALTER TABLE `categories`
     AUTO_INCREMENT = 7;
 
 --
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    AUTO_INCREMENT = 3;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
     MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 3;
+    AUTO_INCREMENT = 9;
+
+--
+-- AUTO_INCREMENT for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -1196,10 +1271,22 @@ ALTER TABLE `category_post`
     ADD CONSTRAINT `category_post_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `cities`
+--
+ALTER TABLE `cities`
+    ADD CONSTRAINT `cities_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
     ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `comment_replies`
+--
+ALTER TABLE `comment_replies`
+    ADD CONSTRAINT `comment_replies_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `permission_role`
