@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2022 at 01:31 AM
+-- Generation Time: Feb 06, 2022 at 11:48 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -145,12 +145,8 @@ INSERT INTO `comments` (`id`, `commentable_type`, `commentable_id`, `comment`, `
 VALUES (1, 'App\\Post', 1, 'This is a comment from a user.', 1, NULL, '2022-02-01 08:07:13', '2022-02-01 08:07:13'),
        (2, 'App\\Post', 1, 'Ovo je komentar od strane administratora', 1, 1, '2022-02-01 08:09:40',
         '2022-02-01 08:09:40'),
-       (3, 'App\\Post', 1, 'Natus excepturi ipsum ad elig', 0, 1, '2022-02-04 23:47:41', '2022-02-04 23:47:41'),
-       (4, 'App\\Post', 2, 'Iure quia similique omnis mole', 0, 1, '2022-02-05 00:06:32', '2022-02-05 00:06:32'),
-       (5, 'App\\Post', 2, 'Dolore quia ut amet voluptas', 0, 1, '2022-02-05 00:29:09', '2022-02-05 00:29:09'),
-       (6, 'App\\Post', 2, 'Maiores assumenda excepturi ma', 0, 1, '2022-02-05 00:30:44', '2022-02-05 00:30:44'),
-       (7, 'App\\Post', 2, 'Perferendis officia dolorem co', 0, NULL, '2022-02-05 00:31:13', '2022-02-05 00:31:13'),
-       (8, 'App\\Post', 2, 'Proident magna optio enim na', 0, NULL, '2022-02-05 00:31:32', '2022-02-05 00:31:32');
+       (3, 'App\\Post', 1, 'Natus excepturi ipsum ad elig', 1, 1, '2022-02-04 23:47:41', '2022-02-05 18:55:48'),
+       (4, 'App\\Post', 2, 'Iure quia similique omnis mole', 1, 1, '2022-02-05 00:06:32', '2022-02-05 18:55:42');
 
 -- --------------------------------------------------------
 
@@ -690,10 +686,13 @@ VALUES (1, 'Libero quibusdam labore corpor',
         '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>',
         'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL,
         'rosette-nebula-1920×1080.jpg'),
-       (2, 'Bogdan se usijao u finišu i dao nadu Hoksima, ugasio je Anunobi (VIDEO)',
+       (2, 'Bogdan se usijao u finišu i dao nadu Hoksima, ugasio je Anunobi',
         '<article>\r\n<div>\r\n<p><strong>Toronto slavio u Atlanti, srpski reprezentativac među najboljima u poraženoj ekipi</strong></p>\r\n<div id=\"adoceanrsxfkrqnqpez\"></div>\r\n<div>\r\n<div>\r\n<p>Sjajnoj seriji Atlante do&scaron;ao je kraj. Posle sedam vezanih pobeda, Toronto Reptorsi su savladali četu&nbsp;Nejta Mekmilana&nbsp;i to u Stejt Farm Areni -&nbsp;106:100.&nbsp;Bogdan Bogdanović&nbsp;je u fini&scaron;u mogao da izraste u junaka Jastrebova, sa dve trojke ih je doveo na samo pola ko&scaron;a zaostatka, ali je usledio odgovor&nbsp;Ou Džej Anunobija&nbsp;koji su gosti napravili ključni korak ka pobedi.</p>\r\n<p>Srpski reprezentativac je pokazao da se nalazi u dobroj formi. Susret je okončao kao drugi strelac poražene ekipe sa 18 poena, ali i pet skokova i četiri asistencije.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p>Koliko je važan za Hokse dokazao je i večeras, s ozbirom da je većinu poena ubacio u poslednjoj četvrtini (11), iako ga u prve tri &scaron;ut nije najbolje služio. Otvorio je odlučujući kvartal trojkom i deficit domaćina sveo na svega pet poena. Potom je dvojkom sredinom deonice pokrenuo seriju kojom je Atlanta pri&scaron;la na četiri poena zaostatka, a onda se u poslednja dva minuta usijao.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</article>',
-        'bogdan-se-usijao-u-finisu-i-dao-nadu-hoksima-ugasio-je-anunobi-video', '2022-02-01 07:26:05',
-        '2022-02-01 07:26:05', 1, NULL, '1643685040701_bogdan.jpg');
+        'bogdan-se-usijao-u-finisu-i-dao-nadu-hoksima-ugasio-je-anunobi', '2022-02-01 07:26:05', '2022-02-06 10:55:43',
+        1, NULL, '1643685040701_bogdan.jpg'),
+       (101, 'Kup UEFA 1990/91',
+        '<p><strong>Partizan u Kupu UEFA 1990/91:&nbsp;</strong></p>\r\n<p style=\"line-height: 1.5;\">Predrag Mijatović 6/1, Slađan &Scaron;ćepović 6/1, Goran Bogdanović 6/0, Josip Vi&scaron;njić 6/0, Vujadin Stanojković 6/0, Slavi&scaron;a Jokanović 6/0, Budimir&nbsp; Vujačić 6/0, Goran Stevanović 5/3, Goran Pandurović 5/0, Darko Milanič 5/0, Milan Đurđević 4/1, Gordan Petrić 4/0, Aleksandar Đorđević 2/1, Fahrudin Omerović 2/0, Miodrag Je&scaron;ić 2/0, Bratislav Mijalković 2/0, Milinko Pantić 1/0.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Trener: Milo&scaron; Milutinović</strong></p>\r\n<p><img style=\"float: left;\" src=\"/storage/photos/1/Screenshot-54.png\" alt=\"\" width=\"341\" height=\"341\" />&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Znao je Partizan često da neprijatno iznenadi svoje navijače, tako &scaron;to bi u evropskim okr&scaron;ajima izgubio od totalnog autsajdera. Ali kada je &bdquo;crno-belima&ldquo; žreb za 1. kolo Kupa UEFA dodelio takođe klub crno-belih boja, Hibernijans sa Malte, niko nije ni pomi&scaron;ljao da Partizan neće sa lakoćom preskočiti ovu prepreku. Tim pre &scaron;to Hibernijans nije nikada ni bio među vodećim triom malte&scaron;kog fudbala, kakav god da je kvalitet fudbala u toj državi. Četvrti su klub po osvojenim trofejima na Malti, u senci Slieme, Valete i Florijane.</p>\r\n<p>Malta je jo&scaron; tada bila atraktivna turistička destinacija, ali kada je u pitanju fudbalska mapa, e tu su Maltežani predstavljali poslednje čuvare arhaičnih fudbalskih vremena. Jedini koliko-toliko pristojan teren bio je onaj na Nacionalnom stadionu, na kojem se i igrala ova utakmica. Organizacija utakmice i uslovi za izve&scaron;tavanje beogradskih novinara bili su ispod svakog nivoa: mediteranska opu&scaron;tenost Maltežana i pona&scaron;anje po sistemu &bdquo;lako ćemo&ldquo;, doveli su do toga da sedam jugoslovenskih izve&scaron;tača koristi tek jednu telefonsku liniju.</p>\r\n<p>Ipak, ova utakmica je u&scaron;la u istoriju Partizana pre nego &scaron;to je lopta uop&scaron;te i krenula sa centa: kada su na&scaron;i fudbaleri tog 18. septembra istrčali na teren Nacionalnog stadiona, po prvi put posle 32 godine učinili su to sa crveno-plavim dresovima na sebi! Crno-bele klupske boje Hibernijansa, identične na&scaron;im, nalagale su da Partizan mora da izabere neku drugu varijantu. U Jugoslaviji su već počele izvesne političke promene, a u svakoj sferi dru&scaron;tva, pa i u sportu, počelo je sa prekopavanjem i preispitivanjem istorije, &nbsp;pa je i preispitivan kontekst u kojem je Partizan pre vi&scaron;e od tri decenije crveno-plavu opremu zamenio crno-belom. Uprava je strahovala kako će navijači prihvatiti rezervnu varijantu, da li će to biti shvaćeno kao povlačenje pred dnevnom politikom, ali nisu imali drugi izbor. Crveno-plava kombinacija boja koju je uradio aktuelni sponzor, Vokado, i koja je godinu dana stajala neotpakovana upravo zbog tih političkih aluzija, na&scaron;la se tog vrelog popodneva na igračima Partizana.</p>',
+        'kup-uefa-199091', '2022-02-06 22:02:20', '2022-02-06 22:21:17', 1, NULL, 'Inter-Partizan.jpg');
 
 -- --------------------------------------------------------
 
@@ -894,9 +893,9 @@ INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`, `deleted_a
 VALUES (1, 'sport', 'sport', '2021-12-24 22:30:47', '2022-01-28 12:10:54', NULL),
        (2, 'education', 'education', '2021-12-24 22:31:00', '2022-01-21 23:38:13', NULL),
        (3, 'science', 'science', '2022-01-21 23:38:00', '2022-01-21 23:38:15', NULL),
-       (4, 'lazio', 'lazio', '2022-01-21 23:38:02', '2022-01-21 23:38:16', NULL),
-       (5, 'partizan', 'partizan', '2022-01-21 23:38:04', '2022-01-23 23:26:02', '2022-01-23 23:26:02'),
-       (7, 'Ramonda', 'ramonda', '2022-01-21 23:38:08', '2022-01-23 23:25:50', NULL),
+       (4, 'lazio', 'lazio', '2022-01-21 23:38:02', '2022-02-05 23:46:46', NULL),
+       (5, 'partizan', 'partizan', '2022-01-21 23:38:04', '2022-02-05 23:46:49', NULL),
+       (7, 'Ramonda', 'ramonda', '2022-01-21 23:38:08', '2022-02-05 23:46:52', '2022-02-05 23:46:52'),
        (8, 'framework', 'framework', '2022-01-21 23:38:10', '2022-01-23 00:45:02', NULL),
        (9, 'Vlada Crne Gore', 'vlada-crne-gore', '2022-01-23 00:10:06', '2022-01-23 00:10:06', NULL),
        (10, 'politika', 'politika', '2022-01-23 00:44:07', '2022-01-23 00:44:07', NULL);
@@ -934,7 +933,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `co
                      `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`)
 VALUES (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL,
         '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147,
-        'wXvk9Fi0RaeRfVqH80TIWoIXM5osf4gUZfKVXqaANhIVNtdwFtGvLTsApnDp', '2021-12-28 23:26:57', '2022-01-28 18:10:42',
+        'p336obGqp5l7DiXlNE1NnTJZHwNsIUilIruoH7oY78ERuMkPX9IdhjImApV7', '2021-12-28 23:26:57', '2022-01-28 18:10:42',
         NULL, 'Partizanski put bb', 'sinisa', 1),
        (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 147,
         NULL, '2022-01-22 17:37:39', '2022-01-29 19:28:27', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
@@ -1168,7 +1167,7 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `comments`
     MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 9;
+    AUTO_INCREMENT = 12;
 
 --
 -- AUTO_INCREMENT for table `comment_replies`
@@ -1215,7 +1214,7 @@ ALTER TABLE `photos`
 --
 ALTER TABLE `posts`
     MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 101;
+    AUTO_INCREMENT = 102;
 
 --
 -- AUTO_INCREMENT for table `products`
