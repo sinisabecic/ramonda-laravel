@@ -58,7 +58,7 @@
                             </td>
 
                             <td>
-                                <p class="small">{{ substr($post->content, 0, 90) }}</p>
+                                <p class="small">{!! substr($post->content, 0, 90) !!}</p>
                             </td>
                             <td>
                                 <img
@@ -71,17 +71,6 @@
                                     height="43px"
                                     width="43px">
                             </td>
-                            {{--                            <td>--}}
-                            {{--                                <img--}}
-                            {{--                                    @if($user->avatar)--}}
-                            {{--                                    src="{{env('AVATAR') .'/'. $post->id .'/'. $user->avatar}}"--}}
-                            {{--                                    @else--}}
-                            {{--                                    src="uploads/{{ 'user.jpg' }}"--}}
-                            {{--                                    @endif--}}
-                            {{--                                    alt=""--}}
-                            {{--                                    height="43px"--}}
-                            {{--                                    width="43px">--}}
-                            {{--                            </td>--}}
 
                             <td>
                                  <span class="badge badge-pill badge-secondary small">
@@ -95,7 +84,9 @@
                             </td>
 
                             <td>
-                                <p class="small font-weight-bold">{{ $post->author->username }}</p>
+                                <a href="{{ route('user.profile.show', $post->author->id) }}">
+                                    <span class="small font-weight-bold">{{ $post->author->username }}</span>
+                                </a>
                             </td>
 
                             <td>

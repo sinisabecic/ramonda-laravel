@@ -34,11 +34,24 @@
                 </article>
 
                 <!-- Comments section-->
-                @include('blog.comments')
+                {{--                @include('blog.comments')--}}
+                <div id="disqus_thread" class="mb-5"></div>
 
             </div>
             <!-- Side widgets-->
             @include('blog.layouts.side-widgets')
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script id="dsq-count-scr" src="//ramonda.disqus.com/count.js" async></script>
+    <script>
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://ramonda.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
 @endsection
