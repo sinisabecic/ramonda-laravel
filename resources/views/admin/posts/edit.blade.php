@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('page-title', 'New post')
+@section('page-title', 'Edit post')
 
 @section('content')
 
@@ -78,7 +78,7 @@
                 <button type="submit" class="btn btn-primary">
                     {{ __('Update') }}
                 </button>
-                <a href="{{ route('posts.index') }}" type="button" class="btn btn-secondary">
+                <a href="{{ route('blog.posts') }}" type="button" class="btn btn-secondary">
                     {{ __('Cancel') }}
                 </a>
             </div>
@@ -87,7 +87,8 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/aq4yxpek36fz7epa0kqorg4304hgfjrk8qqwtf0binzc8iw6/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <script>
 
         //? Dodavanje korisnika
@@ -107,7 +108,7 @@
 
                 $.ajax({
                     method: 'POST', //nekad mora post da ide za update i za delete
-                    url: "{{ route('posts.update', $post->id) }}",
+                    url: "{{ route('blog.posts.update', $post->id) }}",
                     data: formData,
                     success: function () {
                         Swal.fire({

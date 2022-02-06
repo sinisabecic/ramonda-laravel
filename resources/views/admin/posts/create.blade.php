@@ -83,7 +83,8 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/aq4yxpek36fz7epa0kqorg4304hgfjrk8qqwtf0binzc8iw6/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <script>
 
         //? Dodavanje korisnika
