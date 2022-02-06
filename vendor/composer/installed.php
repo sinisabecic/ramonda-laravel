@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '404aac1eeb1de88c637bb3aef8372d87cfc2ec1c',
+    'reference' => '73f1438fc4e89a6945891a8a1363c88692517735',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -399,6 +399,15 @@
         0 => 'v7.30.6',
       ),
     ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.7.1',
+      'version' => '2.7.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -422,7 +431,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '404aac1eeb1de88c637bb3aef8372d87cfc2ec1c',
+      'reference' => '73f1438fc4e89a6945891a8a1363c88692517735',
     ),
     'laravel/tinker' => 
     array (
@@ -1265,6 +1274,15 @@
       array (
       ),
       'reference' => 'da444caae6aca7a19c0c140f68c6182e337d5b1c',
+    ),
+    'unisharp/laravel-filemanager' => 
+    array (
+      'pretty_version' => 'v2.3.0',
+      'version' => '2.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '05da8be42a51d9942cd0201152789b1445f2c671',
     ),
     'vlucas/phpdotenv' => 
     array (

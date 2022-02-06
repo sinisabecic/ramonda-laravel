@@ -53,7 +53,8 @@
                             {{--                            </td>--}}
                             <td><span class="small">{{ $post->id }}</span></td>
                             <td>
-                                <p class="small"><strong>{{ substr($post->title, 0, 90) }}</strong></p>
+                                <a href="{{ route('blog.post', $post->slug) }}" target="_blank"
+                                   class="small"><strong>{{ substr($post->title, 0, 90) }}</strong></a>
                             </td>
 
                             <td>
@@ -148,7 +149,7 @@
 
 @section('script')
     <script>
-        
+
         //? Za brisanje korisnika
         // * Noviji nacin
         function deletePost(item) {

@@ -13,13 +13,15 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
+        "intervention/image": "^2.7",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
         "laravelcollective/html": "^6.2",
         "livewire/livewire": "^2.8",
         "rahulhaque/laravel-filepond": "^1.4",
-        "realrashid/sweet-alert": "^4.1"
+        "realrashid/sweet-alert": "^4.1",
+        "unisharp/laravel-filemanager": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

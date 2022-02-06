@@ -117,6 +117,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/realrashid/sweet-alert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rahulhaque/laravel-filepond" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-comments" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/unisharp/laravel-filemanager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/intervention/image" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

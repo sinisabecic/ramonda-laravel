@@ -20,3 +20,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/photos/user/{user}/update', 'UsersController@updatePhoto')->name('user.photo.update');
 });
 
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+

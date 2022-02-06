@@ -99,6 +99,11 @@
                     <i class="fas fa-clipboard-list"></i>
                     Posts
                 </a>
+                <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'create')) active @endif"
+                   href="{{ route('blog.posts.create') }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    New Post
+                </a>
                 <a class="collapse-item @if(Str::contains(request()->route()->getName(), 'categories')) active @endif"
                    href="{{ route('blog.categories') }}">
                     <i class="fas fa-align-justify"></i>
@@ -118,19 +123,25 @@
         </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-photo-video"></i>
-            <span>Components</span>
-        </a>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded-sm">
-                <h6 class="collapse-header">Custom media:</h6>
-                <a class="collapse-item" href="{{ route('media.photos') }}">All media</a>
-                <a class="collapse-item" href="cards.html">Upload media</a>
-            </div>
-        </div>
+    {{--    <li class="nav-item">--}}
+    {{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"--}}
+    {{--           aria-expanded="true" aria-controls="collapseTwo">--}}
+    {{--            <i class="fas fa-photo-video"></i>--}}
+    {{--            <span>Components</span>--}}
+    {{--        </a>--}}
+    {{--        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">--}}
+    {{--            <div class="bg-white py-2 collapse-inner rounded-sm">--}}
+    {{--                <h6 class="collapse-header">Custom media:</h6>--}}
+    {{--                <a class="collapse-item" href="{{ route('media.photos') }}">All media</a>--}}
+    {{--                <a class="collapse-item" href="cards.html">Upload media</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </li>--}}
+
+    <li class="nav-item @if(Str::contains(request()->route()->getName(), 'filemanager')) active @endif">
+        <a class="nav-link" href="/admin/filemanager">
+            <i class="fas fa-file-archive"></i>
+            <span>File manager</span></a>
     </li>
 
 {{--    <!-- Divider -->--}}

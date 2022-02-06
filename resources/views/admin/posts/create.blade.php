@@ -6,10 +6,10 @@
     <form method="POST" action="" enctype="multipart/form-data" id="addPostForm">
         @csrf
         @method('POST')
-        <div class="form-group row">
-            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+        <div class="form-group">
+            <label for="title" class="col-md-4 col-form-label text-md-left">{{ __('Title') }}</label>
 
-            <div class="col-md-6">
+            <div class="col-lg">
                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror"
                        name="title" required autocomplete="name" autofocus>
 
@@ -21,12 +21,13 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="editor" class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
+        <div class="form-group">
+            <label for="editor" class="col-md-4 col-form-label text-md-left">{{ __('Content') }}</label>
 
-            <div class="col-md-6">
-                        <textarea id="editor" cols="80" rows="10"
-                                  class="form-control @error('content') is-invalid @enderror" name="content"></textarea>
+            <div class="col-lg">
+                        <textarea id="editor" cols="80" rows="20"
+                                  class="form-control my-editor @error('content') is-invalid @enderror"
+                                  name="content"></textarea>
 
                 @error('content')
                 <span class="invalid-feedback" role="alert">
@@ -36,10 +37,10 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('Author') }}</label>
+        <div class="form-group">
+            <label for="user_id" class="col-md-4 col-form-label text-md-left">{{ __('Author') }}</label>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <select class="form-control" name="user_id" id="user_id">
 
                     @foreach ($users as $user)
@@ -55,8 +56,8 @@
         </div>
 
         <div>
-            <label for="banner" class="col-md-4 col-form-label text-md-right">{{ __('Banner') }}</label>
-            <div class="col-md-6" style="left: 25.8rem!important;top: -1.7rem!important;">
+            <label for="banner" class="col-md-4 col-form-label text-md-left">{{ __('Banner') }}</label>
+            <div class="col-md-6" style="">
                 <input type="file" id="banner"
                        class="form-control-file @error('banner') is-invalid @enderror"
                        name="banner" value="{{ old('banner') }}">
@@ -69,12 +70,13 @@
             </div>
         </div>
 
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+        <div class="form-group mb-5 mt-4 float-right">
+            <hr/>
+            <div class="col-md">
+                <button type="submit" class="btn btn-primary btn-lg">
                     {{ __('Create') }}
                 </button>
-                <a href="{{ route('blog.posts') }}" type="button" class="btn btn-secondary">
+                <a href="{{ route('blog.posts') }}" type="button" class="btn btn-secondary  btn-lg">
                     {{ __('Cancel') }}
                 </a>
             </div>
@@ -146,29 +148,43 @@
         }
 
         //? Editor
-        tinymce.init({
-            selector: 'textarea#editor',
-            skin: 'bootstrap',
-            plugins: 'lists, link, image, media',
-            toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help',
-            menubar: true,
-            setup: (editor) => {
-                // Apply the focus effect
-                editor.on("init", () => {
-                    editor.getContainer().style.transition =
-                        "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
+        var editor_config = {
+            path_absolute: "/",
+            selector: 'textarea.my-editor',
+            relative_urls: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime media nonbreaking save table directionality",
+                "emoticons template paste textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+            file_picker_callback: function (callback, value, meta) {
+                var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+                var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+                var cmsURL = editor_config.path_absolute + 'filemanager?editor=' + meta.fieldname;
+                if (meta.filetype == 'image') {
+                    cmsURL = cmsURL + "&type=Images";
+                } else {
+                    cmsURL = cmsURL + "&type=Files";
+                }
+
+                tinyMCE.activeEditor.windowManager.openUrl({
+                    url: cmsURL,
+                    title: 'Filemanager',
+                    width: x * 0.8,
+                    height: y * 0.8,
+                    resizable: "yes",
+                    close_previous: "no",
+                    onMessage: (api, message) => {
+                        callback(message.content);
+                    }
                 });
-                editor.on("focus", () => {
-                    (editor.getContainer().style.boxShadow =
-                        "0 0 0 .2rem rgba(0, 123, 255, .25)"),
-                        (editor.getContainer().style.borderColor = "#80bdff");
-                });
-                editor.on("blur", () => {
-                    (editor.getContainer().style.boxShadow = ""),
-                        (editor.getContainer().style.borderColor = "");
-                });
-            },
-        });
+            }
+        };
+
+        tinymce.init(editor_config);
 
     </script>
 @endsection
