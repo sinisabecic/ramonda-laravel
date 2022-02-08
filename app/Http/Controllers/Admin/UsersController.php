@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -22,16 +23,13 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::with('photos')->withTrashed()->get();
-        $countries = Country::all();
-        $roles = Role::all();
-        return view('admin.users', compact('users', 'countries', 'roles'));
-    }
-
-
-    public function create()
-    {
-        //
+//        $users = User::with('photos')->withTrashed()->get();
+        return view('admin.users',
+            [
+                'users' => User::with('photos')->withTrashed()->get(),
+                'countries' => Country::all(),
+                'roles' => Role::all()
+            ]);
     }
 
 
@@ -47,22 +45,17 @@ class UsersController extends Controller
             'is_active' => $request->is_active,
         ]);
 
-        $user->roles()->sync($request->roles);
-
         if (request()->hasFile('avatar')) {
             $avatar = request()->file('avatar')->getClientOriginalName();
 //            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
+            //files/1/Avatars ovo je filemanager
+            Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->create(['url' => $avatar]);
+        } else {
+            $user->photo()->create(['url' => 'user.jpg']);
         }
 
-//        return $user;
-    }
-
-
-    public function show($id)
-    {
-        //
+        $user->roles()->sync($request->roles);
     }
 
 
@@ -186,6 +179,28 @@ class UsersController extends Controller
             Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->update(['url' => $avatar]);
         }
+    }
+
+    //? Bulk brisanje
+    public function deleteUsers(Request $request)
+    {
+        $ids = $request->ids;
+        User::whereIn('id', explode(",", $ids))->delete();
+        return response()->json(['success' => "Users deleted successfully."]);
+    }
+
+    public function removeUsers(Request $request)
+    {
+        $ids = $request->ids;
+        User::whereIn('id', explode(",", $ids))->forceDelete();
+        return response()->json(['success' => "Users removed successfully."]);
+    }
+
+    public function restoreUsers(Request $request)
+    {
+        $ids = $request->ids;
+        User::whereIn('id', explode(",", $ids))->restore();
+        return response()->json(['success' => "Users restored successfully."]);
     }
 
 }

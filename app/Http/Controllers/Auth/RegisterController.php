@@ -93,12 +93,14 @@ class RegisterController extends Controller
 //            'is_active' => 0, // u bazi je default 0
             'country_id' => $input['country'],
             'address' => $input['address'],
-            'avatar' => 'user.jpg',
+//            'avatar' => 'user.jpg',
         ]);
         if (request()->hasFile('avatar')) {
             $avatar = request()->file('avatar')->getClientOriginalName();
             request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            $user->update(['avatar' => $avatar]);
+            $user->photo()->create(['url' => $avatar]);
+        } else {
+            $user->photo()->create(['url' => 'user.jpg']);
         }
 
         $user->roles()->attach([5]); // svaki novi korisnik je nomad

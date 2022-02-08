@@ -33,4 +33,9 @@ Route::group(['prefix' => 'blog', 'namespace' => 'Blog'], function () {
 });
 
 
+Route::get('/getusers', function () {
+//    return \Illuminate\Support\Facades\DB::table('users')->get();
+    return User::with('photos')->withTrashed()->get();
+});
+
 

@@ -15,24 +15,52 @@
             <h6 class="m-0 font-weight-bold text-primary"></h6>
         </div>
         <div class="card-body">
+
             <div class="d-flex justify-content-end">
                 <a href="{{ route('blog.posts.create') }}" class="btn btn-primary btn-sm"
                    style="float: right">
                     <i class="fas fa-user-plus"></i> New post
                 </a>
-                <a href="{{ route('blog.posts') }}" class="btn btn-secondary btn-sm ml-1"
+
+                {{--? Submit bulk delete --}}
+                <button class="btn btn-danger btn-sm ml-1"
+                        onclick="deletePosts()"
+                        style=" float: right
+                ">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+
+                @if(auth()->user()->is_admin)
+                    <button class="btn btn-warning btn-sm text-dark ml-1"
+                            onclick="removePosts()"
+                            style=" float: right
+                ">
+                        <i class="fas fa-minus-circle"></i> Remove
+                    </button>
+
+                    <button class="btn btn-dark btn-sm ml-1"
+                            onclick="restorePosts()"
+                            style=" float: right
+                ">
+                        <i class="fas fa-trash-restore"></i> Restore
+                    </button>
+                @endif
+
+                <a href="{{ route('blog.posts') }}" class="btn btn-outline-secondary btn-sm ml-1"
                    style="float: right">
                     <i class="fas fa-redo-alt"></i> Refresh
                 </a>
+
             </div>
+
             <div class="table table-responsive">
-                <table class="display hover" id="dataTablePosts" width="100%"
+                <table class="display" id="dataTablePosts" width="100%"
                        cellspacing="0">
                     <thead>
                     <tr>
-                        {{--                        <th>--}}
-                        {{--                                                        <input type="checkbox" id="selectAllBoxes">--}}
-                        {{--                        </th>--}}
+                        <th width="12px !important">
+                            <input type="checkbox" id="master" name="checkBoxArray[]"/>
+                        </th>
                         <th>ID</th>
                         <th>Title</th>
                         <th>Content</th>
@@ -46,19 +74,18 @@
 
                     <tbody>
                     @foreach($posts as $post)
-                        <tr class="row-post" data-id="{{ $post->id }}">
-                            {{--                            <td>--}}
-                            {{--                                <input type="checkbox" name="user_id[]" id="delete_user" class="checkBoxes"--}}
-                            {{--                                       data-id="{{ $user->id }}">--}}
-                            {{--                            </td>--}}
+                        <tr class="row-post sub_chk" data-id="{{ $post->id }}">
+                            <td>
+                                <input type="checkbox" class="sub_chk" data-id="{{$post->id}}">
+                            </td>
                             <td><span class="small">{{ $post->id }}</span></td>
                             <td>
                                 <a href="{{ route('blog.post', $post->slug) }}" target="_blank"
                                    class="small"><strong>{{ substr($post->title, 0, 90) }}</strong></a>
                             </td>
 
-                            <td>
-                                <p class="small">{!! substr($post->content, 0, 90) !!}</p>
+                            <td class="small">
+                                {!! substr($post->content, 0, 90) !!}
                             </td>
                             <td>
                                 <img
@@ -140,9 +167,7 @@
 
 @section('script')
     <script>
-
-        //? Za brisanje korisnika
-        // * Noviji nacin
+        //? Za brisanje posta
         function deletePost(item) {
 
             $.ajaxSetup({
@@ -206,9 +231,7 @@
             });
         }
 
-
         //? Za restore posta
-        // * Noviji nacin
         function restorePost(item) {
 
             $.ajaxSetup({
@@ -267,9 +290,7 @@
             });
         }
 
-
         //? Za permanentno brisanje korisnika
-        // * Noviji nacin
         function forceDeletePost(item) {
 
             $.ajaxSetup({
@@ -345,18 +366,284 @@
             });
         }
 
+        $(document).ready(function () {
+            //? select all pri kliku
+            $('#master').on('click', function (e) {
+                if ($(this).is(':checked', true)) {
+                    $(".sub_chk").prop('checked', true);
+                } else {
+                    $(".sub_chk").prop('checked', false);
+                }
+            });
+        });
 
-        function clearFields(form) {
-            $(':input', form)
-                .not(':button, :submit, :reset, :hidden')
-                .val('')
-                .prop('checked', false)
-                .prop('selected', false);
+        function deletePosts() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+
+            Swal.fire({
+                title: 'Delete selected post(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select item!',
+                        // text: "You won't be able to restore post!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "{{ route('blog.posts.delete') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Post deleted!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Izbrisan post: " + value);
+                                        $(".row-post[data-id=" + value + "] .deletePostBtn").text("Deleted").attr("disabled", "disabled");
+                                        $(".row-post[data-id=" + value + "] .editPostBtn").fadeOut('slow');
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
         }
 
+        function removePosts() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+
+            Swal.fire({
+                title: 'Remove selected post(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select post!',
+                        text: "You won't be able to restore post!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "{{ route('blog.posts.remove') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Post permanently deleted!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Uklonjen post: " + value);
+                                        $(".row-post[data-id=" + value + "]")
+                                            .children('td, th')
+                                            .animate({
+                                                padding: 0
+                                            })
+                                            .wrapInner('<div />')
+                                            .children()
+                                            .slideUp(function () {
+                                                $(this).closest('tr').remove();
+                                            });
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function restorePosts() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+            Swal.fire({
+                title: 'Restore selected post(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select post!',
+                        // text: "You won't be able to restore post!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "PUT",
+                            url: "{{ route('blog.posts.restore') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Post(s) restored!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Ozivljen post: " + value);
+                                        $(".row-post[data-id=" + value + "] .restorePostBtn").text("Restored").attr("disabled", "disabled");
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript"
             src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
     <!-- Page level custom scripts -->

@@ -9,6 +9,15 @@ Route::get('/posts', 'PostsController@index');
 Route::get('/posts/create', 'PostsController@create');
 Route::get('/posts/{id}', 'PostsController@show');
 
+Route::delete('/posts/delete', 'PostsController@deletePosts')
+    ->name('blog.posts.delete');
+
+Route::delete('/posts/remove', 'PostsController@removePosts')
+    ->name('blog.posts.remove');
+
+Route::put('/posts/restore', 'PostsController@restorePosts')
+    ->name('blog.posts.restore');
+
 //? Comments
 Route::post('/posts/{post}/comment', 'CommentsController@store')->name('post.comment.store');
 

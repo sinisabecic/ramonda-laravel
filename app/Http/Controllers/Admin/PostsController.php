@@ -8,8 +8,10 @@ use App\Http\Requests\CreatePostRequest;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use mysql_xdevapi\Exception;
 use function redirect;
 use function view;
 use Illuminate\Support\Str;
@@ -121,5 +123,27 @@ class PostsController extends Controller
 //            return redirect('/users');
 
         return response()->json();
+    }
+
+
+    public function deletePosts(Request $request)
+    {
+        $ids = $request->ids;
+        Post::whereIn('id', explode(",", $ids))->delete();
+        return response()->json(['success' => "Posts Deleted successfully."]);
+    }
+
+    public function removePosts(Request $request)
+    {
+        $ids = $request->ids;
+        Post::whereIn('id', explode(",", $ids))->forceDelete();
+        return response()->json(['success' => "Posts removed successfully."]);
+    }
+
+    public function restorePosts(Request $request)
+    {
+        $ids = $request->ids;
+        Post::whereIn('id', explode(",", $ids))->restore();
+        return response()->json(['success' => "Posts restored successfully."]);
     }
 }

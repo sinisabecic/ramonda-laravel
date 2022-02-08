@@ -120,12 +120,12 @@ $(document).ready(function () {
             targets: [-4, -2], // -1 je zadnja kolona
             visible: false,
         }],
-        order: [[0, 'desc']], //? sortiraj po datumu registracije
+        order: [[1, 'desc']], //? sortiraj po datumu registracije
     });
 
 
     //? Posts
-    $('#dataTablePosts').DataTable({
+    let dataTablePosts = $('#dataTablePosts').DataTable({
         dom: 'Bfrtip',
         colReorder: true,
         buttons: [
@@ -229,13 +229,16 @@ $(document).ready(function () {
 
         ],
 
-        //? Pri ucitavanju po defaultu da kolona Action(-1) bude nevidljiva
-        // -2 je kolona created at itd.
         // columnDefs: [{
-        //     targets: [-4, -2], // -1 je zadnja kolona
-        //     visible: false,
+        //     orderable: false,
+        //     className: 'select-checkbox',
+        //     targets: 0
         // }],
-        order: [[0, 'desc']], //? sortiraj po datumu registracije
+        // select: {
+        //     style: 'multi',
+        //     selector: 'td:first-child'
+        // },
+        order: [[1, 'desc']]
     });
 
 

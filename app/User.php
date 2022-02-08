@@ -20,9 +20,6 @@ class User extends Authenticatable implements Commentator
      * @var array
      */
     protected $guarded = [];
-//    protected $fillable = [
-//        'name', 'email', 'password', 'username', 'country_id', 'address', 'avatar'
-//    ];
 
     //? Ova kolona se popunjava pri brisanju
     //! Soft delete

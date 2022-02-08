@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('style')
     <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.css"/>
+          href="//cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.css"/>
     <link href="{{ asset('css/datatable.css') }}" rel="stylesheet">
 @endsection
 
@@ -20,19 +20,42 @@
                    style="float: right">
                     <i class="fas fa-user-plus"></i> New user
                 </a>
-                <a href="{{ route('users') }}" class="btn btn-secondary btn-sm ml-1"
+
+                {{--? Submit bulk delete --}}
+                <button class="btn btn-danger btn-sm ml-1"
+                        onclick="deleteUsers()"
+                        style=" float: right
+                ">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+
+                <button class="btn btn-warning btn-sm text-dark ml-1"
+                        onclick="removeUsers()"
+                        style=" float: right
+                ">
+                    <i class="fas fa-minus-circle"></i> Remove
+                </button>
+
+                <button class="btn btn-dark btn-sm ml-1"
+                        onclick="restoreUsers()"
+                        style=" float: right
+                ">
+                    <i class="fas fa-trash-restore"></i> Restore
+                </button>
+
+                <a href="{{ route('users') }}" class="btn btn-outline-secondary btn-sm ml-1"
                    style="float: right">
                     <i class="fas fa-redo-alt"></i> Refresh
                 </a>
             </div>
             <div class="table table-responsive">
-                <table class="display hover" id="dataTable" width="100%"
+                <table class="display" id="dataTable" width="100%"
                        cellspacing="0">
                     <thead>
                     <tr>
-                        {{--                        <th>--}}
-                        {{--                                                        <input type="checkbox" id="selectAllBoxes">--}}
-                        {{--                        </th>--}}
+                        <th width="12px !important">
+                            <input type="checkbox" id="master" name="checkBoxArray[]"/>
+                        </th>
                         <th>ID</th>
                         <th>Username</th>
                         <th>Avatar</th>
@@ -50,11 +73,10 @@
                     <tbody>
                     @foreach($users as $user)
                         @foreach ($user->photos as $img)
-                            <tr class="row-user" data-id="{{ $user->id }}">
-                                {{--                            <td>--}}
-                                {{--                                <input type="checkbox" name="user_id[]" id="delete_user" class="checkBoxes"--}}
-                                {{--                                       data-id="{{ $user->id }}">--}}
-                                {{--                            </td>--}}
+                            <tr class="row-user sub_chk" data-id="{{ $user->id }}">
+                                <td>
+                                    <input type="checkbox" class="sub_chk" data-id="{{$user->id}}">
+                                </td>
                                 <td><span class="small">{{ $user->id }}</span></td>
                                 <td>
                                     <p class="small"><strong>{{ $user->username }}</strong></p>
@@ -295,9 +317,7 @@
 
         });
 
-
         //? Za brisanje korisnika
-        // * Noviji nacin
         function deleteUser(item) {
 
             $.ajaxSetup({
@@ -366,9 +386,7 @@
             });
         }
 
-
         //? Za restore korisnika
-        // * Noviji nacin
         function restoreUser(item) {
 
             $.ajaxSetup({
@@ -427,13 +445,17 @@
             });
         }
 
-
         //? Za permanentno brisanje korisnika
         function forceDeleteUser(item) {
 
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
                 }
             });
 
@@ -451,8 +473,9 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const formData = {id: item};
+
                     $.ajax({
-                        type: "DELETE",
+                        method: "DELETE",
                         url: "/admin/users/" + formData.id + "/remove",
                         data: formData,
                         success: function (response) {
@@ -491,8 +514,6 @@
                                     .slideUp(function () {
                                         $(this).closest('tr').remove();
                                     });
-                                // .toggleClass("btn-danger")
-                                // .toggleClass("btn-dark")
                             }
                         }
                     })
@@ -500,6 +521,277 @@
             });
         }
 
+        $(document).ready(function () {
+            //? select all pri kliku
+            $('#master').on('click', function () {
+                if ($(this).is(':checked', true)) {
+                    $(".sub_chk").prop('checked', true);
+                } else {
+                    $(".sub_chk").prop('checked', false);
+                }
+            });
+        });
+
+        function deleteUsers() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+
+            Swal.fire({
+                title: 'Delete selected user(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select item!',
+                        // text: "You won't be able to restore post!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "{{ route('admin.users.delete') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'User deleted!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Izbrisan korisnik: " + value);
+                                        $(".row-user[data-id=" + value + "] .deleteBtn").text("Deleted").attr("disabled", "disabled");
+                                        $(".row-user[data-id=" + value + "] .editUserBtn").fadeOut('slow');
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function removeUsers() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+
+            Swal.fire({
+                title: 'Remove selected user(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select user!',
+                        text: "You won't be able to restore user!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "{{ route('admin.users.remove') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'User permanently deleted!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Uklonjen korisnik: " + value);
+                                        $(".row-user[data-id=" + value + "]")
+                                            .children('td, th')
+                                            .animate({
+                                                padding: 0
+                                            })
+                                            .wrapInner('<div />')
+                                            .children()
+                                            .slideUp(function () {
+                                                $(this).closest('tr').remove();
+                                            });
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function restoreUsers() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+                    'Access-Control-Max-Age': '3600',
+                    'Access-Control-Allow-Headers': 'x-requested-with, content-type',
+                    'Accept': 'application/json',
+                }
+            });
+
+            Swal.fire({
+                title: 'Restore selected user(s)?',
+                // text: "You won't be able to restore post!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3C4B64',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!',
+                toast: true,
+                position: 'top-right',
+
+            }).then((result) => {
+
+                var allVals = [];
+                $(".sub_chk:checked").each(function () {
+                    allVals.push($(this).attr('data-id'));
+                });
+
+                if (allVals.length <= 0) {
+                    Swal.fire({
+                        title: 'Please select user!',
+                        // text: "You won't be able to restore post!",
+                        icon: 'warning',
+                        toast: true,
+                        position: 'top-right',
+                    });
+                } else {
+                    var join_selected_values = allVals.join(",");
+
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            method: "PUT",
+                            url: "{{ route('admin.users.restore') }}",
+                            data: 'ids=' + join_selected_values,
+                            success: function (response) {
+                                if (response.error) {
+                                    Swal.fire({
+                                        title: 'Error! Try again.',
+                                        // text: '',
+                                        icon: 'warning',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'User(s) restored!',
+                                        // text: '',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'top-right',
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+
+                                    $.each(allVals, function (index, value) {
+                                        console.log("Ozivljen post: " + value);
+                                        $(".row-user[data-id=" + value + "] .restoreBtn").text("Restored").attr("disabled", "disabled");
+                                    });
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
         function clearFields(form) {
             $(':input', form)
@@ -509,10 +801,10 @@
                 .prop('selected', false);
         }
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript"
-            src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
+            src="//cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/b-html5-2.1.1/b-print-2.1.1/cr-1.5.5/date-1.1.1/fc-4.0.1/fh-3.2.1/kt-2.6.4/r-2.2.9/rg-1.1.4/rr-1.2.8/sc-2.0.5/sb-1.3.0/sp-1.4.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
 @endsection

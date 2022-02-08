@@ -34,5 +34,13 @@ Route::group([
     Route::delete('/users/{id}/remove', 'UsersController@remove')->name('users.remove');
     Route::put('/users/{id}/restore', 'UsersController@restore');
 
+    //? Bulk brisanje
+    Route::delete('/admin/posts/delete', 'UsersController@deleteUsers')
+        ->name('admin.users.delete');
 
+    Route::delete('/admin/posts/remove', 'UsersController@removeUsers')
+        ->name('admin.users.remove');
+
+    Route::put('/admin/posts/restore', 'UsersController@restoreUsers')
+        ->name('admin.users.restore');
 });
