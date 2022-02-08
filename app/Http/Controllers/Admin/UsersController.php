@@ -48,7 +48,7 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $avatar = request()->file('avatar')->getClientOriginalName();
 //            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            //files/1/Avatars ovo je filemanager
+            //filemanager
             Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->create(['url' => $avatar]);
         } else {
@@ -93,7 +93,8 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
+            Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->update(['url' => $avatar]);
         }
     }
@@ -164,7 +165,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'country_id' => ['string'], //? name i naziv od kolone iz baze moraju da se poklapaju
+            'country_id' => ['string'],
             'address' => ['string'],
         ]);
 
@@ -176,7 +177,8 @@ class UsersController extends Controller
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
+//            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
+            Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->update(['url' => $avatar]);
         }
     }
