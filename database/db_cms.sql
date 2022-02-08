@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2022 at 11:48 PM
+-- Generation Time: Feb 08, 2022 at 06:23 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.11
 
@@ -654,7 +654,17 @@ VALUES (2, 'post_image.jpg', 3, 'App\\Staff', '2021-12-24 15:39:36', '2021-12-25
        (14, 'Trip Vutra.png', 203, 'App\\User', '2022-01-28 17:23:24', '2022-01-28 17:23:24'),
        (15, '20200917_181426.jpg', 204, 'App\\User', '2022-01-28 18:13:06', '2022-01-28 18:13:06'),
        (16, 'images.png', 205, 'App\\User', '2022-01-28 18:59:26', '2022-01-29 15:46:20'),
-       (17, 'man2.jpg', 206, 'App\\User', '2022-01-29 15:47:41', '2022-02-03 12:53:14');
+       (17, 'man2.jpg', 206, 'App\\User', '2022-01-29 15:47:41', '2022-02-03 12:53:14'),
+       (18, '1643685040701_bogdan.jpg', 213, 'App\\User', '2022-02-08 03:45:07', '2022-02-08 03:45:07'),
+       (19, 'avatar-user-teacher-312a499a08079a12-512x512-300x300-1.png', 221, 'App\\User', '2022-02-08 04:42:43',
+        '2022-02-08 04:42:43'),
+       (20, 'avatar-372-456324-300x300.png', 223, 'App\\User', '2022-02-08 04:43:50', '2022-02-08 04:43:50'),
+       (21, 'avatar-user-teacher-312a499a08079a12-512x512-300x300-1.png', 229, 'App\\User', '2022-02-08 04:48:26',
+        '2022-02-08 04:48:26'),
+       (22, 'user.jpg', 230, 'App\\User', '2022-02-08 04:50:28', '2022-02-08 04:50:28'),
+       (23, 'user.jpg', 231, 'App\\User', '2022-02-08 04:51:28', '2022-02-08 04:51:28'),
+       (24, '2012-10-28 15.46.36.jpg', 232, 'App\\User', '2022-02-08 05:05:32', '2022-02-08 05:05:32'),
+       (25, '2012-10-28 15.46.36.jpg', 233, 'App\\User', '2022-02-08 05:07:48', '2022-02-08 05:07:48');
 
 -- --------------------------------------------------------
 
@@ -682,17 +692,31 @@ CREATE TABLE `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `slug`, `created_at`, `updated_at`, `user_id`, `deleted_at`, `banner`)
-VALUES (1, 'Libero quibusdam labore corpor',
-        '<p>Libero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corporLibero quibusdam labore corpor</p>',
-        'libero-quibusdam-labore-corpor', '2022-01-23 22:12:38', '2022-01-24 16:04:53', 2, NULL,
-        'rosette-nebula-1920×1080.jpg'),
-       (2, 'Bogdan se usijao u finišu i dao nadu Hoksima, ugasio je Anunobi',
-        '<article>\r\n<div>\r\n<p><strong>Toronto slavio u Atlanti, srpski reprezentativac među najboljima u poraženoj ekipi</strong></p>\r\n<div id=\"adoceanrsxfkrqnqpez\"></div>\r\n<div>\r\n<div>\r\n<p>Sjajnoj seriji Atlante do&scaron;ao je kraj. Posle sedam vezanih pobeda, Toronto Reptorsi su savladali četu&nbsp;Nejta Mekmilana&nbsp;i to u Stejt Farm Areni -&nbsp;106:100.&nbsp;Bogdan Bogdanović&nbsp;je u fini&scaron;u mogao da izraste u junaka Jastrebova, sa dve trojke ih je doveo na samo pola ko&scaron;a zaostatka, ali je usledio odgovor&nbsp;Ou Džej Anunobija&nbsp;koji su gosti napravili ključni korak ka pobedi.</p>\r\n<p>Srpski reprezentativac je pokazao da se nalazi u dobroj formi. Susret je okončao kao drugi strelac poražene ekipe sa 18 poena, ali i pet skokova i četiri asistencije.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p>Koliko je važan za Hokse dokazao je i večeras, s ozbirom da je većinu poena ubacio u poslednjoj četvrtini (11), iako ga u prve tri &scaron;ut nije najbolje služio. Otvorio je odlučujući kvartal trojkom i deficit domaćina sveo na svega pet poena. Potom je dvojkom sredinom deonice pokrenuo seriju kojom je Atlanta pri&scaron;la na četiri poena zaostatka, a onda se u poslednja dva minuta usijao.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</article>',
-        'bogdan-se-usijao-u-finisu-i-dao-nadu-hoksima-ugasio-je-anunobi', '2022-02-01 07:26:05', '2022-02-06 10:55:43',
-        1, NULL, '1643685040701_bogdan.jpg'),
-       (101, 'Kup UEFA 1990/91',
-        '<p><strong>Partizan u Kupu UEFA 1990/91:&nbsp;</strong></p>\r\n<p style=\"line-height: 1.5;\">Predrag Mijatović 6/1, Slađan &Scaron;ćepović 6/1, Goran Bogdanović 6/0, Josip Vi&scaron;njić 6/0, Vujadin Stanojković 6/0, Slavi&scaron;a Jokanović 6/0, Budimir&nbsp; Vujačić 6/0, Goran Stevanović 5/3, Goran Pandurović 5/0, Darko Milanič 5/0, Milan Đurđević 4/1, Gordan Petrić 4/0, Aleksandar Đorđević 2/1, Fahrudin Omerović 2/0, Miodrag Je&scaron;ić 2/0, Bratislav Mijalković 2/0, Milinko Pantić 1/0.</p>\r\n<p>&nbsp;</p>\r\n<p><strong>Trener: Milo&scaron; Milutinović</strong></p>\r\n<p><img style=\"float: left;\" src=\"/storage/photos/1/Screenshot-54.png\" alt=\"\" width=\"341\" height=\"341\" />&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Znao je Partizan često da neprijatno iznenadi svoje navijače, tako &scaron;to bi u evropskim okr&scaron;ajima izgubio od totalnog autsajdera. Ali kada je &bdquo;crno-belima&ldquo; žreb za 1. kolo Kupa UEFA dodelio takođe klub crno-belih boja, Hibernijans sa Malte, niko nije ni pomi&scaron;ljao da Partizan neće sa lakoćom preskočiti ovu prepreku. Tim pre &scaron;to Hibernijans nije nikada ni bio među vodećim triom malte&scaron;kog fudbala, kakav god da je kvalitet fudbala u toj državi. Četvrti su klub po osvojenim trofejima na Malti, u senci Slieme, Valete i Florijane.</p>\r\n<p>Malta je jo&scaron; tada bila atraktivna turistička destinacija, ali kada je u pitanju fudbalska mapa, e tu su Maltežani predstavljali poslednje čuvare arhaičnih fudbalskih vremena. Jedini koliko-toliko pristojan teren bio je onaj na Nacionalnom stadionu, na kojem se i igrala ova utakmica. Organizacija utakmice i uslovi za izve&scaron;tavanje beogradskih novinara bili su ispod svakog nivoa: mediteranska opu&scaron;tenost Maltežana i pona&scaron;anje po sistemu &bdquo;lako ćemo&ldquo;, doveli su do toga da sedam jugoslovenskih izve&scaron;tača koristi tek jednu telefonsku liniju.</p>\r\n<p>Ipak, ova utakmica je u&scaron;la u istoriju Partizana pre nego &scaron;to je lopta uop&scaron;te i krenula sa centa: kada su na&scaron;i fudbaleri tog 18. septembra istrčali na teren Nacionalnog stadiona, po prvi put posle 32 godine učinili su to sa crveno-plavim dresovima na sebi! Crno-bele klupske boje Hibernijansa, identične na&scaron;im, nalagale su da Partizan mora da izabere neku drugu varijantu. U Jugoslaviji su već počele izvesne političke promene, a u svakoj sferi dru&scaron;tva, pa i u sportu, počelo je sa prekopavanjem i preispitivanjem istorije, &nbsp;pa je i preispitivan kontekst u kojem je Partizan pre vi&scaron;e od tri decenije crveno-plavu opremu zamenio crno-belom. Uprava je strahovala kako će navijači prihvatiti rezervnu varijantu, da li će to biti shvaćeno kao povlačenje pred dnevnom politikom, ali nisu imali drugi izbor. Crveno-plava kombinacija boja koju je uradio aktuelni sponzor, Vokado, i koja je godinu dana stajala neotpakovana upravo zbog tih političkih aluzija, na&scaron;la se tog vrelog popodneva na igračima Partizana.</p>',
-        'kup-uefa-199091', '2022-02-06 22:02:20', '2022-02-06 22:21:17', 1, NULL, 'Inter-Partizan.jpg');
+VALUES (101, 'Kup UEFA 1990/91',
+        '<p><strong>Partizan u Kupu UEFA 1990/91:&nbsp;</strong></p>\r\n<p style=\"line-height: 1.5;\">Predrag Mijatović 6/1, Slađan &Scaron;ćepović 6/1, Goran Bogdanović 6/0, Josip Vi&scaron;njić 6/0, Vujadin Stanojković 6/0, Slavi&scaron;a Jokanović 6/0, Budimir&nbsp; Vujačić 6/0, Goran Stevanović 5/3, Goran Pandurović 5/0, Darko Milanič 5/0, Milan Đurđević 4/1, Gordan Petrić 4/0, Aleksandar Đorđević 2/1, Fahrudin Omerović 2/0, Miodrag Je&scaron;ić 2/0, Bratislav Mijalković 2/0, Milinko Pantić 1/0.</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p><strong>Trener: Milo&scaron; Milutinović</strong></p>\r\n<p><img style=\"float: left;\" src=\"/storage/photos/1/Blog/Screenshot-54.png\" alt=\"\" width=\"382\" height=\"382\" />&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p style=\"line-height: 1.5;\">&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Znao je Partizan često da neprijatno iznenadi svoje navijače, tako &scaron;to bi u evropskim okr&scaron;ajima izgubio od totalnog autsajdera. Ali kada je &bdquo;crno-belima&ldquo; žreb za 1. kolo Kupa UEFA dodelio takođe klub crno-belih boja, Hibernijans sa Malte, niko nije ni pomi&scaron;ljao da Partizan neće sa lakoćom preskočiti ovu prepreku. Tim pre &scaron;to Hibernijans nije nikada ni bio među vodećim triom malte&scaron;kog fudbala, kakav god da je kvalitet fudbala u toj državi. Četvrti su klub po osvojenim trofejima na Malti, u senci Slieme, Valete i Florijane.</p>\r\n<p>Malta je jo&scaron; tada bila atraktivna turistička destinacija, ali kada je u pitanju fudbalska mapa, e tu su Maltežani predstavljali poslednje čuvare arhaičnih fudbalskih vremena. Jedini koliko-toliko pristojan teren bio je onaj na Nacionalnom stadionu, na kojem se i igrala ova utakmica. Organizacija utakmice i uslovi za izve&scaron;tavanje beogradskih novinara bili su ispod svakog nivoa: mediteranska opu&scaron;tenost Maltežana i pona&scaron;anje po sistemu &bdquo;lako ćemo&ldquo;, doveli su do toga da sedam jugoslovenskih izve&scaron;tača koristi tek jednu telefonsku liniju.</p>\r\n<p>Ipak, ova utakmica je u&scaron;la u istoriju Partizana pre nego &scaron;to je lopta uop&scaron;te i krenula sa centa: kada su na&scaron;i fudbaleri tog 18. septembra istrčali na teren Nacionalnog stadiona, po prvi put posle 32 godine učinili su to sa crveno-plavim dresovima na sebi! Crno-bele klupske boje Hibernijansa, identične na&scaron;im, nalagale su da Partizan mora da izabere neku drugu varijantu. U Jugoslaviji su već počele izvesne političke promene, a u svakoj sferi dru&scaron;tva, pa i u sportu, počelo je sa prekopavanjem i preispitivanjem istorije, &nbsp;pa je i preispitivan kontekst u kojem je Partizan pre vi&scaron;e od tri decenije crveno-plavu opremu zamenio crno-belom. Uprava je strahovala kako će navijači prihvatiti rezervnu varijantu, da li će to biti shvaćeno kao povlačenje pred dnevnom politikom, ali nisu imali drugi izbor. Crveno-plava kombinacija boja koju je uradio aktuelni sponzor, Vokado, i koja je godinu dana stajala neotpakovana upravo zbog tih političkih aluzija, na&scaron;la se tog vrelog popodneva na igračima Partizana.</p>',
+        'kup-uefa-199091', '2022-02-06 22:02:20', '2022-02-08 01:36:24', 1, NULL, 'Inter-Partizan.jpg'),
+       (102, 'Kraj svake nade: Danilo Pantić izgubljen do kraja sezone',
+        '<p class=\"intro\">Aleksandar Stanojević neće moći da računa na 25-godi&scaron;njeg vezistu ovog proleća...</p>\r\n<div id=\"adoceanrsxfkrqnqpez\" class=\"ado-wrapper\"></div>\r\n<div class=\"text\">\r\n<div>\r\n<p>Znalo se da povreda nije naivna. Po grimasama na licu i govoru tela jasno je bilo da razloga za brigu ima, ali postojao je makar tračak nade da će&nbsp;<strong>Danilo Pantić&nbsp;</strong>moći da pomogne crno-belima u fini&scaron;u sezone. Sada je, međutim, izvesno da od toga nema ni&scaron;ta. Partizan se zvanično oglasio i otklonio sve dileme oko stanja povrede 25-godi&scaron;njeg veziste - u pitanju je ruptura prednjeg ukr&scaron;tenog ligamenta.</p>\r\n<p>Podsetimo, Pantiću je koleno stradalo na pripremnoj utakmici u Turskoj protiv Ba&scaron;ak&scaron;ehira. Igrao se &scaron;esti minut meča kada je do&scaron;lo do sudara s jednim defanzivcem turskog sastava i Stanojević je odmah bio prinuđen da napravi promenu.</p>\r\n<div id=\"fingerprintNewsInText\"></div>\r\n<p class=\"no-margin\">&nbsp;</p>\r\n<p><strong>\"Izgleda da se radi o težoj povredi, ne izgleda dobro, svi smo tužni zbog toga. Nesrećni smo, videćemo &scaron;ta će biti nakon snimaka\"</strong>, kazao je odmah nakon meča &scaron;ef struke lidera srskog &scaron;ampionata, ostavljajući tračak nade da nije ono najgore.</p>\r\n<p>Međutim...</p>\r\n<p class=\"no-margin\">&nbsp;</p>\r\n<p><strong>\"Posle urađenog kontrolnog pregleda magnetnom rezonancom potvrđeno je da Danilo Pantić ima rupturu prednjeg ukr&scaron;tenog ligamenta, te će izostati sa terena u narednim mesecima. Pantić će u bližoj budućnosti biti operisan, nakon čega sledi period oporavka\"</strong>, saop&scaron;teno je iz kluba.</p>\r\n</div>\r\n</div>',
+        'kraj-svake-nade-danilo-pantic-izgubljen-do-kraja-sezone', '2022-02-07 23:58:54', '2022-02-08 01:36:22', 3,
+        NULL, '1644262032465_273217773_467221164887612_6761567068093721671_n.jpg'),
+       (103, 'Fijasko: Sedmorica „mahača“ pala na testovima znanja',
+        '<p><strong>Testove provere teorijskog znanja, proteklog vikenda u Staroj Pazovi, nisu položila čak sedmorica &bdquo;mahača&ldquo;, potvrđeno je Sport klubu iz vi&scaron;e izvora.</strong></p>\r\n<div class=\"article-banner\">\r\n<div id=\"w2g-slot8\"></div>\r\n</div>\r\n<p>&bdquo;Pala&ldquo; su dvojica predstavnika starije garde i petorica debitanata na superliga&scaron;koj sudijskoj listi.</p>\r\n<p>Od &bdquo;starih&ldquo; kadrova testove nisu položili Ni&scaron;lija&nbsp;<strong>Oliver</strong>&nbsp;<strong>Petrović</strong>&nbsp;i Subotičanin&nbsp;<strong>Matija</strong>&nbsp;<strong>Olajo&scaron; Nađ.</strong>&nbsp;Iako je ljubazno zamolio za uvid u rezultate testa,&nbsp;<strong>Petrović</strong>, ipak, nije ispunio minimum od 15 tačnih odgovora. Zato neće biti delegiran u prvim kolima prolećnog dela sezone. Isti je i status&nbsp;<strong>Matije Olajo&scaron;</strong>&nbsp;<strong>Nađa</strong>.</p>\r\n<p>Znatno lo&scaron;ije znanje, na poslednjem testu pred nastavak &scaron;ampionata, pokazale su mlađe pomoćne sudije &ndash; letos tek pristigle na terene od Subotice do Surdulice. Predsednik Sudijske komisije FSS,&nbsp;<strong>Dejan</strong>&nbsp;<strong>Filipović</strong>, u narednih 30 dana, neće moći da računa na Ni&scaron;liju&nbsp;<strong>Nikolu</strong>&nbsp;<strong>Antića</strong>, Vrba&scaron;anina&nbsp;<strong>Nikolu</strong>&nbsp;<strong>Rijaveca</strong>, Beograđane&nbsp;<strong>Nenada</strong>&nbsp;<strong>Radoičića</strong>&nbsp;i&nbsp;<strong>Ivana</strong>&nbsp;<strong>Krstića</strong>&nbsp;i Novosađanina&nbsp;<strong>Petra</strong>&nbsp;<strong>Radića</strong>.</p>\r\n<p>&bdquo;Mahač&ldquo;&nbsp;<strong>Nikola</strong>&nbsp;<strong>Antić</strong>&nbsp;zaslužio je usput i naslov fenomena sudijskog esnafa. Posle letnjeg, &bdquo;pao&ldquo; je i na zimskom ispitu i dobrim delom ugrozio sopstvenu poziciju u prvoj grupi takozvane &bdquo;B&ldquo; liste. Sličan primer, poslednjih sezona, nije viđen u fudbalskoj Srbiji.</p>\r\n<p>Testove provere fizičke spremnosti položili su svi kandidati, ukupno njih 49.</p>\r\n<p>Sedmorica &bdquo;palih&ldquo;, u narednih 30 dana, imaće jo&scaron; jednu priliku da polože ispite, automatski i budu uključeni u superliga&scaron;ko takmičenje. U slučaju da neko od njih ne prođe novu proveru znanja, biće izbrisan sa liste sudija za aktuelnu sezonu.</p>\r\n<p>Na takozvanoj &bdquo;A&ldquo; listi nije bilo promena. Glavne sudije položile su oba testa, bez izuzetka. Brigu o regularnosti vodiće 19 pi&scaron;taljki, &scaron;est u elitnoj i 13 u takozvanoj prvoj grupi. Spisak na &bdquo;B&ldquo; listi spao je na 25 prezimena.</p>\r\n<p>Superliga&scaron;ko takmičenje nastaviće se u subotu, utakmicama 22. kola. Prvi će na teren fudbaleri Radničkog 1923 i novosadskog Proletera. Početak utakmice na kragujevačkom stadionu &bdquo;Čika Dača&ldquo; zakazan je za 13 časova.</p>',
+        'fijasko-sedmorica-mahaca-pala-na-testovima-znanja', '2022-02-08 00:00:34', '2022-02-08 01:36:21', 1, NULL,
+        '1644259620-PARTIZAN-NOVI-PAZAR_63-900x662.jpg'),
+       (104, 'Frka u Bergamu, da li je Zapata završio sezonu?!',
+        '<p class=\"intro\">Gasperini bi mogao da ostane sa samo jednim klasičnim &scaron;picom na raspolaganju...</p>\r\n<div id=\"adoceanrsxfkrqnqpez\" class=\"ado-wrapper\"></div>\r\n<div class=\"text\">\r\n<div>\r\n<p>U velikom su problemu&nbsp;<strong>Đanpjero Gasperini</strong>&nbsp;i njegova Atalanata. Samo 14 minuta proveo je na terenu&nbsp;<strong>Duvan Zapata&nbsp;</strong>(30) nakon &scaron;to se oporavio od povrede i zaigrao juče protiv Kaljarija posle mesec i po dana pauze. U prvi mah izgledalo je da se radi o zameni predostrožnosti radi, međutim prema poslednjim informacijama sa Apenina postoji ozbiljna bojazan da je Kolumbijac čak zavr&scaron;io sezonu.</p>\r\n<p>Prema pisanju&nbsp;<em>Skaj Italije&nbsp;</em>čeka se pregled magnetnom rezonancom posle kog će biti jasno da li se zaista radi o onome na &scaron;ta doktori sumnjaju - a to je opasnost od odvajanja aduktorske tetive.</p>\r\n<p>Ukoliko se crne slutnje obistine&nbsp;<strong>Zapata&nbsp;</strong>bi morao pod nož i onda bi oporavak podrazumevao najmanje tri meseca mirovanja. Pritom, iskustva&nbsp;<strong>Džeka Bonaventure&nbsp;</strong>od pre nekoliko godina jo&scaron; su gora. Zbog istog problema on je odsustvovao sa terena puna četiri meseca.</p>\r\n<p>Ako bi ostala bez&nbsp;<strong>Duvana Zapate</strong>&nbsp;Atalanta bi mogla da se osloni samo na jo&scaron; jednog klasičnog &scaron;pica -&nbsp;<strong>Luisa Murijela</strong>. To bi značilo, napominje isti izvor, da bi Gasperini mogao da zahteva od uprave da se klub iz Bergama ponovo aktivira na trži&scaron;tu i zamenu potraži među slobodnim agentima.</p>\r\n<p>Izbor, razume se, nije veliki u ovom momentu, ali postoji nekoliko zanimljivih imena &scaron;to i dalje tragaju za novim poslodavcima. Svakao najpoznatije jeste&nbsp;<strong>Dijego Kosta.</strong></p>\r\n</div>\r\n</div>',
+        'frka-u-bergamu-da-li-je-zapata-zavrsio-sezonu', '2022-02-08 00:02:19', '2022-02-08 01:36:18', 1, NULL,
+        '1644274095930_duvan.jpg'),
+       (107, 'Vel voluptates ipsa et qui ei',
+        '<p>Vel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui ei</p>',
+        'vel-voluptates-ipsa-et-qui-ei', '2022-02-08 01:22:12', '2022-02-08 04:15:15', 3, NULL, NULL),
+       (109, 'Vel voluptates ipsa et qui eiVel voluptates ipsa et qui ei',
+        '<p>Vel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui eiVel voluptates ipsa et qui ei</p>',
+        'vel-voluptates-ipsa-et-qui-eivel-voluptates-ipsa-et-qui-ei', '2022-02-08 01:22:43', '2022-02-08 04:15:15', 2,
+        NULL, NULL),
+       (111, 'Sint dolorem excepteur amet',
+        '<p>Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet Sint dolorem excepteur amet&nbsp;</p>\r\n<p>&nbsp;</p>',
+        'sint-dolorem-excepteur-amet', '2022-02-08 04:33:16', '2022-02-08 04:33:16', 218, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -779,9 +803,44 @@ CREATE TABLE `role_user`
 INSERT INTO `role_user` (`user_id`, `role_id`, `created_at`, `updated_at`)
 VALUES (1, 1, '2022-01-17 15:16:23', NULL),
        (2, 6, '2022-01-23 23:54:09', NULL),
+       (3, 4, '2022-02-08 05:23:05', NULL),
        (3, 6, '2022-01-23 18:12:40', NULL),
-       (205, 2, '2022-01-28 18:59:26', NULL),
-       (206, 5, '2022-01-29 15:47:41', NULL);
+       (4, 1, '2022-02-08 03:55:40', NULL),
+       (4, 2, '2022-02-08 03:55:40', NULL),
+       (4, 4, '2022-02-08 03:55:40', NULL),
+       (4, 14, '2022-02-08 03:55:40', NULL),
+       (209, 1, '2022-02-08 02:47:09', NULL),
+       (209, 2, '2022-02-08 02:47:09', NULL),
+       (209, 4, '2022-02-08 02:47:09', NULL),
+       (209, 5, '2022-02-08 02:47:09', NULL),
+       (215, 3, '2022-02-08 03:58:20', NULL),
+       (216, 5, '2022-02-08 04:16:56', NULL),
+       (217, 1, '2022-02-08 04:22:23', NULL),
+       (217, 2, '2022-02-08 04:22:23', NULL),
+       (217, 3, '2022-02-08 04:22:23', NULL),
+       (217, 4, '2022-02-08 04:22:23', NULL),
+       (217, 5, '2022-02-08 04:22:23', NULL),
+       (217, 6, '2022-02-08 04:22:23', NULL),
+       (218, 3, '2022-02-08 04:24:03', NULL),
+       (218, 5, '2022-02-08 04:24:03', NULL),
+       (218, 14, '2022-02-08 04:24:03', NULL),
+       (219, 2, '2022-02-08 04:36:46', NULL),
+       (219, 3, '2022-02-08 04:36:46', NULL),
+       (219, 14, '2022-02-08 04:36:46', NULL),
+       (220, 5, '2022-02-08 04:39:53', NULL),
+       (222, 1, '2022-02-08 04:42:58', NULL),
+       (222, 2, '2022-02-08 04:42:58', NULL),
+       (222, 4, '2022-02-08 04:42:58', NULL),
+       (222, 6, '2022-02-08 04:42:58', NULL),
+       (224, 6, '2022-02-08 04:45:35', NULL),
+       (225, 6, '2022-02-08 04:46:23', NULL),
+       (226, 1, '2022-02-08 04:47:23', NULL),
+       (226, 4, '2022-02-08 04:47:23', NULL),
+       (226, 14, '2022-02-08 04:47:23', NULL),
+       (227, 1, '2022-02-08 04:48:01', NULL),
+       (228, 2, '2022-02-08 04:48:12', NULL),
+       (230, 2, '2022-02-08 04:51:51', NULL),
+       (231, 5, '2022-02-08 04:51:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -932,18 +991,60 @@ CREATE TABLE `users`
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `country_id`, `remember_token`,
                      `created_at`, `updated_at`, `deleted_at`, `address`, `username`, `is_active`)
 VALUES (1, 'Siniša B.', 'sinisa.becic@outlook.com', NULL,
-        '$2y$10$BULDfOciXbXO3vjtylZnzuD/8AnEgCCsoCeN5JN73AjqHmyubr8Ku', 147,
-        'p336obGqp5l7DiXlNE1NnTJZHwNsIUilIruoH7oY78ERuMkPX9IdhjImApV7', '2021-12-28 23:26:57', '2022-01-28 18:10:42',
+        '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147,
+        'cvl3cMWr4l2ra0xL2kf3K5vv442Sps3ANgbHMBJtijYGxy1MGMJLQLCPrd9h', '2021-12-28 23:26:57', '2022-02-08 04:56:34',
         NULL, 'Partizanski put bb', 'sinisa', 1),
-       (2, 'Ema Anderson', 'ema@mail.com', NULL, '$2y$10$tIfFog5g8I1ymoMmuhB8zuHfykUhPdZCXmbX4LI/MQYXvKsmfZl/6', 147,
-        NULL, '2022-01-22 17:37:39', '2022-01-29 19:28:27', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
+       (2, 'Ema Popovic', 'ema@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147,
+        NULL, '2022-01-22 17:37:39', '2022-02-08 04:56:34', NULL, 'Deserunt repudiandae dolorem e', 'ema', 1),
        (3, 'Ivan Radović', 'ivan@mail.com', NULL, '$2y$10$1Rrva/TJWJWMX0ike3jAH./Ej8Dt5X7S8dUdWEqeyB7Be.LFJXjj2', 147,
-        NULL, '2021-12-24 12:55:38', '2022-01-28 18:34:42', NULL, 'Momisici', 'ivan', 1),
-       (205, 'Paula Estes', 'gipe@mailinator.com', NULL, '$2y$10$jN6s.o/2Si0TQW5hEjK8e.197FWkv8Uuom3sUS7ByP5NcWoJE2M6G',
-        69, NULL, '2022-01-28 18:59:26', '2022-01-29 15:46:46', NULL, 'Iure quo aut facilis doloribus', 'vodakywin', 0),
-       (206, 'Raphael Barker', 'jixowybi@mailinator.com', NULL,
-        '$2y$10$iGbCQ2vtQ642TV.5VVRp2..3qoosIdYMXfHEO7uGcAxPn7U8We0fC', 94, NULL, '2022-01-29 15:47:41',
-        '2022-01-29 15:47:41', NULL, 'Tempora odit qui est quia acc', 'tapesif', 0);
+        NULL, '2021-12-24 12:55:38', '2022-02-08 04:56:34', NULL, 'Momisici', 'ivan', 1),
+       (4, 'Yoko Wynn', 'novawu@mailinator.com', NULL, '$2y$10$C7unyNjjiioTMJAI/PZs0eLh/RyeSexsJ.6jT2X7HfjZZsJG5atlq',
+        27, NULL, '2022-02-08 03:55:40', '2022-02-08 03:55:40', NULL, 'Error dicta iure qui nihil sin', 'zobiqefaw', 1),
+       (209, 'Boris Potts', 'ducovepo@mailinator.com', NULL,
+        '$2y$10$JZq9PFgfX4t7mIElT12Xiu46ZhFnj9.Xjgv5dL2zQ6NxxU03GSjoW', 112, NULL, '2022-02-08 02:47:09',
+        '2022-02-08 02:47:09', NULL, 'Quaerat repellendus Minima do', 'feqijinud', 0),
+       (215, 'Hayden Oneill', 'wifekewa@mailinator.com', NULL,
+        '$2y$10$QVU0EszH.7IpOVsDF7FjWe02Y2NtACXyIlOyQ8Gn7atVUODuvq2de', 163, NULL, '2022-02-08 03:58:20',
+        '2022-02-08 03:58:20', NULL, 'Quo dolor voluptas minus obcae', 'liredo', 1),
+       (216, 'Aileen Fuentes', 'lozo@mailinator.com', NULL,
+        '$2y$10$QxIGJbnFYhmtIqcYJwvfbe7LYNJ4pVlH7NKmxjmo/PcipmUbe.t3e', 105, NULL, '2022-02-08 04:16:56',
+        '2022-02-08 04:16:56', NULL, 'In qui tempore ipsu', 'pypaku', 0),
+       (217, 'Riley Hicks', 'viriva@mailinator.com', NULL,
+        '$2y$10$o7Yu92eYSRnzdxf9dlCvmeDGPggPxGgtpjU2DcpvznP2WjJn3U9LO', 239, NULL, '2022-02-08 04:22:23',
+        '2022-02-08 04:22:23', NULL, 'Consequatur lorem minima inve', 'xutusab', 1),
+       (218, 'Chanda Mays', 'dewax@mailinator.com', NULL,
+        '$2y$10$D47xrurwbbcBkQH72MIS6uQsFW4fPAjI4lj6s4whM1cRqLq8v83Qy', 199, NULL, '2022-02-08 04:24:03',
+        '2022-02-08 04:24:03', NULL, 'Soluta quibusdam rem exercitat', 'qijadu', 1),
+       (219, 'Camden Leon', 'comytutony@mailinator.com', NULL,
+        '$2y$10$fh66LsH2Hkg338IjIe9GiufjEMX7ukeIdxun0pW3mTPtoj0TfCR8S', 141, NULL, '2022-02-08 04:36:46',
+        '2022-02-08 04:36:46', '2022-02-08 04:39:23', 'Corrupti quasi deleniti ut su', 'cyhesipep', 1),
+       (220, 'Baker Caldwell', 'xuwy@mailinator.com', NULL,
+        '$2y$10$dnQtnnV2yaL11sZGwvRhIufY1bovcQ05zOZ6UgDdXe.BEg7TVb31O', 157, NULL, '2022-02-08 04:39:53',
+        '2022-02-08 04:39:53', NULL, 'In et eveniet laboris recusan', 'basyzu', 0),
+       (222, 'Tanner Mcgee', 'zupudala@mailinator.com', NULL,
+        '$2y$10$9rjoq1tKM2lBC7T9Q3QCoevMmlq4UP28CRijOPpvmpIu/uDg.c7Iy', 80, NULL, '2022-02-08 04:42:58',
+        '2022-02-08 04:42:58', NULL, 'Quidem sit est voluptas blandi', 'lanut', 0),
+       (224, 'Chelsea Lester', 'lirofelop@mailinator.com', NULL,
+        '$2y$10$dOdEZRdEDubBTv0hIKM1Z.9lmSRHJ43d5fvoCk7Hv6mGyaigOCXa6', 81, NULL, '2022-02-08 04:45:35',
+        '2022-02-08 04:45:35', NULL, 'Veniam pariatur Omnis in eve', 'wawitilamu', 0),
+       (225, 'Valentine Wilcox', 'bimiqikew@mailinator.com', NULL,
+        '$2y$10$T9O5maAiPnw6KEUM8yuo5O3Rsqu2G5S4i/MCuuzD9XBjFrl/QP0Jq', 233, NULL, '2022-02-08 04:46:23',
+        '2022-02-08 04:46:23', NULL, 'Praesentium culpa eligendi en', 'mymoj', 0),
+       (226, 'Andrew Orr', 'fiperanevo@mailinator.com', NULL,
+        '$2y$10$zLAeuXBQDuxbgOf6VfJIaOOKfdUzfhzxUa4KAawyl.Jy3Teb7wJV.', 187, NULL, '2022-02-08 04:47:23',
+        '2022-02-08 04:47:23', NULL, 'In laboriosam est non ex offi', 'cymel', 0),
+       (227, 'Yuli Walsh', 'fijokyxyx@mailinator.com', NULL,
+        '$2y$10$AXkHE7Egl2we.7wcRXxEleky1hfejtGJJmQtStOAtJYx3nQpYVOvK', 123, NULL, '2022-02-08 04:48:01',
+        '2022-02-08 04:48:01', NULL, 'Qui in sint qui omnis commodo', 'nypyqe', 0),
+       (228, 'Daquan Jefferson', 'runedovyci@mailinator.com', NULL,
+        '$2y$10$BBNvAN5k38ULZIVAY8cAN.SGOJGvRPIj7vQtaZyCttHRhaxJlwTLG', 149, NULL, '2022-02-08 04:48:12',
+        '2022-02-08 04:48:12', NULL, 'In temporibus non exercitation', 'mecavudu', 1),
+       (230, 'Maite Mclean', 'rohaceqod@mailinator.com', NULL,
+        '$2y$10$eZRHK.soG5tPaDMOIEKJ3uQdIU8a/w2mbV0lzUZKayiGXtS9m4eD6', 43, NULL, '2022-02-08 04:50:28',
+        '2022-02-08 04:56:44', '2022-02-08 04:56:44', 'Voluptatum in reprehenderit an', 'zijubyji', 1),
+       (231, 'Montana Suarez', 'rimaliso@mailinator.com', NULL,
+        '$2y$10$iGenQG7UIwBaOn.N03meKequqLYl0tJXDkl6a.t/xiqDOxTyV8Xoe', 107, NULL, '2022-02-08 04:51:27',
+        '2022-02-08 05:22:56', '2022-02-08 05:22:56', 'Quis consequatur qua', 'bipaf', 0);
 
 -- --------------------------------------------------------
 
@@ -1207,14 +1308,14 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `photos`
     MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 18;
+    AUTO_INCREMENT = 26;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
     MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 102;
+    AUTO_INCREMENT = 112;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1249,7 +1350,7 @@ ALTER TABLE `tags`
 --
 ALTER TABLE `users`
     MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    AUTO_INCREMENT = 207;
+    AUTO_INCREMENT = 234;
 
 --
 -- AUTO_INCREMENT for table `videos`
