@@ -21,9 +21,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
+    //? Users page
+    // Get users function
     public function index()
     {
-//        $users = User::with('photos')->withTrashed()->get();
         return view('admin.users',
             [
                 'users' => User::with('photos')->withTrashed()->get(),
@@ -32,7 +33,7 @@ class UsersController extends Controller
             ]);
     }
 
-
+    // Creating a new user
     public function store(Request $request)
     {
         $user = User::create([
@@ -47,8 +48,6 @@ class UsersController extends Controller
 
         if (request()->hasFile('avatar')) {
             $avatar = request()->file('avatar')->getClientOriginalName();
-//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
-            //filemanager
             Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->create(['url' => $avatar]);
         } else {
@@ -58,11 +57,9 @@ class UsersController extends Controller
         $user->roles()->sync($request->roles);
     }
 
-
+    // Edit single user page
     public function edit($id)
     {
-//        $this->authorize('view');
-
         return view('admin.edit_user', [
             'user' => User::findOrFail($id),
             'countries' => Country::all(),
@@ -70,7 +67,7 @@ class UsersController extends Controller
         ]);
     }
 
-
+    // Update user
     public function update(User $user)
     {
         $inputs = request()->validate([
@@ -78,7 +75,6 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user), 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'email' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'is_active' => ['required'],
-//            'avatar' => 'image|mimes:jpg,jpeg,tiff,png',
             'country_id' => ['string'],
             'address' => ['string'],
         ]);
@@ -87,19 +83,18 @@ class UsersController extends Controller
         $user->update($inputs);
     }
 
-
+    // Async updating avatar
     public function updatePhoto(User $user)
     {
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-//            request()->file('avatar')->storeAs('avatars', $user->id . '/' . $avatar, '');
             Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->update(['url' => $avatar]);
         }
     }
 
-    //? View page
+    // View page for making new password
     public function editPassword($id)
     {
         return view('admin.users.edit_password', [
@@ -107,6 +102,7 @@ class UsersController extends Controller
         ]);
     }
 
+    // Update password
     public function updatePassword($id)
     {
         $user = User::whereId($id);
@@ -119,6 +115,7 @@ class UsersController extends Controller
         $user->update($inputs);
     }
 
+    // Restoring user
     public function restore(User $user, $id)
     {
         $user->whereId($id)->restore();
@@ -126,11 +123,9 @@ class UsersController extends Controller
         return response()->json([
             'message' => 'User restored successfully!'
         ]);
-//            return redirect('/users');
-//        else echo "greska";
     }
 
-
+    // Soft delete user
     public function destroy(User $user)
     {
         $user->delete();
@@ -140,6 +135,7 @@ class UsersController extends Controller
         ]);
     }
 
+    // Delete user
     public function remove($id)
     {
         User::find($id)->forceDelete();
@@ -149,7 +145,7 @@ class UsersController extends Controller
         ]);
     }
 
-
+    // Profile page
     public function profile(User $user)
     {
         return view('admin.users.profile', [
@@ -159,6 +155,7 @@ class UsersController extends Controller
         ]);
     }
 
+    // Profile update
     public function profileUpdate(User $user)
     {
         $inputs = request()->validate([
@@ -172,18 +169,18 @@ class UsersController extends Controller
         $user->update($inputs);
     }
 
+    // Async update new avatar
     public function updateProfilePhoto(User $user)
     {
         if (request()->hasFile('avatar')) {
             $file = request()->file('avatar');
             $avatar = $file->getClientOriginalName();
-//            Storage::putFileAs('avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             Storage::putFileAs('files/1/Avatars', request()->file('avatar'), $user->id . '/' . $avatar);
             $user->photo()->update(['url' => $avatar]);
         }
     }
 
-    //? Bulk brisanje
+    // Bulk deleting(soft delete) users
     public function deleteUsers(Request $request)
     {
         $ids = $request->ids;
@@ -191,6 +188,7 @@ class UsersController extends Controller
         return response()->json(['success' => "Users deleted successfully."]);
     }
 
+    // Bulk hard deleting users
     public function removeUsers(Request $request)
     {
         $ids = $request->ids;
@@ -198,6 +196,7 @@ class UsersController extends Controller
         return response()->json(['success' => "Users removed successfully."]);
     }
 
+    // Bulk restoring users
     public function restoreUsers(Request $request)
     {
         $ids = $request->ids;
