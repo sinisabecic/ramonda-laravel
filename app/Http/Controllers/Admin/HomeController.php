@@ -7,19 +7,12 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function index()
-//    {
-//view za registrovane korisnike
-//        return view('admin.home');
-//    }
-
     public function __invoke()
     {
-        return view('admin.home');
+        if (auth()->user()->hasAnyRole(['admin', 'head', 'partner', 'author', 'manager'])) {
+            return view('admin.home');
+        } else {
+            abort(403, 'You are not authorized!');
+        }
     }
 }
