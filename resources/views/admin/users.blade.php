@@ -21,7 +21,7 @@
                     <i class="fas fa-user-plus"></i> New user
                 </a>
 
-                {{--? Submit bulk delete --}}
+                {{-- Submit bulk delete --}}
                 <button class="btn btn-danger btn-sm ml-1"
                         onclick="deleteUsers()"
                         style=" float: right
@@ -227,7 +227,6 @@
 
 @section('script')
     <script>
-        //? Dodavanje korisnika
         $(document).ready(function () {
 
             $.ajaxSetup({
@@ -236,7 +235,7 @@
                 }
             });
 
-            //? Za dodavanje korisnika
+            //? Adding new user
             $('#addUserForm').submit(function (e) {
                 e.preventDefault();
 
@@ -261,7 +260,6 @@
                         });
                     },
                     error: function () {
-                        // alert('Greska! Pokusaj ponovo');
                         Swal.fire({
                             title: 'Error! Something went wrong',
                             // text: '',
@@ -278,7 +276,7 @@
             });
 
 
-            //? Za izmjenu korisnika
+            //? For editing user
             $('#editUserForm').submit(function (e) {
                 e.preventDefault();
                 const formData = new FormData(this);
@@ -298,7 +296,6 @@
                         });
                     },
                     error: function () {
-                        // alert('Greska! Pokusaj ponovo');
                         Swal.fire({
                             title: 'Error! Something went wrong',
                             // text: '',
@@ -317,7 +314,7 @@
 
         });
 
-        //? Za brisanje korisnika
+        //? Deleting user
         function deleteUser(item) {
 
             $.ajaxSetup({
@@ -333,7 +330,6 @@
 
             Swal.fire({
                 title: 'Delete user?',
-                // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -372,13 +368,9 @@
                                     timer: 2500,
 
                                 })
-                                console.log("Izbrisan User ID: " + formData.id);
-
-                                // window.location.reload(true);
+                                console.log("Deleted User ID: " + formData.id);
                                 $(".row-user[data-id=" + formData.id + "] .deleteBtn").text("Deleted").attr("disabled", "disabled");
                                 $(".row-user[data-id=" + formData.id + "] .editUserBtn").fadeOut('slow');
-
-
                             }
                         }
                     })
@@ -386,7 +378,7 @@
             });
         }
 
-        //? Za restore korisnika
+        //? Restore user
         function restoreUser(item) {
 
             $.ajaxSetup({
@@ -397,7 +389,6 @@
 
             Swal.fire({
                 title: 'Restore user?',
-                // text: "You won't be able to revert this!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -435,8 +426,7 @@
                                     showConfirmButton: false,
                                     timer: 2500,
                                 })
-                                console.log("Ozivljen User ID: " + formData.id);
-
+                                console.log("Restored User ID: " + formData.id);
                                 $(".row-user[data-id=" + formData.id + "] .restoreBtn").text("Restored").attr("disabled", "disabled");
                             }
                         }
@@ -445,9 +435,8 @@
             });
         }
 
-        //? Za permanentno brisanje korisnika
+        //? Permanently delete user
         function forceDeleteUser(item) {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -473,7 +462,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     const formData = {id: item};
-
                     $.ajax({
                         method: "DELETE",
                         url: "/admin/users/" + formData.id + "/remove",
@@ -483,7 +471,6 @@
                                 console.log(response.error);
                                 Swal.fire({
                                     title: 'Error! Try again.',
-                                    // text: '',
                                     icon: 'warning',
                                     toast: true,
                                     position: 'top-right',
@@ -493,7 +480,6 @@
                             } else {
                                 Swal.fire({
                                     title: 'User permanently deleted!',
-                                    // text: '',
                                     icon: 'success',
                                     toast: true,
                                     position: 'top-right',
@@ -501,9 +487,7 @@
                                     timer: 2500,
 
                                 })
-                                console.log("Permanentno izbrisan User ID: " + formData.id);
-
-                                // window.location.reload(true);
+                                console.log("Permanently deleted User ID: " + formData.id);
                                 $(".row-user[data-id=" + formData.id + "]")
                                     .children('td, th')
                                     .animate({
@@ -522,7 +506,7 @@
         }
 
         $(document).ready(function () {
-            //? select all pri kliku
+            //? Select all click
             $('#master').on('click', function () {
                 if ($(this).is(':checked', true)) {
                     $(".sub_chk").prop('checked', true);
@@ -532,6 +516,7 @@
             });
         });
 
+        //? Delete(soft delete) selected users
         function deleteUsers() {
             $.ajaxSetup({
                 headers: {
@@ -547,7 +532,6 @@
 
             Swal.fire({
                 title: 'Delete selected user(s)?',
-                // text: "You won't be able to restore post!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -566,7 +550,6 @@
                 if (allVals.length <= 0) {
                     Swal.fire({
                         title: 'Please select item!',
-                        // text: "You won't be able to restore post!",
                         icon: 'warning',
                         toast: true,
                         position: 'top-right',
@@ -602,7 +585,7 @@
                                     });
 
                                     $.each(allVals, function (index, value) {
-                                        console.log("Izbrisan korisnik: " + value);
+                                        console.log("Deleted user: " + value);
                                         $(".row-user[data-id=" + value + "] .deleteBtn").text("Deleted").attr("disabled", "disabled");
                                         $(".row-user[data-id=" + value + "] .editUserBtn").fadeOut('slow');
                                     });
@@ -617,6 +600,7 @@
             });
         }
 
+        //? Remove selected users
         function removeUsers() {
             $.ajaxSetup({
                 headers: {
@@ -632,7 +616,7 @@
 
             Swal.fire({
                 title: 'Remove selected user(s)?',
-                // text: "You won't be able to restore post!",
+                // text: "You won't be able to restore user!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -710,6 +694,7 @@
             });
         }
 
+        //? Restore selected users
         function restoreUsers() {
             $.ajaxSetup({
                 headers: {
@@ -724,7 +709,6 @@
 
             Swal.fire({
                 title: 'Restore selected user(s)?',
-                // text: "You won't be able to restore post!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3C4B64',
@@ -743,7 +727,6 @@
                 if (allVals.length <= 0) {
                     Swal.fire({
                         title: 'Please select user!',
-                        // text: "You won't be able to restore post!",
                         icon: 'warning',
                         toast: true,
                         position: 'top-right',
@@ -779,7 +762,7 @@
                                     });
 
                                     $.each(allVals, function (index, value) {
-                                        console.log("Ozivljen post: " + value);
+                                        console.log("Restored user: " + value);
                                         $(".row-user[data-id=" + value + "] .restoreBtn").text("Restored").attr("disabled", "disabled");
                                     });
                                 }
@@ -793,6 +776,7 @@
             });
         }
 
+        //? Clear fields function
         function clearFields(form) {
             $(':input', form)
                 .not(':button, :submit, :reset, :hidden')
