@@ -532,6 +532,3 @@ $(document).ready(function () {
         });
     });
 });
-
-
-
