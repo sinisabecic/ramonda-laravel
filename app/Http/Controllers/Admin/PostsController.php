@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use mysql_xdevapi\Exception;
 use function redirect;
@@ -52,9 +53,11 @@ class PostsController extends Controller
         if (request()->hasFile('banner')) {
             $file = request()->file('banner');
             $banner = $file->getClientOriginalName();
-            request()->file('banner')->storeAs('banners/' . $banner, '');
+            Storage::putFileAs('files/1/Banners', request()->file('banner'), Str::slug($inputs['title']) . '/' . $banner);
             $inputs['banner'] = $banner;
+//            $post->photo()->create(['url' => $banner]);
         }
+
         $post->create($inputs);
 
     }
@@ -92,7 +95,8 @@ class PostsController extends Controller
         if (request()->hasFile('banner')) {
             $file = request()->file('banner');
             $banner = $file->getClientOriginalName();
-            request()->file('banner')->storeAs('banners/' . $banner, '');
+            Storage::putFileAs('files/1/Banners', request()->file('banner'), Str::slug($inputs['title']) . '/' . $banner);
+//            request()->file('banner')->storeAs('banners/' . $banner, '');
             $post->banner = $banner;
         }
 
