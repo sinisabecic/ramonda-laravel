@@ -101,7 +101,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('admin')
             ->middleware('web')
-            ->namespace($this->namespace) //? u users.php je sve podeseno
+            ->namespace($this->namespace) //? in users.php everything is set
             ->group(base_path('routes/web/users.php'));
     }
 
