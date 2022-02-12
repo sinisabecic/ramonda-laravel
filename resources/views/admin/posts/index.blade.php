@@ -93,7 +93,7 @@
                             <td>
                                 <img
                                     @if($post->banner)
-                                    src="{{env('BANNER') .'/'. $post->banner}}"
+                                    src="{{env('BANNER') .'/'. $post->slug .'/'. $post->banner}}"
                                     @else
                                     src="{{ env('APP_URL') }}/storage/uploads/WIN_20211223_17_10_40_Pro.jpg"
                                     @endif
