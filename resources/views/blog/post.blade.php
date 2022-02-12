@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Post content-->
-                <article>
+                <article id="article">
                     <!-- Post header-->
                     <header class="mb-4">
                         <!-- Post title-->
@@ -21,7 +21,7 @@
                     <!-- Preview image figure-->
                     <figure class="mb-4"><img class="img-fluid rounded"
                                               @if($post->banner)
-                                              src="{{env('BANNER') .'/'. $post->banner}}"
+                                              src="{{env('BANNER') .'/'. $post->slug .'/'. $post->banner}}"
                                               @else
                                               src="{{ env('APP_URL') }}/storage/uploads/WIN_20211223_17_10_40_Pro.jpg"
                                               @endif
