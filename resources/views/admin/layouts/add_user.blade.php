@@ -9,7 +9,8 @@
             </div>
             <div class="modal-body">
 
-                <form method="POST" action="" id="addUserForm" enctype="multipart/form-data">
+                <form method="POST" action="" id="addUserForm" data-url="{{ route('users.store') }}"
+                      enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
