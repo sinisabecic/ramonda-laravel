@@ -472,7 +472,6 @@ function restorePosts() {
     });
 }
 
-
 function clearFields(form) {
     $(':input', form)
         .not(':button, :submit, :reset, :hidden')
@@ -481,7 +480,6 @@ function clearFields(form) {
         .prop('selected', false);
 
 }
-
 
 //? New post function
 $(document).ready(function () {
